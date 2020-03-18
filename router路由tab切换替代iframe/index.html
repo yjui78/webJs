@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="css/reset.css">
+	<title>阿尔法罗密欧</title>
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<div class="header__box">
+			<div class="header__warp">
+				<ul class="header">
+					<li class="t" v-for="item in routerData" :class="{'active':path.indexOf(item.path)>-1}" @click="tabFn(item.path)">{{item.name}}</li>
+				</ul>
+			</div>
+			<!-- <div class="lang" v-show="path=='/overview' || path=='/insight'" @click="languageFn">{{language}}</div> -->
+			<!-- 切换后带上参数避免token出现undefined -->
+			<!-- <div class="lang" v-show="(path.indexOf('/overview')>-1) || (path.indexOf('/insight')>-1)" @click="languageFn">{{language}} </div> -->
+
+		</div>
+	
+		<div class="page-body">
+			<keep-alive>
+				<router-view></router-view>
+			</keep-alive>
+		</div>
+
+	</div>
+</body>
+<!-- 公共脚本 -->
+<script src="js/rem.js"></script>
+<script src="js/sea.js"></script>
+<script src="js/sea.config.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/vue-router.js"></script>
+
+<!-- Mint UI 请求ajax的加载效果-->
+<link rel="stylesheet" href="js/lib/style.css">
+<script src="js/lib/index.js"></script>
+
+<!-- 页面入口 -->
+<script>
+	seajs.use(["js/index"], function () {
+		Vue.router.goPath("/overview")
+	})
+</script>
+</html>

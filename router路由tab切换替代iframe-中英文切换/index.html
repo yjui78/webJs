@@ -14,12 +14,12 @@
 		<div class="header__box">
 			<div class="header__warp">
 				<ul class="header">
-					<li class="t" v-for="item in routerData" :class="{'active':path.indexOf(item.path)>-1}" @click="tabFn(item.path)">{{item.name}}</li>
+					<li class="t" v-for="item in routerData" :class="{'active':path.indexOf(item.path)>-1}" @click="tabFn(item.path)">{{language=='EN'?item.name:item.nameEN}}</li>
 				</ul>
 			</div>
 			<!-- <div class="lang" v-show="path=='/overview' || path=='/insight'" @click="languageFn">{{language}}</div> -->
 			<!-- 切换后带上参数避免token出现undefined -->
-			<!-- <div class="lang" v-show="(path.indexOf('/overview')>-1) || (path.indexOf('/insight')>-1)" @click="languageFn">{{language}} </div> -->
+			<div class="lang" v-show="(path.indexOf('/overview')>-1) || (path.indexOf('/insight')>-1)" @click="languageFn">{{language}} </div>
 
 		</div>
 	

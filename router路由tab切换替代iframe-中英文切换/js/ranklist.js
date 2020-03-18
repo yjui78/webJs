@@ -1,17 +1,18 @@
 define(function(require,exports,module){
-    require('css/insight.css')
+    require('css/ranklist.css')
     // require('js/这页需要的JS')
     var common = require('common')
     var add = Vue.extend({
         // js对应的页面
-        template:require('insight.html'),
+        template:require('ranklist.html'),
         data(){
             return {
-                tab:1
+                language:'',
             }
         },
         activated(){
-
+            var self = this;
+            self.language = localStorage.getItem("language"); 
         },
         methods(){
 

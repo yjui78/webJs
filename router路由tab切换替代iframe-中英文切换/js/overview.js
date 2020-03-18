@@ -7,11 +7,12 @@ define(function(require,exports,module){
         template:require('overview.html'),
         data(){
             return {
-                tab:1
+                language:'',
             }
         },
         activated(){
-
+            var self = this;
+            self.language = localStorage.getItem("language"); 
         },
         methods(){
 

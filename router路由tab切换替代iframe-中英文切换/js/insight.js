@@ -1,17 +1,18 @@
 define(function(require,exports,module){
-    require('css/statis.css')
+    require('css/insight.css')
     // require('js/这页需要的JS')
     var common = require('common')
     var add = Vue.extend({
         // js对应的页面
-        template:require('statis.html'),
+        template:require('insight.html'),
         data(){
             return {
-                tab:1
+                language:'',
             }
         },
         activated(){
-
+            var self = this;
+            self.language = localStorage.getItem("language"); 
         },
         methods(){
 

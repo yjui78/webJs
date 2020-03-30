@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>上下滑动下拉组件</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <!-- 公用css -->
+        <link rel="stylesheet" href="css/public/reset.css">
+        <link rel="stylesheet" href="css/public/common.css">
+        <!-- 当前页面css -->
+        <link rel="stylesheet" href="css/index.css">
+		<!-- rem.js -->
+        <script src="js/must/rem.js"></script>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+             <ul class='ls'>
+                 <li>
+                     <label for="">选择车型</label>
+                     <div class='s-m' @click='popbox.show=true'>{{searchName ||'请选择车型' }} > </div>
+                 </li>
+             </ul>
+            <div class="popbox" v-show="popbox.show">
+                <div class="popbox__body">
+                    <div class="popbox__head">
+                        <a href="javascript:;" class="btn-cancel" @click="popbox.show = false">取消</a>
+                        <div class="popbox__head-title">选择车型</div>
+                        <a href="javascript:;" class="btn-confirm" @click = "popSureFn">确定</a>
+                    </div>
+                    <!-- 
+                        参考文档：http://mint-ui.github.io/docs/#/zh-cn2/picker
+                        用法：
+                        传入slots，当被选中的值发生变化时触发change事件，
+                        change事件有两个参数:(1)picker的vue实例和各slot被选中的值组成的数组；
+                        slots里是对象数组Array，
+                        value-key ：文本显示在mt-picker中对应字段名
+
+
+                     -->
+                    <div class="popbox__info">
+                        <mt-picker :slots="searchData.carList" @change="ValuesChangeFn"  value-key="configName"></mt-picker>
+                    </div>
+                </div>
+            </div>
+
+		</div>
+        <!-- 公用js -->
+        <script src="js/must/zepto.min.js"></script>
+        <script src="js/must/vue.js"></script>
+        <script src="js/must/public.js"></script>
+        
+        <!-- Mint UI -->
+        <link rel="stylesheet" href="js/mint-ui/lib/style.css">
+        <script src="js/mint-ui/lib/index.js"></script>
+        <!-- 引入样式 -->
+        <!-- <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css"> -->
+        <!-- 引入组件库 -->
+        <!-- <script src="https://unpkg.com/mint-ui/lib/index.js"></script> -->
+        <!-- 当前js -->
+        <script src="js/index.js"></script>
+
+
+	</body>
+</html>

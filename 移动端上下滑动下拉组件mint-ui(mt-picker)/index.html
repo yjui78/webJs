@@ -34,15 +34,12 @@
                         change事件有两个参数:(1)picker的vue实例和各slot被选中的值组成的数组；
                         slots里是对象数组Array，
                         value-key ：文本显示在mt-picker中对应字段名
-
-
                      -->
                     <div class="popbox__info">
                         <mt-picker :slots="searchData.carList" @change="ValuesChangeFn"  value-key="configName"></mt-picker>
                     </div>
                 </div>
             </div>
-
 		</div>
         <!-- 公用js -->
         <script src="js/must/zepto.min.js"></script>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>mint-ui开始结束时间</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <!-- 公用css -->
+        <link rel="stylesheet" href="css/public/reset.css">
+        <link rel="stylesheet" href="css/public/common.css">
+        <!-- 当前页面css -->
+        <link rel="stylesheet" href="css/index.css">
+		<!-- rem.js -->
+        <script src="js/must/rem.js"></script>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+             <div class='box'>
+                <!-- 自定义 -->
+                <div v-show = 'timeObj.showTime == true'>{{timeObj.startTime}} <br/>{{timeObj.endTime}}</div>
+                <div class='custom'  @click = 'timeFn'>自定义</div>
+                <!-- 自定义 -->
+                <div class="popbox" v-show="popbox.show">
+                    <div class="popbox__body" style='height: 5rem;'>
+                        <div class="popbox__head mtpicker">
+                            <a href="javascript:;" class="btn-cancel" @click="popbox.show = false" ></a>
+                            <div class="popbox__head-title" >
+                                <span v-for ='item,index in popbox.title' 
+                                    @click = 'tabTime(index);'
+                                    class='cspan'
+                                    :class =  '{active:timeObj.current == index}'
+                                >{{item}}</span>
+                            </div>
+                            <a href="javascript:;" class="btn-confirm"  v-model="timeObj.pickerVisible1" @click = "startConfirmFn"></a>
+                        </div>
+                        <div class="popbox__info" v-show="popbox.index==1">
+                            <mt-datetime-picker v-show="popbox.index==1"
+                                v-model="timeObj.pickerVisible1" 
+                                type="datetime"
+                                ref="datePicker1" lockScroll="true"
+                                :visibleItemCount = '5'
+                                year-format="{value} 年" 
+                                month-format="{value} 月" 
+                                date-format="{value} 日" 
+                                hour-format="{value} 时" 
+                                minute-format="{value} 分"
+                                @cancel="cancel1Fn;popbox.show=false;"
+                                @confirm="startConfirmFn">
+                            </mt-datetime-picker>
+                        </div>
+                        <div class="popbox__info" v-show="popbox.index==2">
+                            <mt-datetime-picker   v-show="popbox.index==2"
+                            v-model="timeObj.pickerVisible2" 
+                            cancelText ="取消"
+                            confirmText ="确定"
+                            type="datetime" lockScroll="true"
+                            ref="datePicker2" 
+                            :visibleItemCount = '5'
+                            year-format="{value} 年" 
+                            month-format="{value} 月" 
+                            date-format="{value} 日" 
+                            hour-format="{value} 时" 
+                            minute-format="{value} 分" 
+                            :endDate="new Date()" 
+                            @cancel="cancel2Fn;popbox.show=false;"
+                            @confirm="endConfirmFn">
+                        </mt-datetime-picker>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+		</div>
+        <!-- 公用js -->
+        <script src="js/must/zepto.min.js"></script>
+        <script src="js/must/vue.js"></script>
+        <script src="js/must/public.js"></script>
+        <!-- Mint UI -->
+        <link rel="stylesheet" href="js/mint-ui/lib/style.css">
+        <script src="js/mint-ui/lib/index.js"></script>
+        <!-- 引入样式 -->
+        <!-- <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css"> -->
+        <!-- 引入组件库 -->
+        <!-- <script src="https://unpkg.com/mint-ui/lib/index.js"></script> -->
+        <!-- 当前js -->
+        <script src="js/index.js"></script>
+
+
+	</body>
+</html>

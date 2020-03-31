@@ -1,0 +1,87 @@
+.custom {
+    display: block;
+    text-align: center;
+    margin: 30px;
+    background: #0f0;
+    width: 300px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 10px;
+}
+
+
+.popbox .popbox__head.mtpicker {
+    position: fixed;
+    z-index: 1;
+    width: 65%;
+    left: 17%;
+    border: none;
+}
+.popbox .popbox__head .btn-cancel {
+    font-size: 0.26rem;
+    color: #666;
+    padding: 0.3rem;
+}
+.popbox .popbox__head .popbox__head-title {
+    line-height: 50px;
+    padding: 0;
+}
+.popbox .mtpicker .cspan.active {
+    font-size: 0.28rem;
+    color: #323232;
+    position: relative;
+    line-height: 50px;
+    height: 50px;
+    display: inline-block;
+}
+.popbox .mtpicker .cspan {
+    font-size: 0.28rem;
+    color: #999;
+    padding: 0 0.19rem;
+}
+.popbox .mtpicker .cspan.active:after {
+    content: '';
+    position: absolute;
+    width: 0.4rem;
+    height: 0.1rem;
+    background: #a20e31;
+    border-radius: 5px;
+    left: 0.5rem;
+    bottom: 0;
+}
+.popbox .mint-datetime {
+    height: 4.8rem;
+}
+.mint-datetime .picker-toolbar {
+    border-bottom: solid 1px #eaeaea;
+}
+.popbox__body {
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+}
+.mint-datetime {
+    width: 100%;
+}
+
+.picker-toolbar .mint-datetime-action.mint-datetime-cancel {
+    font-size: 0.28rem;
+    color: #666;
+    margin-top: -0.2rem;
+}
+.picker-toolbar .mint-datetime-action {
+    display: inline-block;
+    width: 16%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 16px;
+    color: #26a2ff;
+    height: 50px;
+}
+.picker-items {
+    width: 100%;
+}
+.picker-toolbar .mint-datetime-action.mint-datetime-confirm {
+    font-size: 0.32rem;
+    color: #A30E33;
+    margin-top: -0.2rem;
+}

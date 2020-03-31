@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>上下滑动下拉组件</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <!-- 公用css -->
+        <link rel="stylesheet" href="css/public/reset.css">
+        <link rel="stylesheet" href="css/public/common.css">
+        <!-- 当前页面css -->
+        <link rel="stylesheet" href="css/index.css">
+		<!-- rem.js -->
+        <script src="js/must/rem.js"></script>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+             <div class='insight'>
+                <!--选择区 -->
+                <div class="sel">
+                    <div class="flex area" @click="popbox.show=true;popbox.index=1;pos.show= false;">{{search.sales || '选择大区'}} </div>
+                    <div class="flex clique" @click="popbox.show=true;popbox.index=2;pos.show= false;">{{search.group ||'选择集团' }}</div>
+                    <div class="flex dealer" @click="popbox.show=true;popbox.index=3;pos.show= false;">{{search.dealer || '全部经销商'}}</div>
+                </div>
+
+                <!--弹出区  -->
+                <div class="popbox" v-show="popbox.show">
+                    <div class="popbox__body">
+                        <div class="popbox__head">
+                            <a href="javascript:;" class="btn-cancel" @click="popbox.show = false">取消</a>
+                            <div class="popbox__head-title">{{popbox.index==1 ? popbox.title[0]:popbox.index==2 ?popbox.title[1] : popbox.title[2]}}</div>
+                            <a href="javascript:;" class="btn-confirm" @click = "popSureFn">确定</a>
+                        </div>
+                        <div class="popbox__info" v-show="popbox.index==1">
+                            <!-- value-key 是接口数据里要展示前端的值 -->
+                            <!-- :slots="searchData.sales"  语法格式 -->
+                            <mt-picker :slots="searchData.sales"  @change="ValuesChangeFn" value-key="zonename"></mt-picker>
+                        </div>
+                        <div class="popbox__info" v-show="popbox.index==2">
+                            <mt-picker :slots="searchData.group" @change="ValuesChangeFn" value-key="groupName"></mt-picker>
+                        </div>
+                        <div class="popbox__info" v-show="popbox.index==3">
+                            <mt-picker :slots="searchData.dealer" @change="ValuesChangeFn"  value-key="dealerName"></mt-picker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+        <!-- 公用js -->
+        <script src="js/must/zepto.min.js"></script>
+        <script src="js/must/vue.js"></script>
+        <script src="js/must/public.js"></script>
+        <!-- Mint UI -->
+        <link rel="stylesheet" href="js/mint-ui/lib/style.css">
+        <script src="js/mint-ui/lib/index.js"></script>
+        <!-- 引入样式 -->
+        <!-- <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css"> -->
+        <!-- 引入组件库 -->
+        <!-- <script src="https://unpkg.com/mint-ui/lib/index.js"></script> -->
+        <!-- 当前js -->
+        <script src="js/index.js"></script>
+
+
+	</body>
+</html>

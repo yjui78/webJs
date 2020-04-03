@@ -1,0 +1,35 @@
+<div class="statis">
+    <div class="tab__source tab__source_s1">
+        <ul>
+            <li v-for="item in tab.data">
+                <a href="javascript:;" :class="{'on':item.key==tab.now}" @click="classTabFn(item)">{{item.name}}</a>
+            </li>
+        </ul>
+    </div>
+    <br/>
+    <!-- 统计 -->
+    <vue-statisTotal
+        :list.sync="totalData"
+        :key.sync="tab.now">
+    </vue-statisTotal>
+    <br/>
+    <div class="source__box">
+        <div class="title">
+            <span>来源分析</span>
+        </div>
+        <div id="source__chart" v-show="pieData.length>0"></div>
+    </div>
+    <br/>
+     <!-- 图表 -->
+     <div class="chart">
+        <div id="statis__chart" v-show="tableData.length>0"></div>
+        <div class="null" v-show="tableData.length==0">暂无数据</div>
+    </div>
+    <br/>
+    <!-- 图表 -->
+    <vue-table
+        :list.sync = 'tableData'
+        :key.sync = 'tab.now'
+        :tableTitle.sync = 'tableTitle'
+    ></vue-table>
+</div>

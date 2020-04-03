@@ -1,0 +1,46 @@
+.statis .tab__source{width:7.5rem;overflow-x:auto;padding:0.1rem 0 0.2rem}
+.statis .tab__source_s1 li a{display:block;padding:0.1rem 0.3rem;font-size:0.3rem;color:#999}
+.statis .tab__source_s1 li .on{background:#A10D30;border-radius:0.3rem;color:#fff}
+
+.statis  ul{width:max-content;display:flex;padding-left:0.35rem}
+.statis .total__box ul{width:100%;display:flex;justify-content:space-between;flex-wrap:wrap}
+.statis .total__box ul li{width:33.3%}
+.statis .total__box ul li:nth-child(1){padding-bottom:0.3rem}
+
+/* 表格 table*/
+.statis .table__body {
+    width: 7.5rem;
+    overflow: hidden;
+    position: relative;
+}
+.statis .table__body th{font-size:0.24rem;font-weight:400;color:#666666;padding:0.15rem 0;background:#F9F9F9}
+.statis .table__body td{border-bottom:1px solid #F0F0F0;padding:0.15rem 0}
+.statis .table__body .table__box td,
+.statis .table__body .table__box th{width:2.5rem;text-align:center}
+.statis .table__body .table__box table{width:max-content}
+.statis .table__body .table__header{background:#F9F9F9}
+.statis .table__body .table__header .txt{display:inline-block}
+.statis .table__body .table__header .sort{width:10%;height:0.2rem;display:inline-block;position:relative}
+.statis .table__body .table__header .iconfont{margin-left:0.05rem;color:#A10D30;position:absolute;right:-.2rem;top:0}
+.statis .table__body .table__header .icon-Pullup{top:-0.15rem}
+.statis .table__body .table__header .icon-xiala{bottom:-0.15rem}
+.statis .table__body .table__header .on{color:#A10D30}
+.statis .table__body .table__header-wrapper{width:100%;overflow:hidden}
+.statis .table__body .table__body-wrapper{width:100%;height:7rem;overflow-x:auto;overflow-y:auto}
+.statis .table__body .table__fixed{width:2.5rem;height:9.8rem;position:absolute;left:0;top:0;overflow-x:hidden;overflow-y:hidden;background:#fff}
+.statis .table__body .table__fixed .table__fixed-header-wrapper{position:absolute;left:0;top:0;z-index:3}
+.statis .table__body .table__fixed .table__fixed-body-wrapper{top:0.71rem;height:7rem;position:absolute;left:0;z-index:3;overflow:hidden}
+.statis .table__body .table__fixed td{border-bottom:1px solid #F0F0F0;padding:0.15rem 0}
+.statis .table__body .box-shadow{box-shadow:2px -10px 5px rgba(0,0,0,0.12)}
+
+.source__box .title {
+    background: #F9F9F9;
+    width: 100%;
+    height: 0.68rem;
+    line-height: 0.68rem;
+}
+.source__box .title span {
+    font-size: 0.28rem;
+    color: #333;
+    padding-left: 0.3rem;
+}

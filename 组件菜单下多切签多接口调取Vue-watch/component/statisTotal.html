@@ -1,0 +1,10 @@
+<div class="total__box">
+    <!-- {{listData}} -->
+    <ul>
+        <li v-for="item,index in listData" :style="item.style" class='posiv'>
+            <span class="title">{{item.name}}</span>
+            <div class="number">{{item.val}}{{item.unit}}</div>
+          
+        </li>
+    </ul>
+</div>

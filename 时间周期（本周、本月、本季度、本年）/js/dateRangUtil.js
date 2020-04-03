@@ -2,6 +2,7 @@
 * 日期范围工具类
 */
 var dateRangeUtil = (function () {
+    console.log(this)
     /***
     * 获得当前时间
     */

@@ -32,6 +32,7 @@ var vm = new Vue({
             }
             // 季度
             if(self.time == 3){
+                //dateRangeUtil.getCurrentSeason() =>["2020-01-01","2020-03-31"]
                 self.startTime = dateRangeUtil.getCurrentSeason()[0];
                 self.endTime = dateRangeUtil.getCurrentSeason()[1];
             }
@@ -42,7 +43,6 @@ var vm = new Vue({
             }
             console.log('startTime:'+self.startTime)
             console.log('endTime:'+self.endTime)
-
         }
     },
     mounted(){

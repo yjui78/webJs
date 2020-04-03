@@ -1,0 +1,111 @@
+<!--
+    表格整体总构
+    <div class="table__body">
+        <div class ='table__header-wrapper'></div>
+        <div class ='table__body-wrapper'></div>
+        <div class='table__box table__fixed'></div>
+    </div>
+-->
+<div class="table__body">
+    <div class="table__header-wrapper">
+        <div class="table__box table__header">
+            <table>
+                <tr>
+                    <th v-for='item,index in tabHead'>{{item}}</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="table__body-wrapper">
+        <div class="table__box table__info">
+            
+            <table v-show = "key =='keliu'">
+                <tr v-for = 'item in list'>
+                    <td>{{item.time}}</td>
+                    <td>{{item.notValidCount}}</td>
+                    <td>{{item.validCount}}</td>
+                </tr>
+            </table>
+            <table v-show="key=='xiansuo'">
+                <tr v-for="item in list">
+                    <td>{{item.time}}</td>
+                    <td>{{item.cluesTotal}}</td>
+                    <td>{{item.clues_yx_Total}}</td>
+                    <td>{{item.yxzhl}}</td>
+                    <td>{{item.qkzhl}}</td>
+                    <td>{{item.ddzhl}}</td>
+                    <td>{{item.cjzhl}}</td>
+                </tr>
+            </table>
+            <table v-show="key=='qianke'">
+                <tr v-for="item in list">
+                    <td>{{item.time}}</td>
+                    <td>{{item.potentialCount}}</td>
+                    <td>{{item.potentialToOrder}}</td>
+                    <td>{{item.potentialToDeal}}</td>
+                </tr>
+            </table>
+            <table v-show="key=='genjin'">
+                <tr v-for="item in list">
+                    <td>{{item.time}}</td>
+                    <td>{{item.sixHourFollow}}</td>
+                    <td>{{item.sixHourFollowRatio}}</td>
+                </tr>
+            </table>
+            <table v-show="key=='dingdan'">
+                <tr v-for="item in list">
+                    <td>{{item.time}}</td>
+                    <td>{{item.orderNum}}</td>
+                    <td>{{item.order_cj}}</td>
+                </tr>
+            </table>
+            <table v-show="key=='chengjiao'">
+                <tr v-for="item in list">
+                    <td>{{item.time}}</td>
+                    <td style='width:4.8rem;'>{{item.dealOrderCount}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class='table__box table__fixed'>
+        <div class="table__box table__header table__fixed-header-wrapper">
+            <table>
+                <tr>
+                    <th v-for="item in tabHead">{{item}}</th>
+                </tr>
+            </table>
+        </div>
+        <div class="table__box table__info table__fixed-body-wrapper">
+            <table v-show = "key =='keliu'">
+                <tr v-for = 'item in list'>
+                    <td>{{item.time}}</td>
+                </tr>
+            </table>
+            <table v-show="key=='xiansuo'">
+                <tr v-for="item in list">
+                    <td>{{item.time}}</td>
+                </tr>
+            </table>
+            <table v-show="key=='qianke'">
+                <tr v-for="item in list">
+                    <td>{{item.time}}</td>
+                </tr>
+            </table>
+            <table v-show="key=='genjin'">
+                <tr v-for="item in list">
+                    <td>{{item.time}}</td>
+                </tr>
+            </table>
+            <table v-show="key=='dingdan'">
+                <tr v-for="item in list">
+                    <td>{{item.time}}</td>
+                </tr>
+            </table>
+            <table v-show="key=='chengjiao'">
+                <tr v-for="item in list">
+                    <td>{{item.time}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+#header2 {
+	position:relative;
+	margin-top:1.16rem;
+	padding-left:0.7rem
+}
+.chouti .ccont {
+	margin-top:0.8rem;
+	overflow:auto;
+	height:80%;
+	width:98%;
+	margin-right:0
+}
+.chouti .ccont .selBox {
+	margin-bottom:0.44rem;
+	padding-left:0.7rem
+}
+.chouti .ccont .selBox .l-title {
+	font-size:0.28rem;
+	font-weight:500;
+	color:#333333;
+	line-height:0.4rem
+}
+.chouti .ccont .uls {
+	margin-top:0.22rem
+}
+.chouti .ccont .uls .lis {
+	padding:0 0.4rem;
+	height:0.64rem;
+	line-height:0.53rem;
+	text-align:center;
+	border-radius:0.32rem;
+	border:0.03rem solid #a10d30;
+	margin-bottom:0.3rem;
+	font-size:0.24rem;
+	color:#a10d30;
+	margin-right:0.3rem;
+	display:inline-block
+}
+.jz .btnt {
+	width:1.74rem;
+	height:0.64rem;
+	line-height:0.53rem;
+	text-align:center;
+	border-radius:0.32rem;
+	border:0.03rem solid #a10d30;
+	margin-bottom:0.3rem;
+	font-size:0.24rem;
+	color:#a10d30;
+	margin-right:0.24rem;
+	float:left;
+	display:inline-block
+}
+.jz .btnt.active {
+	background:#A10D30;
+	color:#fff;
+	margin-right:0
+}
+
+.chouti .ccont .uls .lis.active {
+    background: #a10d30;
+    color: #fff;
+}

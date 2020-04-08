@@ -1,0 +1,300 @@
+img,
+a,
+ul,
+li,
+p,
+h1,
+h2,
+h3,
+dl,
+dd,
+dt,
+input {
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    border: none;
+}
+
+strong {
+    font-weight: normal;
+}
+
+ul li {
+    list-style: none;
+}
+
+h1,
+h2 {
+    font-weight: normal;
+}
+
+body {
+    font-size: 100px;
+    background: #f5f5f5;
+}
+
+/*personalinformation*/
+
+.personalinformation {
+    margin-top: 0.2rem;
+    background: #fff;
+    font-size: 0.26rem;
+    display: block;
+    padding: 0 0.3rem;
+}
+
+.personalinformation li {
+    height: 0.88rem;
+    line-height: 0.88rem;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.personalinformation li:last-child::after {
+    display: none;
+}
+
+.personalinformation li span,
+.personalinformation li strong {
+    display: block;
+    font-weight: normal;
+}
+
+.perlif-r {
+    background: url(../images/address-rig.png) no-repeat right 0.33rem;
+    background-size: 0.11rem 0.19rem;
+    padding-right: 0.31rem;
+}
+
+.personalinformation li span {
+    font-size: 0.24rem;
+    color: #999999;
+}
+
+/*select-city*/
+
+.address-but{
+    width: 100%;
+    display: block;
+    height: 0.9rem;
+    text-align: center;
+    line-height: 0.9rem;
+    background: #d92723;
+    color:#fff;
+    font-size: 0.32rem;
+    margin-top: 1.44rem;
+    border: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+.select-hd {
+    height: 1rem;
+    background: #fff;
+    display: block;
+    width: 7.5rem;
+    position: relative;
+}
+.clos{
+    position: absolute;
+    width: 0.3rem;
+    height: 0.3rem;
+    background: url(../images/del.png) no-repeat;
+    background-size: 0.3rem 0.3rem;
+    left: 0.29rem;
+    top: 0.34rem;
+    z-index: 9999;
+}
+
+.select-hd h2 {
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 1rem;
+    font-size: 0.32rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.select-city {
+    font-size: 0.26rem;
+}
+
+.select-up {
+    display: block;
+    padding: 0.3rem;
+    background: #fff;
+    position: relative;
+}
+
+.select-up-no1 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-city-input {
+    height: 0.67rem;
+    padding: 0.20rem;
+    border-bottom: 1px solid #001E50;
+    width: 4.6rem;
+    line-height: 0.25rem;
+    display: block;
+	box-sizing: border-box;
+}
+
+.search-city-but {
+    width: 1.75rem;
+    height: 0.67rem;
+    text-align: center;
+    line-height: 0.67rem;
+    color: #fff;
+    background: #00B0F0;
+    border: none;
+    overflow: hidden;
+    display: block;
+    font-size: 0.28rem;
+	border-radius: 100px;
+}
+
+.search-hot {
+    display: block;
+    line-height: 0.9rem;
+    font-size: 0.30rem;
+}
+
+.search-hot-list {
+    display: block;
+    width: 105%;
+    display: table;
+    /* 调教webkit*/
+    word-spacing: -1em;
+}
+
+.search-hot-list li {
+    display: inline-block;
+    margin-right: 0.35rem;
+    font-size: 0.28rem;
+    color:#001E50;
+    font-size: 0.28rem;
+    line-height: 0.6rem;
+}
+
+.national-box{
+    position: relative;
+}
+
+.national h2 {
+    display: block;
+    line-height: 1.17rem;
+    background: #fff;
+    position: relative;
+    padding: 0 0.3rem;
+    text-align: center;
+    height: 1.17rem;
+}
+
+.national h2::after {
+    bottom: inherit;
+    top: 0;
+    border: 1px solid #dcdcdc;
+    z-index: 20;
+}
+
+.container {
+    overflow-y: auto;
+}
+
+.letter {
+    width: 5%;
+    overflow: hidden;
+    line-height: 0.32rem;
+    font-size:0.18rem;
+    position: fixed;
+    bottom: 0.4rem;
+    right: 0.05rem;
+    text-align: center;
+    z-index: 999;
+}
+
+.letter ul {
+    list-style-type: none;
+}
+
+.letter ul li a {
+    text-decoration: none;
+}
+
+.city {
+    width: 100%;
+    
+}
+
+.city-list {
+    width: 100%;
+    overflow: hidden;
+    display: table;
+    /* 调教webkit*/
+    word-spacing: -1em;
+    overflow: hidden;
+    border-bottom: 1px solid #E0E4E8;
+}
+
+.city-list .city-letter {
+    color: #999;
+    font-size:0.26rem;
+    display: inline-block;
+    line-height: 0.38rem;
+    height: 0.38rem;
+    padding: 0 0.3rem;
+    background: #fff;
+    width: 6.9rem;
+    display: block;
+	padding-top: 0.3rem;
+}
+.city-pos{
+    padding:0.4rem 0.3rem 0.1rem;
+    background: #fff;
+}
+
+.city-list p {
+    color: #333333;
+    min-width: 1.3rem;
+    height: 0.6rem;
+    line-height: 0.6rem;
+    border: 1px solid #dedede;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 0.3rem;
+    margin-right: 0.4rem;
+    padding: 0 0.05rem;    
+    border-radius: 100px;
+}
+.city-list p:active{
+    color:#00B0F0;
+    border: 1px solid #00B0F0;
+}
+.city-list .link1{
+    color:#00B0F0;
+    border: 1px solid #00B0F0;
+}
+
+.UISelect {
+    margin-top: 5px
+}
+#search-city{
+	display: none;
+}
+#main{
+	overflow-x: hidden;
+}
+.national{
+	border-top: 1px solid #E0E4E8;
+}

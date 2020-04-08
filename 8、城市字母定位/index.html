@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>城市字母定位</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <!-- 公用css -->
+        <link rel="stylesheet" href="css/public/public.css">
+        <!-- 当前页面css -->
+        <link rel="stylesheet" href="css/select-city.css">
+		<!-- rem.js -->
+        <script src="js/must/rem.js"></script>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+            <header id="header">标题</header>
+            <div class="select-city">
+                <div class="select-up">
+					<div class="select-up-no1">
+						<input type="text" placeholder="输入城市名称或关键字" class="search-city-input">
+						<button class="search-city-but">城市直达</button>
+					</div>
+
+					<strong class="search-hot">热门城市：</strong>
+					<ul class="search-hot-list" id="hot-city">
+						<li v-for = 'item,index in city_hots' :data-id="item.cid">
+                            {{item.name}}
+                        </li>
+                    </ul>
+                    
+					<!-- <ul class="search-hot-list" id="search-city">
+						<script id="search-city-t" type="text/html">
+							{{if data.length==0}}
+								<div class="no-data">暂无相关城市</div>
+							{{else}}
+								{{each data value}}
+									<li data-id="{{value.cid}}">{{value.name}}</li>
+								{{/each}}
+							{{/if}}
+						</script>
+					</ul> -->
+                </div>
+
+                <div class="national">
+					<h2>全国城市</h2>
+					<div class="national-box">
+						<div class="container">
+							<div class="city" id="city-list">
+                                <div class="city-list" v-for ='item,key in city_all'>
+                                    <span class="city-letter" :id="key">{{key}}</span>
+                                    <div class="city-pos" >
+                                        <p v-for = 'item2 in item' :data-id="item2.cid">{{item2.name}}</p>
+                                    </div>
+                                </div>
+							</div>
+							<div class="letter">
+								<ul id="initial-list">
+                                    <li v-for = 'item,key in city_all' 
+                                    @click='scrollTop(event)'>{{key}}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+            </div>
+		</div>
+        <!-- 公用js -->
+        <script src="js/must/zepto.min.js"></script>
+        <script src="js/must/vue.js"></script>
+        <script src="js/must/public.js"></script>
+        <!-- 当前js -->
+        <script src="js/select-city.js"></script>
+
+
+	</body>
+</html>

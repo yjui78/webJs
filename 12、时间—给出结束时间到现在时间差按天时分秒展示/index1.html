@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>JS时间转换成天数</title>
+    <title>1、JS结束时间与当前时间间隔</title>
 </head>
 <body>
 <div class='divClass' id='timeCont'>
@@ -12,7 +12,7 @@
 </div>
 <script>
     //1、当前时间new Date()转成年月日时分秒2019-04-17 10:27:27
-    var currentTime =  time(new Date())
+    
     function time(now){
         var yy = now.getFullYear(); //年
         var mm = now.getMonth() + 1; //月
@@ -34,12 +34,13 @@
         return time;
     }
     setInterval(function(){
+        var nowTime =  time(new Date())
         var end_time = '2020-5-16 17:00:00';
-        document.querySelector('#nowTime').innerHTML = currentTime;
+        document.querySelector('#nowTime').innerHTML = nowTime;
         document.querySelector('#end').innerHTML = end_time;
         document.querySelector('#interval').innerHTML = timeDown(end_time);
     },1000)
-    
+
     // 2、结束时间2020-5-16 17:00:00与当前时间new Date()比较时间差
     function timeDown(endDateStr) {
 		    //结束时间

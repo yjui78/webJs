@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javascript弹出框及地址选择功能,可拖拽</title>
+    <style>
+        #moveable{cursor: move;background:#eee;}
+        .title{background:#eee;padding: 5px;margin-bottom:10px;}
+        label{margin-right:10px;}
+        #popwin{font-size: 13px;width: 400px;border: 1px solid #000;height: 160px;z-index: 99999;background: #fff;position: absolute;top: 100px;}
+        #close{float:right;}
+        .win-title{border: 1px solid #eee;font-size: 13px;padding: 5px;}
+        #mask{opacity:0.4;background:gray;display:none;position: absolute;top: 0;position: absolute;}
+        #close span{cursor: pointer;}
+    </style>
+</head>
+<body>
+
+<div id="popwin" onSelectStart="return false;">
+    <div class="win-title title" id="moveable" onSelectStart="return false;">标题
+        <div id="close">
+            <span id="btn-ok">[确定]</span>
+            <span id="btn-cancel">[取消]</span>
+        </div>
+    </div>
+    <div id="select">这是窗口里的内容</div>
+</div>
+<script>
+    var oPopwin = document.querySelector('#popwin');
+    var oBtnOk = document.querySelector('#btn-ok');
+    var oBtnCancel = document.querySelector('#btn-cancel');
+    var oMoveable =document.querySelector('#moveable');
+
+    //浏览器可视区宽高
+    var iWinWidth = document.documentElement.clientWidth;
+    var iWinHeight = document.documentElement.clientHeight;
+    var disx= disY = 0;
+    oMoveable.onmousedown =function(e){
+        e = window.event||argument[0];
+        //鼠标距离oPopwin边框
+        disx = e.clientX-oPopwin.offsetLeft;
+        disY = e.clientY-oPopwin.offsetTop;
+        //按下之后在文档内拖动，
+        document.onmousemove=function(e){  
+            e = window.event||argument[0];
+            var l=e.clientX-disx;
+            var t=e.clientY-disY;
+            oPopwin.style.left =l+'px';
+            oPopwin.style.top =t+'px';
+
+            //判断left超出时靠边界,
+            if(oPopwin.offsetLeft<0){
+                oPopwin.style.left =0+'px';
+            }else if(oPopwin.offsetLeft>(iWinWidth-oPopwin.offsetWidth)){
+                oPopwin.style.left =iWinWidth-oPopwin.offsetWidth+'px';
+            }
+            //判断top超出时靠边界,
+            if(oPopwin.offsetTop<0){
+                oPopwin.style.top =0+'px';
+            }else if(oPopwin.offsetTop>(iWinHeight-oPopwin.offsetHeight)){
+                oPopwin.style.top =iWinHeight-oPopwin.offsetHeight+'px';
+            }
+        }
+    }
+    //松开
+    document.onmouseup=function(){
+        document.onmousemove=null;
+        oMoveable.onmouseup=null;  //自身也清空
+    }
+    //确定
+    oBtnOk.onclick=function(){
+        oMask.style.display=oPopwin.style.display='none';
+    }
+    //取消
+    oBtnCancel.onclick=function(){
+        oMask.style.display=oPopwin.style.display='none';
+    }
+
+   
+
+</script>
+</body>
+</html>

@@ -20,7 +20,6 @@ var vm = new Vue({
     },
     created() {
         var self = this;
-      
     },
     methods:{
         timeFn(){
@@ -65,16 +64,6 @@ var vm = new Vue({
                     self.popbox.show=false;
                 }
             }
-            
-            // console.log(comp)
-        },
-        // 取消start
-        cancel1Fn(){
-
-        },
-        // 取消end
-        cancel2Fn(){
-
         },
         getNowFormatDate(value){
             //value:Mon May 06 2019 04:05:00 GMT+0800 (中国标准时间)

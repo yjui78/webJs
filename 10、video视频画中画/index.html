@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"> 
+		<title>video视频画中画模式</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <!-- 公用css -->
+        <link rel="stylesheet" href="css/public/reset.css">
+        <link rel="stylesheet" href="css/public/common.css">
+        <!-- 当前页面css -->
+        <link rel="stylesheet" href="css/index.css">
+		<!-- rem.js -->
+        <script src="js/must/rem.js"></script>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+            <!-- 页面进入视频倒计时播放 -->
+            <div class='video_pop' v-show = 'isShow'>
+                <div class='video_page'  id='vpage' :style="{'top': videoPop.topup+'px'}">
+                    <ul class='linkUl'>
+                        <li class='lis' v-for = 'item,index in videoPop.icos'><a :href="item.url">
+                            <div class='ico'><img :src="item.img" alt=""></div>
+                            <p class='pl'>{{item.title}}</p></a>
+                        </li>
+                    </ul>
+                    <img v-show='videoPop.countShow' :src="'https://faw-vw.ftms-wechat.com'+videoPop.videoData.thumb" alt="" class="videoImg">
+                    <div class='closeVideo' @click = 'closeVideoFn'></div>
+                    <button id="pipButton" class="" disabled></button>
+                    <div class='countdown' v-show='videoPop.countShow'>{{videoPop.countdown}}s</div>
+                    <video id="video-bg" 
+                    controls :src="'https://faw-vw.ftms-wechat.com'+videoPop.videoData.video"></video>
+                </div>
+            </div>
+		</div>
+        <!-- 公用js -->
+        <script src="js/must/vue.js"></script>
+        <script src="js/must/zepto.min.js"></script>
+        <script src="js/must/public.js"></script>
+        <script src="js/index.js"></script>
+
+
+	</body>
+</html>

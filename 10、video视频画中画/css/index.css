@@ -1,0 +1,116 @@
+.video_pop {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.8);
+    height: 100%;
+    z-index: 150000;
+  }
+  .video_pop .video_page {
+    width: 1200px;
+    width: 900px;
+    margin: 0 auto;
+    margin-top: 4%;
+    position: relative;
+    border-top-right-radius: 10px;
+  }
+  .video_pop .video_page .videoImg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    border-radius: 0px 10px 0px 10px;
+  }
+  .video_pop .video_page .playDialog {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    border-radius: 0px 10px 0px 10px;
+  }
+  .video_pop .video_page .playDialog .play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-size: 100%;
+    z-index: 99999;
+    width: 50px;
+  }
+  .video_pop .video_page .linkUl {
+    position: absolute;
+    right: 63px;
+    top: 45%;
+    z-index: 9999;
+  }
+  .video_pop .video_page .linkUl .lis {
+    margin-bottom: 20px;
+  }
+  .video_pop .video_page .linkUl .lis a {
+    cursor: pointer;
+  }
+  .video_pop .video_page .linkUl .lis .pl {
+    font-size: 13px;
+    margin-top: 5px;
+    text-align: center;
+    color: #fff;
+  }
+  .video_pop .video_page .linkUl .lis .ico {
+    width: 43px;
+    height: 43px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #ffffff;
+  }
+  .video_pop .video_page .closeVideo {
+    color: #fff;
+    position: absolute;
+    right: -50px;
+    font-size: 26px;
+    font-weight: 300;
+    background: url(../images/closex.png) no-repeat;
+    width: 26px;
+    height: 26px;
+    display: inline-block;
+    background-size: 100%;
+    cursor: pointer;
+  }
+  .video_pop .video_page .countdown {
+    width: 65px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    border-radius: 0px 10px 0px 10px;
+    text-align: center;
+    line-height: 30px;
+    z-index: 999999;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.6);
+    background: #2c343a;
+    font-size: 12px;
+    top: 0;
+  }
+  .video_pop .video_page video {
+    width: 100%;
+    border-top-right-radius: 10px;
+  }
+  #pipButton.hzhIco {
+    background: url(../images/hzh.png) no-repeat;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    background-size: 86%;
+    position: absolute;
+    z-index: 999999;
+    border: none;
+    top: 15px;
+    right: 10px;
+  }
+  

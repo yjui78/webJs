@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>匀速运动</title>
+    <style>
+        div {width:100px;height:100px;background:red;position:absolute;left:0;}
+    </style>
+    <script>
+        var timer = null;
+        function startMove(){
+            var odiv = document.querySelector('#div');
+            //每个启动前开关闭上一次的
+            clearInterval(timer);
+            timer = setInterval(function(){
+                var speed=10;
+
+                if(odiv.offsetLeft>=300){
+                   clearInterval(timer);
+                }else {
+                    //防止再次点击运动
+                    odiv.style.left = odiv.offsetLeft+speed+'px';
+                }
+            },30)
+        }
+    </script>
+</head>
+<body>
+<input type="button" id="btn" onclick="startMove()" value="开始运动">
+<br/><br/>
+<div id="div"></div>
+</body>
+</html>

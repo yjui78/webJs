@@ -1,0 +1,195 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-overflow-scrolling: touch;
+    word-wrap: break-word;
+}
+.tb .sel-ul .sel-li .lab.ico-qus:after {
+    content: '';
+    background: url(images/qus_ico.png) no-repeat;
+    background-size: 100%;
+    display: inline-block;
+    width: 0.2rem;
+    height: 0.2rem;
+    margin-left: 0.09rem;
+}
+.tab-select {
+    width: 100%;
+    margin-top: 0.2rem;
+    display: inline-block;
+}
+.tab-select .tab-header {
+    background: #fff;
+    padding-left: 1.33rem;
+}
+.tab-select .tab-header {
+    background: #fff;
+    padding-left: 1.33rem;
+}
+.tab-select .tab-header .tab-item:first-child {
+    margin-right: 2.65rem;
+}
+.tab-select .tab-content {
+    width: 6.9rem;
+    background-color: #ffffff;
+    box-shadow: 0 0 15px #E8E8E8;
+    border-radius: 0.08rem;
+    margin: 0.43rem 0 0 0.31rem;
+}
+.tb .sel-ul .sel-li {
+    height: 1.12rem;
+    line-height: 1.12rem;
+    border-bottom: solid 1px #dcdcdc;
+    margin-left: 0.41rem;
+    font-size: 0.28rem;
+    margin-right: 0.4rem;
+    display: flex;
+}
+.tb .sel-ul .sel-li .lab {
+    height: 1.12rem;
+    line-height: 1.12rem;
+    display: inline-block;
+    color: #666;
+}
+.tb .sel-ul .sel-li .s-m {
+    display: inline-block;
+    text-align: right;
+    color: #00B0F0;
+    flex: 1;
+    font-size: 0.28rem;
+}
+.tb .sel-ul .sel-li .s-m {
+    display: inline-block;
+    text-align: right;
+    color: #00B0F0;
+    flex: 1;
+    font-size: 0.28rem;
+}
+.tb .sel-ul .sel-li .s-m:after {
+    content: '';
+    background: url(images/pub_next.png) no-repeat;
+    display: inline-block;
+    width: 0.13rem;
+    height: 0.17rem;
+    margin-left: 0.32rem;
+    background-size: 100%;
+}.tb .sel-ul .sel-li:last-child {
+    border-bottom: 0;
+}.rent-info {
+    width: 6.9rem;
+    height: 2.47rem;
+    padding-top: 0.33rem;
+    min-height: 2.47rem;
+    background: linear-gradient(to right,#3B5278,#001E50);
+    border-bottom-left-radius: 0.08rem;
+    border-bottom-right-radius: 0.08rem;
+}.rent-info .rent-tb {
+    width: 98%;
+}.rent-info .rent-tb2 {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0.15rem;
+    padding-left: 0.4rem;
+}.rent-tb thead th {
+    color: #fff;
+    font-size: 0.22rem;
+    font-weight: 400;
+}.ulf {
+    float: left;
+    width: 94%;
+    padding-left: 0.4rem;
+    margin-bottom: 0.15rem;
+}.lit {
+    width: 32%;font-size: 16px;
+    display: inline-block;
+    color: #fff;
+}.rent-info .b-style {
+    color: #fff;
+    font-size: 0.34rem;
+}.rent-info .txt-p {
+    color: #fff;
+    font-size: 0.22rem;
+    margin-left: 0.4rem;
+    margin-top: 0.13rem;
+    display: inline-block;
+    width: 100%;
+}.rent-info .b-style {
+    color: #fff;
+    font-size: 0.34rem;
+}.tab-select .tab-header {
+    background: #fff;
+    padding-left: 1.33rem;
+}.tab-select .tab-header .tab-item:first-child {
+    margin-right: 2.65rem;
+}
+.tab-select .tab-header .tab-item {
+    color: #999999;
+    font-size: 0.3rem;
+    display: inline-block;
+    line-height: 0.7rem;
+}.tab-select .tab-header .tab-item.active {
+    color: #00B0F0;
+    border-bottom: 2px solid #00B0F0;
+}
+[v-cloak]{
+    display:none !important;
+}.first-pop {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0,0,0,0.5);
+    height: 100%;
+    z-index: 150000;
+    display: none;
+}.first-p-t {
+    width: 7.5rem;
+    height: 0.84rem;
+    background: #F5F5F5;
+    display: flex;
+    justify-content: space-between;
+    line-height: 0.84rem;
+    position: fixed;
+    font-size: 0.3rem;
+    bottom: 5rem;
+    text-align: center;
+}.first-p-t i {
+    display: block;
+    width: 100%;
+}.clousx {
+    position: absolute;
+    z-index: 20000;
+    width: 1rem;
+    height: 0.84rem;
+    background: url(images/del.png) no-repeat center center;
+    background-size: 0.2rem 0.2rem;
+    right: 0;
+    top: 0;
+}.new-f-cont {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    font-size: 0.26rem;
+    height: 5rem;
+    overflow: auto;
+    z-index: 99999;
+}em, i {
+    font-style: normal;
+}.test-f {
+    line-height: 0.85rem;
+    height: 0.85rem;
+    padding: 0 0.3rem;
+    position: relative;
+    box-sizing: border-box;
+    width: 7.5rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.caractive {
+    color: #00B0F0;
+}
+#sffirst {
+    font-size: 0.25rem;
+}

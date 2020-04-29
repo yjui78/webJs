@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>省县市对应经销商展示请求一次接口</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+   <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+<div id='app'>
+
+    <strong class="test-title">填写信息</strong>
+    <ul class="test-one-list">
+        <li>
+            <span class="test-s-n">姓名</span>
+            <span class="but-mor-r2">
+                <input type="text" style="text-align:right" placeholder="请输入您的姓名" class="username" 
+                    v-model="form.name" >
+            </span>
+        </li>
+        <li>
+            <span class="test-s-t">手机号码</span>
+            <span class="but-mor-r2">
+                <input type="tel" style="text-align:right" placeholder="请填写手机号码"  class="usernum" 
+                    v-model="form.phone">
+            </span>
+        </li>
+    </ul>
+    <div class="mor-box mor-box2">
+        <p>
+            <input id="overck_21" data-role="none" name="check" class="regular-radio2" type="checkbox">
+            <label for="overck_21" data-role="none">
+                本人同意并接受
+            </label>
+            <a class="readw" @click="agreement=true">《一汽-大众商城个人信息保护声明》</a>
+        </p>
+    </div>
+
+    <strong class="test-title">选择经销商<span>提车经销商，最多可选三家</span></strong>
+    <ul class="test">
+        <li data-id="0" 
+            :class="{'linka':youhui==0}"
+            @click='youhui=0;sortFn(0)'> 默认 </li>
+        <li data-id="2" class="yh-btn"
+            :class="{'linka':youhui==1}"
+            @click='youhui=1;sortFn(1)'> 优惠</li>
+        <li>
+            <div class="city1"  @click="pop.show = true;pop.tab = 1"><span class="city_name">{{cityName}}</span> <span class="low"></span></div>
+        </li>
+    </ul>
+    
+    <div class="test-c">
+        <div id="box">
+            <ul class="dealer-list">
+                <li class="test-l" 
+                    v-for = 'item,index in dealerInfo'
+                    @click = dealerCheckFn(item.id)
+                >
+                    <div class="itemlist">
+                        <input :id="'overcheck'+item.id" name="check" type="checkbox" :data-deaid="item.id" class="regular-radio">
+                        <label :class="{'deaid checked':dealerId.indexOf(item.id)>-1}" :for="'overcheck_'+item.id" >
+                            <a><strong>{{item.name}}</strong> 
+                                <p>地址：<span>{{item.address}}</span></p>
+                            </a>
+                            <strong>优惠价：<span class="price bluec">{{item.dealer_price/10000  |  toFixed}}<i>万</i></span></strong>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="more-over" style="display: none;">已全部加载完毕</div>
+    </div>
+
+    <!--引入城市html-->
+    <!--城市选择-->
+    <div class="city-select" style='display:none;' v-show="pop.show">
+        <div class="_citys">
+            <div class="_citystitle">
+                <span>选择具体城市</span>
+                <span id="cColse" @click='pop.show=false'></span>
+            </div>
+            <ul id="_citysheng" class="_citys0">
+                <li id="sheng" :class="{'citySel':pop.tab==1}" @click='pop.tab = 1'>省份</li>
+                <li id="shi" :class="{'citySel':pop.tab==2}" @click='pop.tab = 2'>城市</li>
+            </ul>
+            <div id="_citys1" class="_citys1" style="display: block;"  v-show="pop.tab==1">
+                <a 
+                    v-for='item,index in pop.province'
+                    :data-id="item.cid" 
+                    :data-index="index"
+                    :class="{'active':item.cid==pop.provinceId}" 
+                    @click='proviceFn(item.cid,index)'
+                >{{item.name}}</a>
+            </div>
+            <div id="_citys2" class="_citys1" style="display: block;"  v-show="pop.tab==2">
+
+                <span class="select-prompt" v-show = 'pop.city.length==0'> 请先选择省份</span>
+                <a 
+                    v-for = 'item,index in pop.city'
+                    :data-cityid="item.cid" 
+                    :data-index="index" 
+                    :class="{'active':item.cid==pop.cityId}"
+                    @click = 'cityFn(item.cid,item.name)'
+                    > {{item.name}}</a>
+            </div>
+        </div>
+        <div class="mask"></div>
+    </div>
+<!--选择城市end-->
+
+<button class="but-mor bgblue" @click="subFn">立即预约</button>
+
+</div>
+<script src="zepto.min.js"></script>
+<script src="vue2.js"></script>
+<script src="public.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

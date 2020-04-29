@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡-vue</title>
+<style>
+  body{-webkit-text-size-adjust:100% !important;font-size:0.25rem;margin:0}
+    p{margin:0;padding:0}
+    li{list-style:none}
+    .tabNav{width:100%;overflow:hidden}
+    .tabNav li.active{color:#fff;background:#00B0F0}
+    .nav_box{height:1rem;width:7.5rem;background:#fff;margin-top:0.3rem}
+    .tab_navmenu{width:100%;height:0.86rem;display:flex;justify-content:space-between;font-size:0.3rem;background:#fff;position:relative;left:0;top:0;height:1.1rem;border-bottom:1px solid #EFEFEF}
+    .tabs.fixed{top:1rem;position:fixed;z-index:100;background:#f00}
+    .tabs{width:100%;display:flex;justify-content:space-between;background:#fff;position:relative;left:0;top:0}
+    .tabNav li{display:inline-block;height:0.7rem;text-align:center;line-height:0.7rem;background:#efefef;border-radius:0.5rem;margin-right:0.3rem;margin:0 .2rem;width:25%}
+    #header{height:1rem;line-height:1rem;text-align:center;position:fixed;;top:0;left:0;border-bottom:1px solid #ccc;width:100%;font-size:0.33rem;z-index:9999;background:#ccc}
+    .div{height:1rem}
+    .martop{}
+    .tabCont{margin-top:.3rem}
+</style>
+
+</head>
+<body>
+    <div  id ="app">
+        <div id ='header'>header</div>
+        <div style='display:inline-block;'>
+            <div>1</div>
+            <div>1</div>
+            <div>1</div>
+            <div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div>
+        </div>
+        <!--tab选项-->
+        <div class='nav_box' >
+            <div class="tabs">
+                <ul class="tabNav flex_box" >
+                    <li 
+                        v-for ='item,index in items' 
+                        :data-index="index" 
+                        @click='tabNav(index)'
+                        :class='{"active": index==currentTab}' >{{item.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class='tabCont' :current = 'currentTab'>
+            <div v-show="currentTab==0" class='martop'><div class='div'>aaaaaaaaaaaaaaaaaaa</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div><div class='div'>1</div></div>
+            <div v-show="currentTab==1" class='martop'><div class='div'>bbbbbbbbbbbbbbbbbbbbb</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div><div class='div'>2</div></div>
+            <div v-show="currentTab==2" class='martop'><div class='div'>cccccccccccccccccc</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div><div class='div'>3</div></div>
+        </div>
+<script src="zepto.min.js"></script>
+<script src='vue2.min.js'></script>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        items:[
+            {name:'其他成交'},
+            {name:"同系车型"},
+            {name:"商城活动"}
+        ], 
+        currentTab:0, //默认第一个选中
+        initNum:0,
+       
+    },
+    created:function(){
+        var initNum = 0;  
+    },
+    methods:{
+        tabNav(index){
+            var self = this;
+            //赋值当前索引
+            self.currentTab = index; 
+            self.initNum++;
+            if(self.initNum >= 1){
+                $(window).scrollTop($(".nav_box").offset().top - $(".nav_box").height())
+            }
+        }
+    },
+    mounted:function(){
+        var scrollNum = 0;
+        $(window).scroll(function () {
+            if (document.querySelector(".nav_box").getBoundingClientRect().top <= $("#header").height()) {
+                $(".tabs").addClass("fixed");
+            } else {
+                $(".tabs").removeClass("fixed");
+            }
+        });
+    }
+})
+//修改页面title
+var pageTitle=document.getElementsByTagName("title")[0].innerHTML;
+if(location.href.indexOf("index.html")>-1 || location.href.indexOf("html")==-1){
+	document.getElementsByTagName("title")[0].innerHTML="一汽-大众商城-一汽-大众官方电商平台-只为简单汽车生活";
+}
+//rem自动计算
+(function(doc, win) {
+	var docEl = doc.documentElement,
+		resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		recalc = function() {
+			var clientWidth = docEl.clientWidth;
+			if (!clientWidth) return;
+			docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+		};
+
+	if (!doc.addEventListener) return;
+	win.addEventListener(resizeEvt, recalc, false);
+	doc.addEventListener('DOMContentLoaded', recalc, false);
+})(document, window);
+</script>
+</body>
+</html>

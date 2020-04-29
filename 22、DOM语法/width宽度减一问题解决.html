@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>width宽度减一问题</title>
+    <style>
+     span { width:300px;height:100px;background:red;
+     	display: inline-block;float:left;
+     	margin-right:10px;border:10px solid #000;}
+
+
+    </style>
+    <script>
+
+    /*
+		问题：加border时用offsetWidth-1反而加
+		解决1：行内style，odiv.style.width
+		解决2：系统样式 getcomputeStyle
+    */
+    window.onload = function(){
+      var odiv1 =  document.getElementById('div1');
+      odiv1.onmouseover = function(){
+      	startMove1(this,'width',300);
+      }
+       odiv1.onmouseout = function(){
+      	startMove1(this,'width',100);
+      }
+    }
+
+    //封装计算样式
+    function getStyle(obj,attr){
+    	if(obj.currentStyle){
+    		return obj.currentStyle[attr];
+    	}else {
+    		return window.getComputedStyle(obj,null)[attr];
+    	}
+    }
+    function startMove1(obj,attr,iTarget){
+    	clearInterval(obj.timer);
+    	obj.timer = setInterval(function(){
+    		// obj.style.width = parseInt(obj.style.width)-1+'px';
+    		obj.style.width = parseInt(getStyle(obj,'width'))-1+'px';
+
+    	},30)
+    }
+
+  </script>
+</head>
+<body>
+<span id='div1'></span>
+</body>
+</html>

@@ -1,9 +1,0 @@
-
-/* mt-picker */
-.popbox{position:fixed;width:100%;height:100%;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:999}
-.popbox .popbox__body{position:absolute;bottom:0;left:0;width:100%;background:#fff;border-top-left-radius:12px;border-top-right-radius:12px}
-.popbox .popbox__head{display:flex;justify-content:space-between;border-bottom:1px solid #F7F3F3;}
-.popbox .popbox__head .btn-cancel{font-size:0.26rem;color:#666;padding:0.3rem;padding-lefT:20px}
-.popbox .popbox__head .popbox__head-title{font-size:0.3rem;color:#323232;padding:0.3rem}
-.popbox .popbox__head .btn-confirm{font-size:0.3rem;color:#A30E33;padding:0.3rem;padding-right:20px}
-.popbox  .picker-item{font-size:.3rem}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模糊搜索</title>
+    <style>
+        table ,td,th{border:1px solid #ccc;}
+    </style>
+    <script>
+/*
+ 数组tBodies,rows,cells,tFoot,tHead
+    搜索:
+    字符串比较
+    忽略大小写-转换
+    模糊搜索-search使用
+    多关键字-split
+    高亮显示，筛选
+* */
+    window.onload= function(){
+        var oTxt = document.querySelector('#txt');
+        var oBtn = document.querySelector('#btn');
+        var oTab = document.querySelector('#tab');
+
+        oBtn.onclick=function(){
+            for(var i=0;i<oTab.tBodies[0].rows.length ;i++) {
+                var sTab = oTab.tBodies[0].rows[i].cells[1].innerHTML.toLowerCase();
+                var sTxt = oTxt.value.toLowerCase();
+               if(sTab.search(sTxt)!=-1){//查找有没有 没有-1,什么都不输入时全显示
+                   oTab.tBodies[0].rows[i].style.background='yellow';
+               }else {
+                   oTab.tBodies[0].rows[i].style.background='';
+               }
+
+            }
+
+
+        }
+
+
+    }
+    </script>
+</head>
+<body>
+姓名：<input type="text" id="txt"> <input id="btn" type="button" value="搜索">
+<br/><br/>
+<table id="tab" width="500">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年领</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>张三</td>
+            <td>12</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>李四</td>
+            <td>23</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>王五</td>
+            <td>38</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>张伟</td>
+            <td>25</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>王四</td>
+            <td>35</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>bLue</td>
+            <td>12</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+
+</ul>
+</body>
+</html>

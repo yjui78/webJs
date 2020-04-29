@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>移动端图片轮播swiper</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+	<style type="text/css">
+        .posive{position:relative;overflow:hidden;width:7.5rem}body{font-size:0.25rem;margin:0;}.tabs-name{text-align:center;font-weight:bold;font-size:0.3rem;padding-top:0.3rem}.tabs-ds{text-align:center;font-size:0.25rem;margin:0.2rem 0;color:#666}.tabs-swiper-pagination{position:absolute;left:0;text-align:center;bottom:3rem;width:100%;z-index:1500;height:0.25rem}.swiper-slide img{height:4.1rem}.swiper-pagination-bullet{width:0.08rem;margin:0 0.08rem;height:0.08rem;background-color:#fff;vertical-align:middle;opacity:1}.swiper-pagination-bullet-active{background:#b44b4b;width:0.16rem;height:0.16rem}.posive .tabs-con{width:6.8rem;margin:0 auto;padding-bottom:0.3rem;margin-top:0.6rem;border-bottom:1px dashed #ccc}.posive .tabs-con-title{font-size:0.3rem}.posive .tabs-con-text{margin-top:0.15rem;color:#666;font-size:0.25rem}
+	</style>
+</head>
+<body>
+<div id="main">
+	<template-swiper :ligitdata ='ligitdata' ></template-swiper>
+</div>
+<template id="tabs-list-t">
+    <div >
+        <div class='posive'  v-for = 'item,index of ligitdata'>
+            <!--分类名称-->
+            <div class="tabs-name">
+                {{item.name}}
+            </div>
+            <div class="tabs-ds">
+                {{item.description}}
+            </div>
+            <div :class="'tabs-swiper'+index">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"  v-for = 'val of item.img'>
+                        <div class="tabs-img">
+                            <img :src="val.thumb">
+                        </div>
+                        <!--介绍-->
+                        <div class="tabs-con">
+                            <div class="tabs-con-title">
+                                {{val.title}}
+                            </div>
+                            <div class="tabs-con-text">
+                                {{val.description}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div :class="'tabs-swiper-pagination tabs-swiper'+index+'-pagination'" ></div>
+        </div>
+    </div>
+</template>
+<script src="js/zepto.min.js"></script>
+<script src="js/vue2.js"></script>
+<script src="js/rem.js"></script>
+
+<!--当前页面js-->
+<script type="text/javascript" src="js/swiper.min.js"></script>
+<script type="text/javascript">
+
+//swiper官网  https://www.swiper.com.cn/api/autoplay/19.html
+	var data={
+		  light:[
+		   {
+		      id: "51",
+		      cid: "16",
+		      name: "外观",
+		      description: "重塑潮流，大众家族全新设计语言",
+		      img: [
+		              {
+		                title: "title1",
+		                description: "凌厉目光，东西时代前路。探岳全系标配LED带透镜前大灯",
+		                thumb: "images/1.png"
+		              },
+		              {
+		                title: "title2",
+		                description: "超大面积全景天窗开启迷人全新视野，吸纳更多阳光，营造宽敞明亮",
+		                thumb: "images/2.png"
+		              },
+		              {
+		                title: "title3",
+		                description: "贯穿车身的立体腰线，从硬朗前脸律动至力量感车肩，凸显出蓄势待发的运动前倾姿态",
+		                thumb: "images/3.png"
+		              },
+		        ]
+		    },
+		    {
+		      id: "52",
+		      cid: "126",
+		      name: "内室",
+		      description: "内室，大众家族全新设计语言",
+		      img: [
+		              {
+		                title: "内室title1",
+		                description: "内室凌厉目光，东西时代前路。探岳全系标配LED带透镜前大灯",
+		                thumb: "images/1.png"
+		              },
+		              {
+		                title: "内室title2",
+		                description: "内室更多阳光，营造宽敞明亮",
+		                thumb: "images/2.png"
+		              },
+		              {
+		                title: "内室title3",
+		                description: "贯内室感车肩，凸显出蓄势待发的运动前倾姿态",
+		                thumb: "images/3.png"
+		              },
+		        ]
+		    }
+		  ]
+	}
+	console.log(data.light)
+	Vue.component('template-swiper',{
+	  props:['ligitdata'],
+	  data(){
+	    return{
+	      ligitdata1 :this.ligitdata
+
+	    }
+	  },
+
+     template:`#tabs-list-t`,
+	  mounted:function(){
+	  	   console.log('------------')
+	  	   console.log(this.ligitdata1)
+	       var tabsSwiper = {};
+	       for (var i = 0; i < this.ligitdata1.length; i++) {
+	             tabsSwiper["s" + i ] = new Swiper('.tabs-swiper'+i, {
+	                width: window.innerWidth,
+	                pagination: {
+	                    el: '.tabs-swiper' + i + '-pagination',
+	               },
+	               loop: true,	 		//为 true循环
+			       autoplay: true,  	//为 true自动播放到下一张
+			       init: true,  		//为true自动执行，不用调用
+			       disableOnInteraction: false
+	            })
+	        }
+	    }
+	});
+var vm = new Vue({
+	  el:'#main',
+	  data:{
+	 	ligitdata:data.light
+	  }
+})
+</script>
+</body>
+</html>

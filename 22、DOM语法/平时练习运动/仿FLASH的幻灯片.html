@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>仿FLASH的幻灯片</title>
+    <style>
+        *{margin:0;padding:0;}
+        li{list-style: none;}
+        #flash{position:relative;width:400px;height:430px;background:#999;margin:50px auto;overflow:hidden;}
+        #img {width:400px;height:320px;}
+        #img li{position:absolute;left:0;top:0;width:400px;height:320px;overflow: hidden;}
+        #img li:first-child{display:block;}
+        #img img{width: 400px;height:320px;}
+        #thumb {margin-top:10px;height:94px;
+            overflow: hidden;}
+        #thumb ul {height:94px;}
+        #thumb li{float:left;   cursor: pointer; opacity: 0.6;filter:alpha(opacity:60);
+            width:120px;height:94px;
+            padding-right: 10px;
+        }
+        #thumb img{
+            width:120px;height:94px;
+        }
+
+        .mark {cursor: pointer;     z-index: 9999999;position:absolute;width:200px;height:320px;}
+        #mark-left { left:0;}
+        #mark-right{  right:0;}
+
+        .arrow {opacity:0;
+            filter:alpha(opacity:0);position:absolute;top:50%;margin-top:-12px;display:block;width:24px;height:44px;}
+        #arrow-left {left:15px;background:#000 url(images/pre.png) no-repeat center center;;}
+        #arrow-right {right:15px;background:#000 url(images/next.png) no-repeat center center;;}
+        #info {position:absolute;
+        width:400px;height:25px;background:#000;opacity:0.6;
+        filter:alpha(opacity:60);top:295px;    z-index: 9999;color:#fff;
+            font-size:12px;line-height:25px;
+        }
+
+        #info .text {float:left;margin-left:10px;}
+        #info .number {float:right;margin-right:10px;}
+        #thumb ul{position:absolute;left:10px;}
+
+    </style>
+</head>
+<body>
+<div id="flash">
+    <div class ="mark" id =mark-left>
+        <span class="arrow" id="arrow-left"></span>
+    </div>
+    <div class ="mark" id="mark-right">
+        <span class="arrow" id="arrow-right"></span>
+    </div>
+    <div id="info">
+        <span class="text"></span>
+        <span class="number"></span>
+    </div>
+    <ul id="img">
+        <li style="z-index: 9;"><img src="images/1.jpg" alt=""></li>
+        <li><img src="images/2.jpg" alt=""></li>
+        <li><img src="images/3.jpg" alt=""></li>
+        <li><img src="images/4.jpg" alt=""></li>
+        <li><img src="images/5.jpg" alt=""></li>
+    </ul>
+    <div id="thumb">
+        <div style="width:10px;"></div>
+        <ul>
+            <li><img src="images/1.jpg" alt=""></li>
+            <li><img src="images/2.jpg" alt=""></li>
+            <li><img src="images/3.jpg" alt=""></li>
+            <li><img src="images/4.jpg" alt=""></li>
+            <li><img src="images/5.jpg" alt=""></li>
+        </ul>
+    </div>
+</div>
+<script>
+
+    var oThumb = document.getElementById('thumb');
+    var oUlThumb = oThumb.getElementsByTagName('ul')[0];
+    var oLiThumb =oUlThumb.getElementsByTagName('li');
+    oFlash = document.getElementById('#flash');
+
+    var oMarkLeft = document.getElementById('mark-left');
+    var oMarkRight = document.getElementById('mark-right');
+
+    var oArrowLeft = document.getElementById('arrow-left');
+    var oArrowRight = document.getElementById('arrow-right');
+    var oLiImg = document.getElementById('img').getElementsByTagName('li');
+    var oInFo = document.getElementById('info');
+    var oText =oInFo.getElementsByTagName('span')[0];
+    var oNumber =oInFo.getElementsByTagName('span')[1];
+    var arr = [
+        {"img":'图一',"number":1},
+        {"img":'图二',"number":2},
+        {"img":'图三',"number":3},
+        {"img":'图四',"number":4},
+        {"img":'图五',"number":5},
+    ]
+    var timer2=null;
+    function animate(_this,speed,dest){
+        var timer=null;
+        clearInterval(timer);
+        timer = setInterval(function(){
+            speed<dest?speed+=10 : speed-=10;
+            if(speed==dest){
+                clearInterval(timer);
+                _this.style.opacity = speed/100;
+                _this.style.filter ="alpha(opacity:"+speed+")";
+            }else {
+                _this.style.opacity = speed/100;
+                _this.style.filter ="alpha(opacity:"+speed+")";
+
+            }
+        },50)
+
+    }
+
+
+
+   function height(_this,dest){
+       var timer =null;
+       var speed=10;
+       clearInterval(timer);
+       timer =setInterval(function(){
+
+           if(_this.offsetHeight==dest){
+               clearInterval(timer);
+           }else{
+               _this.style.height = _this.offsetHeight+speed+'px';
+           }
+       },20)
+   }
+   function left(_this,dest){
+        var speed=10;
+        var timer=null;
+        _this.offsetLeft<dest?speed=10 : speed=-10;
+        clearInterval(timer);
+        timer = setInterval(function(){
+            // console.log(_this.offsetLeft)
+            if(_this.offsetLeft==dest){
+                clearInterval(timer);
+            }else {
+                _this.style.left =(_this.offsetLeft+speed)+'px';
+
+            }
+        },20)
+   }
+
+
+    //设置缩略图总宽
+    oUlThumb.style.width = oLiThumb[0].offsetWidth*oLiThumb.length+'px';
+    //1、箭头划过效果时存在问题
+    oMarkLeft.onmouseover = function(){
+        animate(oArrowLeft,0,100);
+    }
+    oMarkLeft.onmouseout  = function(){
+        animate(oArrowLeft,100,0);
+    }
+
+    oMarkRight.onmouseover = function(){
+        animate(oArrowRight,0,100);
+    }
+    oMarkRight.onmouseout  = function(){
+        animate(oArrowRight,100,0);
+    }
+
+    //下方所有li滑过动作
+    var iNow=0;
+    oLiThumb[0].style.opacity=1;
+    for(var i=0;i<oLiThumb.length;i++){
+        oLiThumb[i].index = i;
+        oLiThumb[i].onmouseover=function(event){
+            animate(this,60,100)
+        }
+        oLiThumb[i].onmouseout=function(event){
+            if(iNow!=this.index){//如当前LI没有选中，不做任何操作，否则增加透明度
+                animate(this,100,60)
+            }
+        }
+        //下方li点击时，用iNow纪录点击索引，mouseout时比较索引值是否相同
+        oLiThumb[i].onclick=function(){
+            clearInterval(timer2)
+            showImg(this);
+        }
+    }
+    var zzIndex=9;
+    function showImg(_this){
+        iNow = _this.index;
+        for(var j=0;j<oLiThumb.length;j++){
+            animate(oLiThumb[j],100,60);
+        }
+        animate(_this,60,100)
+        //找对应图片，点击图层级高一层
+        oLiImg[iNow].style.zIndex=zzIndex++;
+        oLiImg[iNow].style.height=0;
+        height(oLiImg[iNow],320);
+        //oUlThumb移动距离，索引0，1图不动，索引2开始移动(i-1)*li.width()距离，最后图保持占最后位，移动(i-2)*li.width(),
+        if(iNow==0){
+            left(oUlThumb,10)//10就默认的left:10
+        }else if(iNow==oLiThumb.length-1){
+            left(oUlThumb,-(iNow-2)*oLiThumb[0].offsetWidth+10)
+
+        }else {
+            left(oUlThumb,-(iNow-1)*oLiThumb[0].offsetWidth+10)//ul有left:10要加上
+        }
+    }
+    oText.innerHTML=arr[0].img;
+    oNumber.innerHTML=arr[0].number+'/'+oLiThumb.length;
+    oArrowRight.onclick=function(){
+        iNow++;
+        if(iNow<=oLiThumb.length-1){
+            oLiThumb[iNow].onclick();
+        }else if(iNow>oLiThumb.length-1){
+            oLiThumb[0].onclick();
+        }
+        oText.innerHTML=arr[iNow].img;
+        oNumber.innerHTML=arr[iNow].number+'/'+oLiThumb.length;
+    }
+
+    oArrowLeft.onclick=function(){
+        iNow--;
+        if(iNow>=0){
+            oLiThumb[iNow].onclick();
+        }else if(iNow==-1) {
+            oLiThumb[oLiThumb.length-1].onclick();
+        }
+        oText.innerHTML=arr[iNow].img;
+        oNumber.innerHTML=arr[iNow].number+'/'+oLiThumb.length;
+    }
+      timer2 = setInterval(function(){
+          oArrowRight.onclick();
+      },1000)
+
+
+
+
+
+    // oText.innerHTML=
+    // console.log(oText.innerHTML)
+    // console.log(oNumber.innerHTML)
+</script>
+</body>
+</html>

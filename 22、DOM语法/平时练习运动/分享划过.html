@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分享划过简单效果</title>
+    <style>
+        #share{width:100px;height:260px;background:#ccc;position:absolute;left:-100px;top:50%;margin-top:-130px; }
+        #share span{width: 30px;height: 50px;background: orange;display: block;position: absolute;right: -30px;top: 100px;
+            z-index: 0;border-left: 1px solid #ccc;}    </style>
+</head>
+<body>
+<div id="share">
+    分享
+    <span></span>
+</div>
+<script>
+    var oSpan = document.querySelector('#share span');
+    var oShare = document.querySelector('#share');
+    var timer =null;
+    //利用目标点函数封装传参，
+    function animate(dest){
+        (dest-oShare.offsetLeft)<0?speed=-5:speed=5;
+        clearInterval(timer);
+        timer = setInterval(function(){
+            if(Math.abs(dest-oShare.offsetLeft)<Math.abs(speed)){
+                oShare.style.left =dest+'px';
+                clearInterval(timer);
+                timer = null;
+            }else {
+                oShare.style.left =oShare.offsetLeft+speed+'px';
+            }
+        },20)
+    }
+    oShare.onmouseover=function(){
+        animate(0);
+    }
+   oShare.onmouseout=function(){
+        animate(-100);
+
+    }
+</script>
+</body>
+</html>

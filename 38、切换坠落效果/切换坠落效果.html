@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>请求数据loading</title>
+    <style>
+        *{margin:0;padding:0;}
+        li{list-style: none;}
+        .ul_div{position: relative;width: 132px;float: left;display: inline-block;left: 0;top: 0;height: 393px;}
+        #box .l_nav{float:left;position: absolute;z-index: 55;}
+        #box .l_nav li{cursor: pointer;font-size: 18px;width: 132px;height: 51px;line-height: 51px;margin-bottom: 15px;text-align: center;}
+        #cont{float: left;width: 300px;height: 391px;background: #ddd;}
+        #cont>div{display:none;}
+        #box .l_nav li.active{color: #fff;}
+        .floatr{position: absolute;left: 0;z-index: 50;width: 132px;transform: translate(0px);top:0;height: 51px;background: #00c8d5;color: #fff;box-shadow: 0 2px 5px #dedede;-webkit-transition: all .2s ease-in;-moz-transition: all .2s ease-in;}
+        #cont div{font-family: "League-Gothic", Courier;font-size: 28px;text-transform: uppercase;color: #fff;text-shadow: 0 0 20px #fefcc9, 10px -7px 30px #feec85, -26px -2px 40px #ffae34, 2px -6px 8px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -121px 80px #451b0e;text-align: left;padding-left: 26px;margin-top: 11px;}
+    </style>
+</head>
+<body>
+<div id="box">
+    <div class="ul_div">
+        <ul class="l_nav">
+            <li data-id="1" style="margin-top:0;" class="active">北美头条</li>
+            <li data-id="2" class="">留学攻略</li>
+            <li data-id="3" class="">申请指南</li>
+            <li data-id="4" class="">签证办理</li>
+            <li data-id="5" class="">赴美准备</li>
+            <li data-id="6" class="">留学生活</li>
+        </ul>
+        <div class="floatr"></div>
+    </div>
+    <div id="cont">
+        <div style="display:block;">北美头条</div>
+        <div>留学攻略</div>
+        <div>申请指南</div>
+        <div>签证办理</div>
+        <div>赴美准备</div>
+        <div>留学生活</div>
+    </div>
+</div>
+</body>
+<script src="jquery-1.10.1.min.js"></script>
+<script>
+    $li =$('.l_nav li');
+    for(var i=0;i<$li.length;i++){
+       $li[i].index = i;
+       $li[i].onclick=function(){
+           // console.log( this.index );
+           var sictranslate = "translate(0)";
+            $('#cont>div').eq(this.index).show().siblings('div').hide();
+            $li.eq(this.index).addClass('active').siblings('li').removeClass('active');
+           $('.floatr').css({
+               'top':this.index*66,
+               "-webkit-transform": sictranslate,
+               "-moz-transform": sictranslate
+           })
+       }
+
+    }
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

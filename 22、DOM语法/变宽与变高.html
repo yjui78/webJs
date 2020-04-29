@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>变宽变高</title>
+    <style>
+     span { width:100px;height:100px;background:red;    display: inline-block;float:left;margin-right:20px;}
+
+    </style>
+    <script>
+	//offsetWidth 不适合加border减1例子，用getComputedStyle全兼容
+    window.onload = function(){
+      var odiv1 =  document.getElementById('div1');
+      var odiv2 =  document.getElementById('div2');
+      odiv1.onmouseover = function(){
+      	startMove1(this,300);
+      }
+       odiv1.onmouseout = function(){
+      	startMove1(this,100);
+      }
+
+      odiv2.onmouseover = function(){
+      	startMove2(this,300);
+      }
+       odiv2.onmouseout = function(){
+      	startMove2(this,100);
+      }
+    }
+
+    function startMove1(obj,iTarget){
+    	clearInterval(obj.timer);
+    	obj.timer = setInterval(function(){
+    		var speed = (iTarget - obj.offsetWidth)/6;
+    		speed = speed>0 ?Math.ceil(speed):Math.floor(speed);
+    		document.title = speed;
+    		if(obj.offsetWidth == iTarget){
+    			clearInterval(obj.timer);
+    		}else {
+    			obj.style.width = obj.offsetWidth+speed+'px';
+    		}
+    	},30)
+    }
+	function startMove2(obj,iTarget){
+	    	clearInterval(obj.timer);
+	    	obj.timer = setInterval(function(){
+	    		var speed = (iTarget - obj.offsetHeight)/6;
+	    		speed = speed>0 ?Math.ceil(speed):Math.floor(speed);
+	    		document.title = speed;
+	    		if(obj.offsetHeight == iTarget){
+	    			clearInterval(obj.timer);
+	    		}else {
+	    			obj.style.height = obj.offsetHeight+speed+'px';
+	    		}
+	    	},30)
+	    }
+
+
+  </script>
+</head>
+<body>
+<span id='div1'></span>
+
+<span id='div2'></span>
+</body>
+</html>

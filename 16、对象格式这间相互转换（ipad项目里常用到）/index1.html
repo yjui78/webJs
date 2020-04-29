@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>key对象转换数组title</title>
+		<meta charset="utf-8" />
+		
+		</script>
+	</head>
+	<body>
+        <script type='text/javascript'>
+        var data = {
+            "舒适": [ {"title": "领创来袭1","id": "24",},{"title": "领创来袭2","id": "24",}],
+            "内饰": [{ "title": "探影1","id": "21",},{"title": "探影2","id": "21",}]
+        }
+        console.log(data,'整理before')
+        //转成
+        /*
+        [
+            {title: "舒适", cont: [{title: "领创来袭1", id: "24"}, {title: "领创来袭2", id: "24"}]},
+            {title: "内饰", cont: [{title: "探影1", id: "24"}, {title: "探影2", id: "24"}]}
+        ]
+        */
+        var new_arr=[];
+        for(var key in data){
+            var obj = {}; 
+            obj.title = key;
+            obj.cont =data[key];
+            new_arr.push(obj) 
+        }   
+        console.log(new_arr,'整理after')
+    </script>
+	</body>
+</html>

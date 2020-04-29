@@ -1,0 +1,82 @@
+.nr_box{float: left;width: 646px;margin-top:0;}
+.nr_box .rtit{font-size:22px;color:#020202;line-height:36px;}
+.nr_box .tbal{float:left;height: 172px;    margin-top: 40px;}
+.nr_box .sp1{float:left;width:121px;height:110px;background: url(../images/sl.png) no-repeat;}
+.nr_box .spbox{float: left;width: 444px;margin-left: 30px;margin-bottom: 13px;}
+.spbox .smallt{float: left;    color: #48abe4;font-size: 18px;width:100%;    font-weight: normal;line-height: 26px;}
+.spbox .smallt i{float: left;color: #48abe4;font-size: 18px;font-weight: 700;width: 7px;height: 7px;background: #48abe4;border-radius: 50%;margin-top: 9px;margin-right: 20px;}
+.spbox.er .smallt{       color: #00c8d5;}
+.spbox.er .smallt i{       background: #00c8d5;}
+.spbox p{float: left;line-height: 26px;font-size: 18px;}
+.list_group{float: left;}
+.item{float: left;margin-bottom: 30px;margin-right: 40px;text-indent: 14px;width: 160px;background: #fafafa;min-height: 115px;}
+.item .bti{background: #48abe4;width: 100%;height: 28px;line-height: 28px;font-size: 16px;color: #ffffff;margin-bottom: 5px;}
+.item .p_b{line-height: 25px;font-size: 14px;color: #999fb1;}
+.list_group .fleft{float:left;width:400px;height:260px;}
+.list_group .fright{float:left;width:200px;height:260px}
+.fright .p_b{line-height: 25px;font-size: 14px;color: #999fb1;padding: 0 14px;text-indent: 0;width: 172px;}
+.fright .lasdt{padding-top:6px;}
+.jx {
+    width: 375px;
+    margin: 100px auto;
+    display: block;
+}
+.jx .ysu{float:left;    margin-top: 0;}
+.jx .ti {
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    color: #2a2a2a;
+    line-height: 36px;    margin-bottom: 6px;
+}
+.jx .y_info{line-height:24px;font-size: 14px;color: #999fb1;text-align: center;}
+.jx .mfbtn{background: #00c8d5;width: 240px;height: 46px;    margin-left: 170px;display: inline-block;line-height: 46px;color: #fff;font-size: 16px;    margin-top: 36px;text-align: center;
+    box-shadow: 0 2px 5px #dedede;
+    float: right;margin-right: 70px;}
+.L_transform{float: left;width: 375px;height: 310px;margin-top: 35px;}
+.L_transform .trans_bg{position: relative;float: left;margin-left: 26px;width:300px;height:300px;}
+
+.L_transform .bg_shade {
+    background: url(images/quan_bg.png) no-repeat;
+    width: 419px;
+    height: 390px;
+    position: absolute;
+    left: -56px;
+    top: -39px;
+}
+.L_transform .trans_bg .circles{position: absolute;}
+
+.trans_bg .topcircle{left:119px;top:-15px;}
+.trans_bg .topcircle .pos{position: absolute;left: 65px;top: 10px;}
+.trans_bg .active .pos span{color:#00c8d4;}
+.trans_bg .leftcircle .pos{position:absolute;left:-28px;top:62px;}
+.trans_bg .rightcircle .pos{position:absolute;left: -34px;top: 68px;}
+.trans_bg .topcircle .pos span{width: 73px;display: inline-block;}
+.trans_bg .leftcircle{left:8px;top:194px;}
+.trans_bg .rightcircle{left: 256px;top: 153px;}
+
+.trans_bg .pos{position:relative;width: 133px;}
+.trans_bg .trio{color: #ffffff;font-size: 16px;text-align: center;margin: 0 auto;width: 60px;height: 60px;background: #00c8d4;position: absolute;border-radius: 50%;}
+.trans_bg .trio p{width: 38px;margin-left: 11px;margin-top: 8px;}
+.trans_bg .pos span{color: #999fb1;font-size: 14px;}
+.trans_bg .circles.active .trio i{width:18px;height:18px;background: url(images/quan_active.png) no-repeat;display: inline-block;position: absolute;top: 43px;left: 35px;}
+.trans_bg .heart_box{width: 301px;display: inline-block;height: 300px;}
+.trans_bg .heart_box .heart{position:absolute;width:88px;height:88px;background: url(images/quan_circle.png) no-repeat;left: 105px;top: 105px;}
+.trans_bg .heart_box .shan{width: 211px;height: 129px;background: url(images/quan_rotate.png) no-repeat;top: 25px;left: 42px;position: absolute;
+    -webkit-transform-origin: 107px 124px;
+    transform-origin: 108px 124px;
+    transform: rotate(0deg);
+    animation: radar 5s linear infinite;
+}
+@keyframes radar{
+    0%{
+        transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(180deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>1. select左右移动</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="css/7_1.css" />
+<style> select{width:100px;height:85px;}
+div{display:inline-block;width:50px}</style>
+</head>
+<body>
+
+<select id="unsel" size="5" multiple> <option>gentina</option> <option>Argentina</option> <option>Brazil</option> <option>Canada</option> <option>Chile</option> <option>China</option> <option>Cuba</option> <option>Denmark</option> <option>Egypt</option> <option>France</option> <option>Greece</option> <option>Spain</option>
+</select>
+<div> <button onclick="move(this)">&gt;&gt;</button> <button onclick="move(this)">&gt;</button> <button onclick="move(this)">&lt;</button> <button onclick="move(this)">&lt;&lt;</button>
+</div>
+<select id="sel" size="5" multiple>E</select>
+	<script>
+ window.$=function(selector){
+     return document.querySelectorAll(selector);
+ }
+//取出unsel中内容，截取内容成数组
+var unsel = $('#unsel')[0].innerHTML.trim().slice(8,-9).split(/<\/option>\s*<option>/);
+ var sel = [];
+ function move(btn){
+     if(btn.innerHTML=='&gt;&gt;'){
+         sel = sel.concat(unsel).sort();
+         unsel=[];
+     }else if(btn.innerHTML=='&lt;&lt;'){
+         unsel =unsel.concat(sel).sort();
+         sel=[];
+     }else if(btn.innerHTML=='&gt;'){
+         //找到所有option,选中的删除放新数组中,每次每个数组一个值,[0]这样放一个数组里
+         //如果遍历过程中会影响下标，建议从后向前遍历, 修改的元素，该位置之后的所有元素都不准了
+//如果for(var i=0;i<opts.length;i++)选择多个时，前边的删除后，最后一个下标会向前串位，会不准，所以用倒序方法每次重新排下标
+         var opts = $('#unsel option');
+         for(var i=opts.length-1;i>=0;i--){
+            if(opts[i].selected){
+                sel.push(unsel.splice(i,1)[0])
+            }
+         }
+         sel.sort();
+     }else {
+         var opts = $('#sel option');
+
+         for(var i=opts.length-1;i>=0;i--){
+             if(opts[i].selected){
+                 unsel.push(sel.splice(i,1)[0]);
+             }
+         }
+         unsel.sort();
+     }
+     updataSel();
+ }
+ function updataSel(){
+//把本有的值放入里
+     $('#unsel')[0].innerHTML= '<option>'+unsel.join('</option><option>')+'</option>';
+     $('#sel')[0].innerHTML= '<option>'+sel.join('</option><option>')+'</option>';
+ }</script>
+</body>
+</html>

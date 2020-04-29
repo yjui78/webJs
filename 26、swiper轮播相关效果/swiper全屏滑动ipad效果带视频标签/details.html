@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>swiper竖屏轮播动态数据</title>
+	<link rel="stylesheet" href="css/details.css">
+	<link rel="stylesheet" href="css/swiper.min.css">
+</head>
+<body>
+<div id='app'>
+	<div class="swiper-container" id="details">
+        <div class="swiper-wrapper">
+			<div style="overflow: hidden" v-for="(item,index) in navList" class="swiper-slide">
+				<!--头图-->
+				<div v-if="item.index==0" class="floor floor0">
+					<h5>{{item.name}}</h5>
+					<img class="headImgage" :src = 'headImg'>
+					
+				</div>
+				<!-- 360 -->
+				<div v-if="item.index==1" class="floor floor1">
+					<h5>{{ipda_title}}</h5>
+					<img :src="s360img" class = 's360img' alt="">
+				</div>
+				<!--外观---2-->
+				<div v-if="item.index==2" class="floor floor-third" id='appearance2' style='background: #dfaaaa;'>
+					<h5>外观</h5>
+					<p class="more" @click="more('外观')">了解更多</p>
+					<p>{{item.description}}</p>
+				</div>
+				<!--内饰---3-->
+				<div v-if="item.index==3" class="floor floor-forth" id='interior' style='background: #835772;'>
+					<h5>内饰</h5><p class="more" @click="more('内饰')">了解更多</p>
+				</div>
+ 				<!--动力---4-->
+				<div v-if="item.index==4" class="floor floor-turbo" id='power' style='background: #aaaaaa;'>
+					<h5>动力</h5><p class="more" @click="more('动力')">了解更多</p>
+				</div>
+				<!--安全-->
+				<div v-if="item.index==5" class="floor floor-save" id='safe' style='background: #ccaadd;'>
+					<h5>安全</h5><p class="more" @click="more('安全')">了解更多</p>
+				</div>
+				<!--科技-->
+				<div v-if="item.index==6" class="floor floor-technology" id='technology'  style='background: #13be1c;'>
+					<h5>科技</h5><p class="more" @click="more('科技')">了解更多</p>
+				</div>
+				<!--配置-->	
+				<div v-if="item.index==7" class="floor floor-xxx" id='config' style='background: rgb(170, 255, 220);'>
+					<h5>配置</h5><p>随便加的</p>
+				</div>
+				<!--视频鉴赏-->
+				<div v-if="item.index==8" class="floor floor-seventh">
+					<div class="swiper-container-video"  style='height:100%;'>
+                        <div class="swiper-wrapper" style='height:100%;'>
+                            <div class="swiper-slide" style='height:100%' @click="playVideo(index)"  v-for='item,index in videoDataList'  @click="playVideo" >
+                                <div class="playDialog">
+                                    <img class="play"  style="width: 1.5rem" src="images/play.png" alt="">
+                                </div>
+                                <img class="videoImg" :src="item.ipad_image_url" alt="">
+                            </div>
+                        </div>
+                        <div class="video-pagination" style='bottom:1rem;'></div>
+                    </div>
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	
+	<div v-for='item,index in videoDataList'>
+        <div class="dialog" :class = "'dialog'+index":style="{display:currentIndex===index?'block':'none'}">
+			<span class="cha" @click="closeDialog(index)">×</span>
+			<video :id="'video'+index" muted :src="item.video_url" controls="controls"></video>
+        </div>
+    </div>
+	<!-- </div> -->
+	
+	<template-swiper :fromfather ='ligitdata'  v-show="isPop" @close-click = 'isPop=false'>
+	</template-swiper>
+	<ul class="navList" v-show="showIndex">
+		<li v-for="(item,index) in navList" :class="{white:isBlue}">
+			<p v-show="index==navIndex">{{item.name}}</p>
+			<div v-show="index!=navIndex"></div>
+		</li>
+	</ul>
+</div>
+
+<template id="tabs-list-t" >
+	<div class='popbox'>
+		<div class='tab-swiper1'>
+			<div class='posive'  v-for = 'item,index of fromfather'>
+				<div class="closex"  @click='closeHandle'>X</div>
+				<!--分类名称-->
+				<div class="tabs-name">
+					{{item.name}}
+				
+				</div>
+				<div class="tabs-ds">
+					<!-- {{item.description}} -->
+				</div>
+				<div :class="'tabs-swiper'+index">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide swflexs"  v-for = 'val of item.img'>
+							<div class="tabs-img">
+								<img :src="val.thumb">
+							</div>
+							<!--介绍-->
+							<div class="tabs-con">
+								<div class="tabs-con-title" style='width:7.9rem;'>
+									{{val.title}}
+								</div>
+								<div class="tabs-con-text" style='width:7.9rem;'>
+									{{val.description}}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div :class="'tabs-swiper-pagination tabs-swiper'+index+'-pagination'" ></div>
+			</div>
+		</div>
+	</div>
+</template>
+<script type="text/javascript" src='js/swiper.min.js'></script>
+<script type="text/javascript" src='js/vue2.js'></script>
+<script type="text/javascript" src='js/zepto.min.js'></script>
+<script type="text/javascript" src='js/details.js'></script>
+</body>
+</html>

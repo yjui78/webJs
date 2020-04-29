@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>只能输入数字</title>
+    <style>
+        div {width:10px;height:10px;background:#f00;position:absolute;}
+    </style>
+    <script>
+    window.onload= function(){
+        //0--9=>48到59，没包含小键盘
+      var  otxt = document.querySelector('#txt');
+      document.onkeydown = function(ev){
+          var oEvent = ev||event;
+          // alert(oEvent.keyCode)
+          //非回退和数字按 禁止
+         if(oEvent.keyCode!=8&&(oEvent.keyCode<48 || oEvent.keyCode >59)){
+             return false;
+         }
+      }
+    }
+    </script>
+</head>
+<body>
+<input type="text" id="txt">
+
+</body>
+</html>

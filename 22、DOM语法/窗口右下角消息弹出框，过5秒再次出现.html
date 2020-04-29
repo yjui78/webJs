@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>窗口右下角消息弹出框</title>
+    <meta charset="utf-8"/>
+    <style>
+        *{margin:0;padding:0}
+        #msg{width:200px;height:200px;position:fixed;right:30px;bottom:-200px;background-color:LightBlue;}
+        #msg>a{float:right;padding:5px 10px;border:1px solid black;cursor:pointer;}
+    </style>
+</head>
+<body>
+<div id="msg">
+    <a onclick="adv.moveDownStep()">X</a>
+</div>
+<script>
+    var adv = {
+        //定义对象时把经常需要修改的属性集中放在最开始的位置，方便修改
+        step:5,// 步长
+        interval:10,//时间间隔
+        init:function(){
+            this.div = document.querySelector('#msg');
+            this.moveUpStep();
+            //this.moveDownStep();
+        },
+        moveUpStep:function(){
+        /*
+        知识点：
+            问题：style只能获得内联样式
+            1、获得应用在当前元素上的所有样式属性？
+            DOM：var style = getComputedStyle(elem);
+            IE8:var style = elem.currentStyle;
+            this.div = document.querySelector('#msg');
+            var divStyle = getComputedStyle(this.div);
+            问题：divStyle只读，不能设置
+            解决：直接在内联style中设置样式覆盖样式表
+            总结：只要读样式：用getComputedStyle(elem);
+            只要设置样式：用elem.style.属性=
+         */
+             var divStyle =getComputedStyle(this.div);
+             this.div.style.bottom= parseInt(divStyle.bottom)+this.step+'px';
+             if(parseInt(this.div.style.bottom)<0){
+                 setTimeout(function(){
+                     adv.moveUpStep();
+                 },this.interval)
+             }
+        },
+        //所有匿名函数回调用自调中的this都是window
+        moveDownStep:function(){
+            var divStyle =getComputedStyle(this.div);
+            var bottom= parseInt(divStyle.bottom)-this.step;
+            var height = parseInt(divStyle.height);
+            this.div.style.bottom=bottom+'px';
+            //height比较更稳妥，前边parseInt了
+            //现在bottom=0显示的;height=200
+            if(bottom> (-height)){
+                setTimeout(function(){
+                    adv.moveDownStep();
+                },this.interval)
+            }else {//如果到底，等一段时间后，自动调用moveUpStep，bottom=-200,隐藏
+                setTimeout(function () {
+                    adv.moveUpStep();
+                }, 5000)
+            }
+        }
+    }
+    window.onload=function(){
+        adv.init();
+    }
+</script>
+</body>
+</html>

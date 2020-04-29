@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>匀速运动</title>
+    <style>
+        div {width:100px;height:100px;background:#f00;opacity: 0.3;filter:alpha(opacity:30)}
+    </style>
+    <script>
+        window.onload = function () {
+            var odiv = document.getElementById('div1');
+            odiv.onmouseover = function(){
+                startMove(100);
+            };
+            odiv.onmouseout = function(){
+                startMove(30);
+            };
+        };
+        var timer =null;
+        var alpha =30;
+        function startMove(iTarget){
+            var odiv = document.getElementById('div1');
+            clearInterval(timer);
+            timer = setInterval(function(){
+                var speed = 0;
+                //判断speed正负值
+                if(alpha<iTarget){
+                    speed=10;
+                }else {
+                    speed = -10;
+                }
+                if(alpha==iTarget){
+                    clearInterval(timer)
+                }else {
+                    alpha+=speed;
+                   odiv.style.opacity = alpha/100;
+                   odiv.style.filter = 'alpha(opacity:'+alpha+')';
+                }
+            },30)
+        }
+    </script>
+</head>
+<body>
+<div id="div1">
+</div>
+</body>
+</html>

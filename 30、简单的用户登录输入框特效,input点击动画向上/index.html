@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+
+<link type="text/css" href="css/style.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div class="form-wrap">
+        <form action="" method="post">
+            <div class="input-wrap">
+                <input type="text" id="username">
+                <label for="username">用户名</label>
+            </div>
+            <div class="input-wrap">
+                <input type="password" id="password">
+                <label for="password">登录密码</label>
+            </div>
+            <div class="input-wrap">
+                <input type="text" id="email">
+                <label for="email">个人邮箱</label>
+            </div>
+            <div class="input-wrap">
+                <button>提交</button>
+            </div>
+        </form>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.form-wrap').finput();
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>仿FLASH的图片轮换效果</title>
+<link rel="stylesheet" type="text/css" href="index.css"/>
+<script type="text/javascript" src='move.js'></script>
+<script type="text/javascript">
+   function getByClass(oParent,sClass) {
+        var aMent = oParent.getElementsByTagName("*");
+        var aEle = [];
+        for (var i = 0; i < aMent.length; i++) {
+            if (aMent[i].className == sClass) {
+                aEle.push(aMent[i]);
+            }
+        }
+        return aEle;
+ };
+ window.onload = function () {
+     //左右按钮
+     var oDiv  = document.getElementById('playments');
+     var oBtnleft  = getByClass(oDiv,'btnleft')[0];
+     var oBtnright = getByClass(oDiv,'btnright')[0];
+     var oMarkleft  = getByClass(oDiv,'markleft')[0];
+     var oMarkright = getByClass(oDiv,'markright')[0];
+
+     oBtnleft.onmouseover = oMarkleft.onmouseover =  function(){
+          startMove(oBtnleft,'opacity',100)  
+     }
+     oBtnright.onmouseout =oMarkleft.onmouseout = function(){
+          startMove(oBtnleft,'opacity',0)  
+     }
+     oBtnright.onmouseover = oMarkright.onmouseover =  function(){
+          startMove(oBtnright,'opacity',100)  
+     }
+     oBtnright.onmouseout =oMarkright.onmouseout = function(){
+          startMove(oBtnright,'opacity',0)  
+     }
+
+     //大图切换
+     var oBigUl = getByClass(oDiv,'bigimgsul')[0];
+     var aBigLi = oBigUl.getElementsByTagName('li');
+     var oSmallimgsul = getByClass(oDiv,'smallimgsul')[0];
+     var oSmallDiv = getByClass(oDiv,'smallimgs')[0];
+     var oSmallUl  = oSmallDiv.getElementsByTagName('ul')[0];
+     var oSmallLi  = oSmallDiv.getElementsByTagName('li');
+     //z-index层级
+     var nowZIndex=2;
+     //大图用的索引
+     var now = 0;
+     for(var i=0; i<oSmallLi.length; i++){
+            oSmallLi[i].index = i;
+            oSmallLi[i].onclick = function(){
+                //点击同一张时不做任何事情
+                if(now==this.index) return; 
+                now = this.index;
+                tab();
+            }
+
+            //小图滑过
+            oSmallLi[i].onmouseover = function(){
+                 startMove(this,'opacity',100);
+            }
+            oSmallLi[i].onmouseout = function(){
+                //防止滑出当前有遮罩
+                if(this.index!=now){
+                    startMove(this,'opacity',40);
+                }
+            }
+
+     }
+
+     //上一个下一个
+     oBtnleft.onclick = function(){
+        now--;
+        if(now ==-1){
+            now = oSmallLi.length -1;
+        }
+        //tab都改成now
+        tab();
+     }
+
+     oBtnright.onclick = function(){
+        now++;
+        if(now == oSmallLi.length){
+           now = 0;
+        }
+        tab();
+     }
+
+      function tab(){
+        aBigLi[now].style.zIndex=nowZIndex++;
+        //当前小图选中
+        for(var j=0;j<oSmallLi.length;j++){
+            startMove(oSmallLi[j],'opacity',40)
+        }
+        startMove( oSmallLi[now],'opacity',100);
+
+        //大图显示
+        aBigLi[now].style.height='0';
+        startMove(aBigLi[now],'height',333);
+
+        oSmallUl.style.width = ((oSmallLi[0].offsetWidth)+10)*oSmallLi.length+'px';
+
+        //判断不动不图 第一张
+        if(now==0){
+             startMove(oSmallUl,'left', 0);
+        }
+        //最后一张和倒数第二个是同一个left
+        else if(now==oSmallLi.length -1){
+            //((oSmallLi[0].offsetWidth)+10)
+            //ie里不识别parseInt判断代码，
+            // console.log(getStyle(oSmallLi[0],'width'))
+            // startMove(oSmallUl,'left',  -(parseInt(getStyle(oSmallLi[0],'width'))+10)*(now-2));
+            startMove(oSmallUl,'left',  -((oSmallLi[0].offsetWidth)+10)*(now-2));
+        }else {
+            //(parseInt(getStyle(oSmallLi[0],'width'))+10)等于写法((oSmallLi[0].offsetWidth)+10)
+            startMove(oSmallUl,'left', -((oSmallLi[0].offsetWidth)+10)*(now-1));
+        }
+      }
+
+      //自动播放
+     var timer = setInterval(oBtnright.onclick,2000);
+
+     oDiv.onmouseover = function(){
+        clearInterval(timer);
+     }
+     oDiv.onmouseout = function(){
+        timer = setInterval(oBtnright.onclick,2000);
+     }
+
+ }
+</script>
+</head>
+<body style="background:#666;">
+<div id="playments">
+        <a class="btnleft"></a>
+        <a class="btnright"></a>
+        <div class="markleft"></div>
+        <div class="markright"></div>
+        <ul class="bigimgsul" >
+            <li style="z-index:1"><img src="images/1.jpg"  /></li>
+            <li><img src="images/2.jpg" /></li>
+            <li><img src="images/3.jpg" /></li>
+            <li><img src="images/4.jpg" /></li>
+            <li><img src="images/5.jpg" /></li>
+           <!--  <li><img src="images/6.jpg" /></li>
+            <li><img src="images/7.jpg" /></li>
+            <li><img src="images/8.jpg" /></li>
+            <li><img src="images/2.jpg" /></li>
+            <li><img src="images/3.jpg" /></li>
+            <li><img src="images/4.jpg" /></li>
+            <li><img src="images/5.jpg" /></li>
+            <li><img src="images/6.jpg" /></li>
+            <li><img src="images/7.jpg" /></li>
+            <li><img src="images/8.jpg" /></li> -->
+        
+    </ul>
+    <div class="smallimgs" >
+        <ul class="smallimgsul" >
+            <li style="filter: 100; opacity: 1; "><img src="images/1.jpg" /></li>
+            <li><img src="images/2.jpg" /></li>
+            <li><img src="images/3.jpg" /></li>
+            <li><img src="images/4.jpg" /></li>
+            <li><img src="images/5.jpg" /></li>
+           <!--  <li><img src="images/6.jpg" /></li>
+            <li><img src="images/7.jpg" /></li>
+            <li><img src="images/8.jpg" /></li>
+            <li><img src="images/2.jpg" /></li>
+            <li><img src="images/3.jpg" /></li>
+            <li><img src="images/4.jpg" /></li>
+            <li><img src="images/5.jpg" /></li>
+            <li><img src="images/6.jpg" /></li>
+            <li><img src="images/7.jpg" /></li>
+            <li><img src="images/8.jpg" /></li> -->
+            
+        </ul>
+    </div>
+</div>
+</body>
+</html>

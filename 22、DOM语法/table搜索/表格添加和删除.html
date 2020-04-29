@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加删除</title>
+    <style>
+        table ,td,th{border:1px solid #ccc;}
+    </style>
+    <script>
+    //id由后台分配的，思路这里ID不能重复使用，解决ID存储
+    window.onload= function(){
+        var oName = document.querySelector('#name');
+        var oAge = document.querySelector('#age');
+        var oBtn = document.querySelector('#btn');
+        var oTab = document.querySelector('#tab');
+        var id = oTab.tBodies[0].rows.length+1;
+        oBtn.onclick = function(){
+            var oTr = document.createElement('tr');
+            var idVal = oTr.insertCell(0);
+            idVal.innerHTML =  id++;
+
+            var name = oTr.insertCell(1);
+            name.innerHTML = oName.value;
+
+            var age = oTr.insertCell(2);
+            age.innerHTML = oAge.value;
+
+            var del = oTr.insertCell(3);
+            del.innerHTML = '<a href="javascript:;">删除</a>';
+
+            oName.value=oAge.value='';
+            //找到那个删除所在的tr
+            oTr.cells[3].querySelectorAll('a')[0].onclick = function(){
+                var tr = this.parentNode.parentNode;
+                //从tbody里删除
+                oTab.tBodies[0].removeChild(tr);
+            };
+            oTab.tBodies[0].appendChild(oTr)
+        }
+
+
+
+    }
+    </script>
+</head>
+<body>
+姓名：<input type="text" id="name">
+年龄：<input type="text" id="age">
+<input id="btn" type="button" value="添加">
+<br/><br/>
+<table id="tab" width="500">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>张三</td>
+            <td>12</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>李四</td>
+            <td>23</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>王五</td>
+            <td>38</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>张伟</td>
+            <td>25</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>王四</td>
+            <td>35</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td>Blue</td>
+            <td>12</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+
+</ul>
+</body>
+</html>

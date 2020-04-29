@@ -1,0 +1,46 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多物体运动</title>
+    <style>
+        *{margin:0;padding:0;}
+        div{width: 100px;background: #F00;display: block;height: 50px;margin-bottom:10px;}
+    </style>
+</head>
+<body>
+<div data-index="1"></div>
+<div data-index="2"></div>
+<div data-index="3"></div>
+<script>
+    var oDiv = document.getElementsByTagName('div');
+    for(var i=0;i<oDiv.length;i++){
+        oDiv[i].onmouseover=function(){
+            animate(this,200)
+        }
+        oDiv[i].onmouseout=function(){
+            animate(this,100)
+        }
+    }
+    //多物体运动定义自己定时器，并把当前对象作为参数传入
+    var timer = null;
+    function animate(elem,dest){
+        console.log(elem.getAttribute('data-index'))
+        clearInterval(elem.timer);
+        var speed = 0;
+        elem.timer = setInterval(function(){
+            speed = (dest-elem.offsetWidth)/8;
+            speed= speed<0?Math.floor(speed):Math.ceil(speed);
+            if(dest==elem.offsetWidth){
+                clearInterval(elem.timer);
+            }else {
+                elem.style.width = elem.offsetWidth+speed+'px';
+            }
+            console.log(speed);
+        },20)
+    }
+</script>
+</body>
+</html>

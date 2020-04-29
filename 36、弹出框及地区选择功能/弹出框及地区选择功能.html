@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>javascript弹出框及地址选择功能,可拖拽</title>
+    <style>
+        *{margin:0;padding:0;}
+        #container{width:400px;margin:50px auto;}
+        #box{width:398px;border:1px solid #ccc;margin-top:20px;font-size: 13px;}
+        #box-selected{padding:10px;}
+        #moveable{cursor: move;background:#eee;}
+        .title{background:#eee;padding: 5px;margin-bottom:10px;}
+        label{margin-right:10px;}
+        #popwin{font-size: 13px;width: 400px;border: 1px solid #000;height: 160px;z-index: 99999;background: #fff;position: absolute;top: 100px;display:none;}
+        #selectd{padding-left:10px;}
+        #close{float:right;}
+        .win-title{border: 1px solid #eee;font-size: 13px;padding: 5px;}
+        #select-content{margin-top:10px;}
+        #select{height:71px;font-size: 13px;padding-left: 10px;margin-top: 10px;height: 60px;}
+        #selected{height:71px;padding-left: 10px;padding-top: 10px;}
+        #mask{opacity:0.4;background:gray;display:none;position: absolute;top: 0;position: absolute;}
+        #close span{cursor: pointer;}
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <input type="button" id="btn" value="请选择"/>
+    <div id="box">
+        <div class="win-title">您已选择的城市汇总</div>
+        <div id="box-selected"></div>
+    </div>
+</div>
+<div id="popwin">
+    <div class="win-title title" id="moveable">请选择城市
+        <div id="close">
+            <span id="btn-ok">[确定]</span>
+            <span id="btn-cancel">[取消]</span>
+        </div>
+    </div>
+    <div id="select">
+        <select name="" id="province"></select>
+        <div name="" id="select-content"></div>
+    </div>
+    <div class="title">您已选择的城市 </div>
+    <div id="selectd"></div>
+</div>
+<div id="mask"></div>
+<script>
+    var aProvince =[
+        {
+            name:'黑龙江',
+            code:'heilongjiang',
+            cities:[
+                {name:'哈尔滨',code:'haerbin',province:this},
+                {name:'牡丹江',code:'mudanjiang',province:this},
+            ]
+        },
+        {
+            name:'吉林',
+            code:'jilin',
+            cities:[
+                {name:'长春',code:'changcun',province:this},
+                {name:'吉林',code:'jilin',province:this},
+            ]
+        },
+    ];
+    var oBtn = document.querySelector('#btn');
+    var oMask = document.querySelector('#mask');
+    var oPopwin = document.querySelector('#popwin');
+    var oBox =document.querySelector('#box');
+    var oBtnOk = document.querySelector('#btn-ok');
+    var oBtnCancel = document.querySelector('#btn-cancel');
+    var oMoveable =document.querySelector('#moveable');
+    var oSelect = document.querySelector('#province');
+    var oSelectContent =  document.querySelector('#select-content');
+    var oSelectdContent =document.querySelector('#selectd');
+    var oboxSelected=document.querySelector('#box-selected');
+
+    //浏览器可视区宽高
+    var iWinWidth = document.documentElement.clientWidth;
+    var iWinHeight = document.documentElement.clientHeight;
+    var disx= disY = 0;
+    oMoveable.onmousedown =function(e){
+        e = window.event||argument[0];
+        //鼠标距离oPopwin边框
+        disx = e.clientX-oPopwin.offsetLeft;
+        disY = e.clientY-oPopwin.offsetTop;
+        //按下之后在文档内拖动，
+        document.onmousemove=function(e){
+            e = window.event||argument[0];
+            var l=e.clientX-disx;
+            var t=e.clientY-disY;
+            oPopwin.style.left =l+'px';
+            oPopwin.style.top =t+'px';
+
+            //判断left超出时靠边界,
+            if(oPopwin.offsetLeft<0){
+                oPopwin.style.left =0+'px';
+            }else if(oPopwin.offsetLeft>(iWinWidth-oPopwin.offsetWidth)){
+                oPopwin.style.left =iWinWidth-oPopwin.offsetWidth+'px';
+            }
+            //判断top超出时靠边界,
+            if(oPopwin.offsetTop<0){
+                oPopwin.style.top =0+'px';
+            }else if(oPopwin.offsetTop>(iWinHeight-oPopwin.offsetHeight)){
+                oPopwin.style.top =iWinHeight-oPopwin.offsetHeight+'px';
+            }
+        }
+        //松开
+        document.onmouseup=function(){
+            document.onmousemove=null;
+            document.onmouseup=null;  //自身也清空
+        }
+    }
+    //请选择
+    oBtn.onclick=function(){
+        showPopWin();
+    }
+    //确定
+    oBtnOk.onclick=function(){
+        closePopWin();
+        oboxSelected.innerHTML=oSelectdContent.innerHTML;
+        for(var i=0;i<oboxSelected.children.length;i++){
+            var elem =oboxSelected.children[i];
+            elem.firstChild.checked=true;
+        }
+    }
+    //取消
+    oBtnCancel.onclick=function(){
+        closePopWin();
+    }
+    function showPopWin(){
+        oMask.style.width = iWinWidth+'px';
+        oMask.style.height = iWinHeight+'px';
+        oMask.style.display= oPopwin.style.display='block';
+
+        //初始oPopwin的left,替代css,整个页面居中
+        oPopwin.style.left =(iWinWidth-oPopwin.offsetWidth)/2+'px';
+        for(var i = 0,opts='';i<aProvince.length;i++){
+            opts +='<option value='+aProvince[i].code+'>'+aProvince[i].name+'</option>';
+            //     var oProvince =aProvince[i];
+            //     var option = document.createElement('option');
+            //     option.innerHTML = oProvince.name;
+            //     option.value = oProvince.code;
+            //     oSelect.append(option)
+        }
+        oSelect.innerHTML = opts;
+        //上方初始化
+        for(var i = 0,ospts='';i<aProvince[0].cities.length;i++){
+            ospts += '<label value='+aProvince[0].cities[i].name+'><input type="checkbox" value='+aProvince[0].cities[i].name+'>'+aProvince[0].cities[i].name+'</label>';
+        }
+        oSelectContent.innerHTML = ospts;
+        //如果进入页有选中的内容
+        if(oboxSelected.children.length>0){
+            //判断进入页有没有选中内容，有上方也勾选
+            for(var i=0;i<oboxSelected.children.length;i++){
+                var elem =oboxSelected.children[i];//上边label
+                var no = elem.firstChild;
+                for(var j=0;j<oSelectContent.children.length;j++){
+                    var elemd =oSelectContent.children[j];//下边label
+                    if(no.value==elemd.firstChild.value&&no.checked==false){
+                        console.log('进入有选中，上边也选中！')
+                        console.log("---"+elemd.firstChild.value)
+                        elemd.firstChild.checked=false;
+                    }else if(no.value==elemd.firstChild.value&&no.checked==true){
+                        elemd.firstChild.checked=true;
+                    }
+                }
+            }
+            oSelectdContent.innerHTML='';
+            //判断初始进入前状态，同步下方内容状态
+            for(var i=0;i<oboxSelected.children.length;i++){
+                var elem =oboxSelected.children[i];//上边label
+                //  oSelectdContent.innerHTML='';
+                if(elem.firstChild.checked!=false){
+                    var oLabel = elem;
+                    var oNew= oLabel.cloneNode(true);//克隆label
+                    oSelectdContent.appendChild(oNew);
+                }
+            }
+        }
+
+        //进入时判断上方有没有选中内容，上没有下也不勾选
+        if(oSelectContent.children.length>0){
+            for(var i=0;i<oSelectContent.children.length;i++){
+                var elem =oSelectContent.children[i];//上边label
+                if(elem.firstChild.checked!=true){//没选中
+                    for(var j=0;j<oSelectdContent.children.length;j++){
+                        var elemd =oSelectdContent.children[j];//下边label
+                        if(elem.firstChild.value==elemd.firstChild.value){
+                            console.log('这个没选中：'+elemd.firstChild)
+                            elemd.parentNode.removeChild(elemd)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    oSelect.onchange=function(){
+        //当前选中select索引下city
+        var acity = aProvince[this.selectedIndex].cities;
+        if(acity.length>0){
+            for(var i = 0,ainput='';i<acity.length;i++){
+                ainput += '<label value='+acity[i].name+'><input type="checkbox" value='+acity[i].name+'>'+acity[i].name+'</label>';
+            }
+            oSelectContent.innerHTML = ainput;
+        }
+        //切换时上下有一样的，上边的选中
+        if(oSelectContent.children.length>0&&oSelectdContent.children.length>0){
+            for(var i=0;i<oSelectContent.children.length;i++){
+                var elem =oSelectContent.children[i];//上边label
+                for(var j=0;j<oSelectdContent.children.length;j++){
+                    var elemd =oSelectdContent.children[j];//下边label
+                    if(elem.firstChild.value==elemd.firstChild.value){
+                        //    console.log('切换时上下有一样的，上边的选中！')
+                        elem.firstChild.checked=true;
+                    }
+                }
+            }
+        }
+        //判断下方有没有初始化的选中内容，有上方也勾选
+        for(var i=0;i<oSelectContent.children.length;i++){
+            var elem =oSelectContent.children[i];//上边label
+            for(var j=0;j<oSelectdContent.children.length;j++){
+                var elemd =oSelectdContent.children[j];//下边label
+                if(elem.firstChild.value==elemd.firstChild.value){
+                    //    console.log('下有的，上边的选中！')
+                    elem.firstChild.checked=true;
+                }
+            }
+        }
+        //切换时判断oboxSelected中的状态,外层没选中，里边也不选中
+        if(oboxSelected.children.length>0){//有数据时
+            for(var i=0;i<oboxSelected.children.length;i++){
+                var elem = oboxSelected.children[i];
+                if(elem.firstChild.checked!=true){
+                    for(var j=0;j<oSelectContent.children.length;j++){
+                        var elemd =oSelectContent.children[j];//下边label
+                        if(elem.firstChild.value==elemd.firstChild.value&&elem.firstChild.checked==false){
+                            elemd.firstChild.checked=false;
+                        }
+                    }
+                }
+            }
+            //进入时判断上方有没有选中内容，上没有下也不勾选
+            if(oSelectContent.children.length>0){
+                for(var i=0;i<oSelectContent.children.length;i++){
+                    var elem =oSelectContent.children[i];//上边label
+                    if(elem.firstChild.checked!=true){//没选中
+                        for(var j=0;j<oSelectdContent.children.length;j++){
+                            var elemd =oSelectdContent.children[j];//下边label
+                            if(elem.firstChild.value==elemd.firstChild.value){
+                                console.log('这个没选中：'+elemd.firstChild)
+                                elemd.parentNode.removeChild(elemd)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    function closePopWin(){
+        oMask.style.display=oPopwin.style.display='none';
+    }
+
+    //利用事件冒泡为checkbox注册单击事件
+    oSelectContent.onclick=function(e){
+        e = window.e||e;
+        var oTarget=e.srcElement||e.target;
+        //选中从添加下方
+        if(oTarget.tagName=='INPUT' &&oTarget.checked==true){
+            //标识，上方选中才添加下方内容
+            var bflag=true;
+            //判断下方有没有
+            for(var i=0;i<oSelectdContent.children.length;i++){
+                //console.log(oTarget.value)
+                var elem =oSelectdContent.children[i];//上边label
+                if(oTarget.value==elem.firstChild.value){
+                    //上选中且与下value相同时，下也选中
+                    elem.firstChild.checked=true;
+                    bflag=false;
+                    break;//下方不执行
+                }
+            }
+            if(bflag==true){
+                var oLabel = oTarget.parentNode;
+                var oNew= oLabel.cloneNode(true);//克隆label
+                oSelectdContent.appendChild(oNew);
+            }
+        }else {
+            //上边没选中时下方移除
+            for(var i=0;i<oSelectdContent.children.length;i++){
+                var elem =oSelectdContent.children[i];//上边label
+                if(oTarget.value==elem.firstChild.value){//上边label.value与当前label.value
+                    elem.parentNode.removeChild(elem);
+                }
+            }
+        }
+    }
+
+    oSelectdContent.onclick=function(e){
+        e = window.e||e;
+        var oTarget=e.srcElement||e.target;
+        if(oTarget.tagName=='INPUT'){
+            var oLabel = oTarget.parentNode;
+            oLabel.parentNode.removeChild(oLabel);//父节点.removeChild(子节点)
+            for(var i=0;i<oSelectContent.children.length;i++){
+                var elem =oSelectContent.children[i];//上边label
+                if(elem.firstChild.value==oTarget.value){//上边label.value与当前label.value
+                    elem.firstChild.checked=false;
+                }
+            }
+
+        }
+    }
+
+
+</script>
+</body>
+</html>

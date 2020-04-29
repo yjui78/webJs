@@ -1,0 +1,30 @@
+
+@charset "utf-8";
+
+body{font:12px "microsoft yahei",Arial,Helvetica,sans-serif;color:#666;margin:0px;padding:0px}
+ul,li,p,h1,h2,h3,h4,h5,h6,dl,dt,dd{margin:0px;padding:0px;border:none;list-style:none}
+input{border:none}
+a{color:#666;text-decoration:none}
+a:hover{text-decoration:underline;color:#ff0700}
+/*产品预览*/ 
+#preview{position:absolute;top:10%;left:10%;width:352px}
+#preview>#mediumDiv{width:350px;height:350px;border:1px solid #ddd;margin-bottom:5px;text-align:center;position:relative}
+#preview>#mediumDiv img{vertical-align:middle;width:350px;height:350px}
+#preview>#mediumDiv>#mask{position:absolute;width:175px;height:175px;background:#ffa;opacity:0.5;top:0;left:0;display:none}
+#preview>#mediumDiv>#superMask{position:absolute;width:350px;height:350px;opacity:0;top:0;left:0;cursor:move}
+#preview>#largeDiv{position:absolute;width:400px;height:400px;background:#fff;border:1px solid #ddd;top:0;left:355px;z-index:999;display:none}
+#preview h1{width:352px;height:54px;overflow:hidden;padding:0px;position:relative}
+#preview a.backward,#preview a.forward,#preview a.backward_disabled,#preview a.forward_disabled{width:17px;height:54px;display:block;z-index:20;position:absolute;top:0px}
+#preview a.backward,#preview a.backward_disabled{left:0px}
+#preview a.forward,#preview a.forward_disabled{right:0px}
+#preview a.backward{width:17px;height:54px;background:#f00;color:#fff;padding-top:13px}
+#preview a.backward_disabled:hover{width:17px;height:54px;background:#ccc}
+#preview a.backward:hover{width:17px;height:54px;background:#ccc}
+#preview a.backward_disabled{width:17px;height:54px;background:#f00;color:#fff;padding-top:13px}
+#preview a.forward{width:17px;height:54px;background:#f00;color:#fff;padding-top:13px}
+#preview a.forward:hover{width:17px;height:54px;background:#ccc}
+#preview a.forward_disabled{width:17px;height:54px;background:#f00}
+#preview #icon_list{height:54px;position:absolute;left:20px;top:0px}
+#preview #icon_list li{width:62px;text-align:center;float:left}
+#preview #icon_list li img{width:50px;height:50px;padding:1px;border:1px solid #CECFCE}
+#preview #icon_list li img:hover{border:2px solid #e4393c;padding:0}

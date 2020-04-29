@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>减速运动</title>
+    <style>
+        *{margin:0;padding:0;}
+        #aa1 {position:absolute;left:0px;width:100px;height:100px;background:#F00;display:inline-block;}
+        #btn1 {position:absolute;top:120px;}
+        .line {position:absolute;left:300px;width:1px;height:500px;background:#000;}
+    </style>
+</head>
+<body>
+<input type="button"  value = "移动" id="btn1">
+<div id="aa1"></div>
+<div id="aa2"></div>
+<div class='line'></div>
+<script>
+    //遇到问题：一个元素的left加小数是没有意义，会转成整数，造成死循环
+    var oDiv = document.querySelector('#aa1');
+    var oBtn = document.querySelector('#btn1');
+    var timer=null;
+    oBtn.onclick=function(){
+        var speed=0;
+        clearInterval(timer);
+        timer = setInterval(function(){
+            //1、speed速度越来越慢,直到speed成小数设置speed取整行为，left每次加一直到上目标点
+            speed =(300-oDiv.offsetLeft) / 8;//-0.625
+            //2、解决技巧:根据方法speed为正时成小数向上进行取整，直到left为300停止定时器，反之向下取整
+            speed=speed<0?Math.floor(speed):Math.ceil(speed);
+            if(oDiv.offsetLeft == 300){
+                clearInterval(timer);
+                timer=null;
+            }
+            else {
+                oDiv.style.left = parseInt(oDiv.offsetLeft + speed) + 'px';
+                console.log( oDiv.style.left+', '+speed);
+            }
+        },20)
+    };
+</script>
+</body>
+</html>

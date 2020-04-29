@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多个DIV运动</title>
+    <style>
+     div { margin: 0 auto;text-align: center;}
+     span { display: inline-block;width: 100px; height: 100px;background: red;margin-right:15px;
+      opacity:0.3;filter:alpha(opacity:30);}
+    </style>
+    <script>
+    window.onload = function(){
+      var ospan =  document.getElementsByTagName('span');
+
+      for(var i=0; i<ospan.length;i++){
+        //定义单独定义器
+        ospan[i].timer = null;
+        //定义单独透明度
+        ospan[i].alpha = 30;
+        ospan[i].onmouseover = function(){
+            startMove(this,100)
+        }
+        ospan[i].onmouseout = function(){
+          startMove(this,30)
+        }
+      }
+    }
+    function startMove(obj,iTarget){
+      clearInterval(obj.timer);
+      obj.timer = setInterval(function(){
+        var speed = (iTarget - obj.alpha)/6;
+        speed = speed>0 ? Math.ceil(speed):Math.floor(speed);
+        console.log(speed)
+        if(obj.alpha == iTarget){
+          clearInterval(obj.timer);
+        }else {
+          obj.alpha += speed;
+          obj.style.filter ='alpha(opacity:'+obj.alpha+')';
+          obj.style.opacity = obj.alpha/100;
+        }
+      },30)
+    }
+  </script>
+</head>
+<body>
+<div>
+  <span></span><span></span><span></span><span></span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>表格上下移动</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="jquery-1.11.3.js"></script>
+</head>
+<body>
+<table width="200" border="1" id="tab">
+    <tbody>
+    <tr>
+        <td width="25%">1</td>
+        <td width="25%">11</td>
+        <td width="25%"><a href="javascript:void(0)" onclick="moveUp(this)">上移</a></td>
+        <td width="25%"><a href="javascript:void(0)" onclick="moveDown(this)">下移</a></td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>22</td>
+        <td><a href="javascript:void(0)" onclick="moveUp(this)">上移</a></td>
+        <td><a href="javascript:void(0)" onclick="moveDown(this)">下移</a></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>33</td>
+        <td><a href="javascript:void(0)" onclick="moveUp(this)">上移</a></td>
+        <td><a href="javascript:void(0)" onclick="moveDown(this)">下移</a></td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>44</td>
+        <td><a href="javascript:void(0)" onclick="moveUp(this)">上移</a></td>
+        <td><a href="javascript:void(0)" onclick="moveDown(this)">下移</a></td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>55</td>
+        <td><a href="javascript:void(0)" onclick="moveUp(this)">上移</a></td>
+        <td><a href="javascript:void(0)" onclick="moveDown(this)">下移</a></td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    window.onload=function(){
+        var tab =document.querySelector('#tab');
+        Refresh();
+    }
+    //刷新tr重新设置自定义属性值
+    function Refresh(){
+        var trs =tab.rows;
+        //每行加个index
+        var trlen = trs.length;
+        for(var i=0;i<trlen;i++){
+            trs[i].setAttribute('data-value',i);
+        }
+    }
+    //上移
+    function moveUp(_this){
+        var tr = _this.parentNode.parentNode;
+        //当前要插入的位置
+        var index= tr.getAttribute('data-value')-1;
+        //要插入到的行
+        var insertTotr = tr.parentNode.rows[index];
+        tr.parentNode.insertBefore(tr,insertTotr)//父类，insertBefore(newItem,exitItem);
+        Refresh();
+    }
+    //下移
+    function moveDown(_this){
+        var trlen = tab.rows.length;
+        var tr = _this.parentNode.parentNode;
+        //当前要插入的位置
+        var index= parseInt(tr.getAttribute('data-value'));//0
+        //要插入到的行
+        var insertTotr = tr.parentNode.rows[index+2];
+        //父类，insertBefore(newItem,exitItem);
+        tr.parentNode.insertBefore(tr, insertTotr);//插入当前下两个之前才是当前下一个
+        if(index==trlen-1){
+            console.log('最后一个')
+            //如果当前是最后一个，插入到第一个tr之前
+            var firstTr = tr.parentNode.rows[0];
+            tr.parentNode.insertBefore(tr,firstTr)
+        }
+        Refresh();
+    }
+</script>
+</body>
+</html>

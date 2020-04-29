@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画运动平移</title>
+    <style>
+        *{margin:0;padding:0;}
+        #aa1 {position:absolute;left:0px;width:100px;height:100px;background:#F00;display:inline-block;}
+        #btn1 {position:absolute;top:120px;}
+        .line {position:absolute;left:300px;width:1px;height:500px;background:#000;}
+    </style>
+</head>
+<body>
+<input type="button"  value = "移动" id="btn1">
+<div id="aa1"></div>
+<div id="aa2"></div>
+<div class='line'></div>
+<script>
+    //1、定时器加速问题，每次点击会启动一个定时器，解决先清楚
+    var oBtn1 = document.querySelector('#btn1');
+    var oDiv1 = document.querySelector('#aa1');
+    var timer=null;
+    oBtn1.onclick=function(){
+        clearInterval(timer);
+        //2、不想改变speed值，判断起始值在目标点的方向
+        (300-oDiv1.offsetLeft)<0? speed=-9: speed=9;
+        timer = setInterval(function(){
+            //3、距离足够近时，设置值
+             if(Math.abs(300-oDiv1.offsetLeft)<Math.abs(speed)){
+                oDiv1.style.left=300+'px';
+                clearInterval(timer);
+                timer =null;
+            }else {
+                 oDiv1.style.left =oDiv1.offsetLeft+speed+'px';
+             }
+        },20)
+    }
+</script>
+</body>
+</html>

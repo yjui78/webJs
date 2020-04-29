@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跟随页面滚动的缓冲侧边栏</title>
+    <style>
+        *{margin:0;padding:0;}
+        #aa {position:absolute;right:0px;width:20px;height:100px;
+            background:#F00;display:inline-block;top:0px;}
+        body{height: 2000px;}
+    </style>
+</head>
+<body>
+<div id="aa"></div>
+<script>
+    //滚动条高度
+    var oDiv = document.getElementById('aa');
+    //浏览器可视区域的宽度(常用)：document.documentElement.clientHeight
+    var iTop = (document.documentElement.clientHeight-oDiv.offsetHeight)/2;
+    window.onscroll=function(){
+        iScrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+        // oDiv.style.top = iTop+iscroll+'px';
+        animate(iTop+iScrollTop);
+    }
+    var timer =null;
+    function animate(dest){
+        var speed=0;
+        clearInterval(timer);
+        timer =setInterval(function(){
+            //1、缓冲运动公式：速度=（目标值-当前值）/缩放系数
+            speed =( dest -oDiv.offsetTop)/8;
+            //2、避免出现小数造成死循环
+            speed = speed<0?Math.floor(speed):Math.ceil(speed);
+            //3、停止条件
+            if(dest ==oDiv.offsetTop){
+                clearInterval(timer);
+                timer=null;
+            }else {
+                oDiv.style.top =  oDiv.offsetTop+speed+'px';
+            }
+            if(speed==-1){//-1时会颤抖，停止
+                clearInterval(timer);
+                timer=null;
+            }
+        },20)
+    }
+
+</script>
+</body>
+</html>

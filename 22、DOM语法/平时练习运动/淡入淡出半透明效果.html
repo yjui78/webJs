@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>淡入淡出半透明效果</title>
+    <style>
+        img {width:400px;height:200px;opacity: 0.3;filter:alpha(opacity=30)}
+    </style>
+</head>
+<body>
+<img src="images/4.jpg" alt="" id="img">
+<script>
+    // opacity IE8及以下版本不支持
+    var oImg= document.getElementById('img');
+    oImg.onmouseover=function(){
+        animate(30,100)
+    }
+    oImg.onmouseout=function(){
+        animate(100,30)
+    }
+    var timer = null;
+    function animate(speed,dest){
+       //speed初始透明度，dest透明度目标值
+        clearInterval(timer);
+        timer = setInterval(function(){
+            speed<dest?speed+=10:speed-=10;
+            if(speed==dest){
+                clearInterval(timer);
+                timer=null;
+            }else {
+                oImg.style.opacity=speed/100;
+                oImg.style.filter="alpha(opacity:"+speed+")";
+            }
+        },20)
+    }
+</script>
+</body>
+</html>

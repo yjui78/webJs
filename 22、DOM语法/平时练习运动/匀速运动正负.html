@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>缓冲运动</title>
+    <style>
+        #div1 {width:100px;height:100px;background:red;position:absolute;left:0;}
+        #span1 {width:1px;height:400px;background:black;position:absolute;left:100px;}
+         #span2 {width:1px;height:400px;background:black;position:absolute;left:300px;}
+    </style>
+    <script>
+    // 匀速运动会出现问题：靠近距离抖动。解决：Math.abs(目标-当前)<7 拉取
+    var timer = null;
+   function startMove(iTarget){
+    var odiv = document.querySelector('#div1');
+    clearInterval(timer);
+    timer = setInterval(function(){
+    	var speed = 0 ;
+    	if(iTarget > odiv.offsetLeft){
+    		speed=7;
+    	}else {
+    		speed = -7;
+    	}
+    	if(Math.abs(iTarget-odiv.offsetLeft)<7){
+    		odiv.style.left = iTarget+'px';
+    		clearInterval(timer);
+    	}else {
+    		odiv.style.left = odiv.offsetLeft+speed+'px';
+    	}
+        
+    },30)
+
+   }
+    </script>
+</head>
+<body>
+<input type="button" id="btn" onclick="startMove(100)" value="到100">
+<input type="button" id="btn" onclick="startMove(300)" value="到300">
+<br/><br/>
+<div id="div1"></div>
+<span id="span1"></span>
+<span id="span2"></span>
+</body>
+</html>

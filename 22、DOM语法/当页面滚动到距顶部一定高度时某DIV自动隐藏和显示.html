@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+</head>
+<body>
+
+<div id='scrollSearchDiv' style='width:100%;height:30px;background:#f00;
+position:fixed;top:0'></div>
+<p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p><p>1</p>
+<script type="text/javascript" src='jquery-1.10.1.min.js'></script>
+<script type="text/javascript">
+// 	 $(function () {        
+//             //绑定滚动条事件
+//             $(window).on("scroll", function () {
+//                 var sTop = $(window).scrollTop();
+//                 var sTop = parseInt(sTop);
+//                 if (sTop >= 130) {
+// 					$("#scrollSearchDiv").hide();   
+//                 }else {
+// 					$("#scrollSearchDiv").show();
+//                 } 
+//         	})
+//    })
+
+window.onscroll = function () {
+	 var t = document.documentElement.scrollTop || document.body.scrollTop;
+	 if (t > 130) {
+	 	$("#scrollSearchDiv").hide()
+	 } else {
+	 	$("#scrollSearchDiv").show();
+	 }
+}
+</script>
+</body>
+</html>

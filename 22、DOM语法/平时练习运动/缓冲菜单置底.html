@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>缓冲菜单</title>
+    <style>
+        #div1 {width:100px;height:150px;background:red;position:absolute;right:0;bottom:0;}
+    </style>
+    <script>
+        window.onscroll = function(){
+            var odiv = document.querySelector('#div1');
+            //scrollTop兼容写法
+            var scrollTop =  document.documentElement.scrollTop ||  document.body.scrollTop;
+            document.title = scrollTop;
+            //当前TOP= 可视区Height-当前odiv高+scrollTop
+            //目标点
+            // odiv.style.top =  document.documentElement.clientHeight-odiv.offsetHeight+scrollTop+'px';
+            startMove(document.documentElement.clientHeight-odiv.offsetHeight+scrollTop);//通过运动框架慢慢走
+        }
+
+         //下方控制速度
+        var timer = null;
+        function startMove(iTarget){
+             var odiv = document.querySelector('#div1');
+            clearInterval(timer);
+            timer = setInterval(function(){
+                 //正实 iTarget>=odiv.offsetTop
+                var speed = (iTarget-odiv.offsetTop)/4;
+                //取整
+                speed  = speed>0?Math.ceil(speed):Math.floor(speed); 
+                document.title =speed;
+                if(iTarget==odiv.offsetTop){
+                    clearInterval(timer);
+                }else {
+                   odiv.style.top = odiv.offsetTop+speed +'px'; 
+               }
+            },30)
+        }
+    </script>
+</head>
+<body style = 'height:2000px;'>
+<div id="div1"></div>
+</body>
+</html>

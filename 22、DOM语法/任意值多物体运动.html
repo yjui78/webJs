@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多个DIV运动</title>
+    <style>
+     span { width:100px;height:100px;background:red;
+     	display: inline-block;float:left;
+     	margin-right:30px;border:1px solid #000;}
+
+#div3 {opacity:0.3;filter:alpha(opacity:30)}
+    </style>
+    <script>
+    window.onload = function(){
+      var odiv1 =  document.getElementById('div1');
+      var odiv2 =  document.getElementById('div2');
+      var odiv3 =  document.getElementById('div3');
+      odiv1.onmouseover = function(){
+      	startMove(this,'width',300);
+      }
+       odiv1.onmouseout = function(){
+      	startMove(this,'width',100);
+      }
+
+      odiv2.onmouseover = function(){
+      	startMove(this,'borderWidth',100);
+      }
+       odiv2.onmouseout = function(){
+      	startMove(this,'borderWidth',10);
+      }
+
+       odiv3.onmouseover = function(){
+      	startMove(this,'opacity',100);
+       }
+       odiv3.onmouseout = function(){
+      	startMove(this,'opacity',30);
+      }
+    }
+
+    function getStyle(obj,attr){
+		if(obj.currentStyle){
+			return obj.currentStyle[attr];
+		}else {
+			return window.getComputedStyle(obj,null)[attr];
+		}
+	}
+
+    function startMove(obj,attr,iTarget){
+    	clearInterval(obj.timer);
+    	obj.timer = setInterval(function(){
+    		//定时器运动时属性值变
+        //curStyle当前计算属性值为opacity单独配置
+    		var curStyle =0;
+
+    		//透明度单独设置
+    		if(attr=='opacity'){
+          //习惯*100 
+          curStyle = Math.round(parseFloat(getStyle(obj,attr))*100);
+        }else {
+            //parseInt取整不适合opacity,
+            curStyle = Math.round(parseInt(getStyle(obj,attr)));
+        }
+        console.log(curStyle);
+        //解决透明度计算不准问题Math.round
+        var speed = (iTarget - curStyle)/6;
+        speed = speed>0 ?Math.ceil(speed):Math.floor(speed);
+        //设置运动curStyle替代offsetWidth
+      
+    		if(curStyle == iTarget){
+    			  clearInterval(obj.timer);
+    		}else {
+            if(attr =='opacity' ){
+                document.title =attr
+                obj.style.filter = 'alpha(opacity:'+(curStyle+speed)+')';
+                obj.style.opacity =(curStyle+speed)/100;
+            }else {
+                obj.style[attr] = curStyle+speed+'px';
+            }
+    	  }
+    	},30)
+    }
+
+  </script>
+</head>
+<body>
+<span id='div1'></span>
+
+<span id='div2'>哟</span>
+
+<span id='div3'></span>
+</body>
+</html>

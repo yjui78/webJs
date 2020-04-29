@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.css">
+    <title>拾取坐标-百度地图API</title>
+    <!-- css样式文件 -->
+    <style type="text/css">
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            font-family: "微软雅黑";
+            overflow: hidden;
+        }
+        
+        #allmap {
+			top:50px;
+			left:90px;
+            height: 50%;
+            width: 50%;
+            overflow: hidden;
+        }
+        
+        #r-result {
+            width: 100%;
+            font-size: 14px;
+            position: absolute;
+            top: 10px;
+            left: 90px
+        }
+		.container{
+			margin-left:0px !important;
+		}
+		#cityName{
+			width:150px; 
+			margin-right:10px;
+		}
+    </style>
+
+</head>
+
+<body>
+    <!-- 地图盒子 -->
+    <div id="allmap"></div>
+    <!-- 搜索显示框 -->
+    <div id="r-result">
+		<div class="jq22-container">
+			<div class="container">
+				<form class="form-inline">
+				  <div id="distpicker5">
+					<div class="form-group">
+					  <label class="sr-only" for="province10">Province</label>
+					  <select class="form-control" id="province10"></select>
+					</div>
+					<div class="form-group">
+					  <label class="sr-only" for="city10">City</label>
+					  <select class="form-control" id="city10"></select>
+					</div>
+					<div class="form-group">
+					  <label class="sr-only" for="district10">District</label>
+					  <select class="form-control" id="district10"></select>
+					</div>
+					<div class="form-group">
+						地址：<input id="cityName" type="text" class="form-control"  />
+						<input type="button" value="搜索" onClick="theLocation()" /> 
+						<button onClick="submit()">提交</button>
+					</div>
+				  </div>
+				  
+				</form>
+			</div>
+		</div>
+    </div>
+    <!-- js文件 -->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.3&services=true"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/dist.bootstrap.js"></script>
+	<script src="js/distpicker.data.js"></script>
+    <script src="js/distpicker.js"></script>
+    <script src="js/main.js"></script>
+    <!-- 页面地图js方法 -->
+    <script type="text/javascript">
+        // 在指定容器创建地图实例并设置最大最小缩放级别
+        var map = new BMap.Map("allmap", {
+            minZoom: 4,
+            maxZoom: 19
+        });
+
+        // 初始化地图，设置中心点和显示级别
+        map.centerAndZoom(new BMap.Point(116.38, 39.90), 4);
+
+        // 开启鼠标滚轮缩放功能，仅对PC上有效
+        map.enableScrollWheelZoom(true);
+
+        // 将控件（平移缩放控件）添加到地图上
+        map.addControl(new BMap.NavigationControl());
+
+
+        // 创建位置检索、周边检索和范围检索
+        var local = new BMap.LocalSearch(map, {
+            renderOptions: {
+                map: map
+            }
+        });
+		
+		
+		var geocoder= new BMap.Geocoder(); 
+		map.addEventListener("click",function(e){ //给地图添加点击事件
+
+			geocoder.getLocation(e.point,function(rs){
+
+				alert(rs.address); //地址描述(string)
+
+				console.log(rs.addressComponents);//结构化的地址描述(object)
+				console.log(rs.addressComponents.province); //省
+				console.log(rs.addressComponents.city); //城市
+				console.log(rs.addressComponents.district); //区县
+				alert(rs.addressComponents.street); //街道
+				alert(rs.addressComponents.streetNumber); //门牌号
+
+				console.log(rs.surroundingPois); //附近的POI点(array)
+
+				console.log(rs.business); //商圈字段，代表此点所属的商圈(string)
+			});
+
+		});
+
+        // 发起检索
+        function theLocation() {
+			var province = $("#province10").val();
+			var city = $("#city10").val();
+			var district = $("#district10").val();
+            var address = document.getElementById("cityName").value;
+            /*if (city != "") {
+                local.search(city);
+            } */
+			local.search(province+city+district+address);
+        };
+
+    </script>
+</body>
+
+</html>

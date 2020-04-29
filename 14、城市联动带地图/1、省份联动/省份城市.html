@@ -1,0 +1,95 @@
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>实现“省”和“市”的级联下拉列表</title>
+    <meta charset="utf-8" />
+    <style>
+        table {border:1px solid #aaa;border-collapse: collapse;width:500px;}
+        table td,th{border:1px solid #aaa;}
+        .hide {display:none;}
+        .show{display:block;}
+    </style>
+</head>
+<body>
+<select name="provs"  onchange="loadProvs(this.selectedIndex)" >
+    <option>—请选择—</option>
+    <option>北京市</option>
+    <option>天津市</option>
+    <option>河北省</option>
+</select>
+
+<select name="cities" class="hide" id="city"  onchange="show(this.selectedIndex)" >
+    <option value="">33</option>
+</select>
+</body>
+
+<script>
+    var cities=[[],
+        /*实现“省”和“市”的级联下拉列表*/
+        /*0号下标没有元素*/
+        [{"name":'东城区',"value":101},
+            {"name":'西城区',"value":102},
+            {"name":'海淀区',"value":103},
+            {"name":'朝阳区',"value":104}],
+
+        [{"name":'河东区',"value":201},
+            {"name":'河西区',"value":202},
+            {"name":'南开区',"value":303}],
+
+        [{"name":'石家庄市',"value":301},
+            {"name":'廊坊市',"value":302},
+            {"name":'保定市',"value":303},
+            {"name":'唐山市',"value":304},
+            {"name":'秦皇岛市',"value":305}]
+    ];
+    console.log(cities)
+    var provIdx;
+    function loadProvs(_index){
+        var citysel = document.querySelector('#city');
+        var citys =cities[_index];
+        var opts='';
+        if(citys.length==0){
+            citysel.style.display='none';
+            citysel.innerHTML='';
+        }else {
+            for(var i=0;i<citys.length;i++){
+                opts +='<option name="'+citys[i].name+'" value="'+citys[i].value+'">'+citys[i].name+'</option>'
+            }
+            citysel.innerHTML=opts;
+            citysel.style.display='inline-block';
+        }
+    }
+    function show(_index){
+        var proves=document.querySelectorAll("select[name='provs']")[0][document.querySelectorAll("select[name='provs']")[0].selectedIndex].innerHTML;
+        var citysel = document.querySelector('#city');
+         cityval =citysel[_index].innerHTML;
+       alert(proves+':'+cityval)
+    }
+
+
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

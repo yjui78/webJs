@@ -1,0 +1,22 @@
+.part1 {
+    margin-top: 0.46rem;
+    padding: 0 0.34rem;
+}
+.part1 .pt {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.3rem;
+}
+.part1 .pt .pname.active {
+    color: #A10D30;
+}
+.part1 .pt .pname {
+    text-align: left;
+    font-size: 0.24rem;
+    font-weight: 500;
+    color: #666666;
+    line-height: 0.4rem;
+    background: #ccc;
+    padding: .1rem 0.3rem;
+}
+.time p {font-size:14px;}

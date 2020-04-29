@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>缓冲运动</title>
+    <style>
+        #div1 {width:100px;height:100px;background:red;position:absolute;left:0;}
+        #span1 {width:1px;height:400px;background:black;position:absolute;left:300px;}
+    </style>
+    <script>
+    // 主要速度speed计算
+    var timer = null;
+   function startMove(iTarget){
+    var odiv = document.querySelector('#div1');
+    timer = setInterval(function(){
+        //speed 距离越大速度越快，距离小速度慢(目标-当前位置)/缩放系数
+        //不能紧靠，解决正数向上取整，负数向下取整
+        var speed = Math.ceil((iTarget-odiv.offsetLeft)/7);
+        document.title = speed;
+        if(odiv.offsetLeft <iTarget){
+            odiv.style.left = odiv.offsetLeft+speed+'px';
+        }
+    },30)
+
+   }
+    </script>
+</head>
+<body>
+<input type="button" id="btn" onclick="startMove(300)" value="开始运动">
+<br/><br/>
+<div id="div1"></div>
+<span id="span1"></span>
+</body>
+</html>

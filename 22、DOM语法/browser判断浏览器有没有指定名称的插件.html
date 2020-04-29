@@ -1,0 +1,26 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>判断浏览器有没有指定名称的插件</title>
+     <meta charset="utf-8" />
+</head>
+<body>
+
+<script>
+    function hasPlugIn(pname){
+        var arr=[];
+        var plugins=navigator.plugins;
+        for(var i=0;i<plugins.length;i++){
+             if(plugins[i].name.toLowerCase().indexOf(pname.toLowerCase())!=-1){
+                 document.write("支持"+pname+"插件");
+                 return;//找到就退出，不在其他循环
+             }
+        }
+        //程序能走到这说明return没有执行过
+        document.write("不支持"+pname+"插件");
+    }
+    hasPlugIn("pdf")
+</script>
+</body>
+</html>

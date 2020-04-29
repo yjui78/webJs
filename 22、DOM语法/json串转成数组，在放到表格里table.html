@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>1. select左右移动</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="css/7_1.css" />
+<style> select{width:100px;height:85px;}
+div{display:inline-block;width:50px}</style>
+</head>
+<body>
+<ul> <li>Eric</li> <li>Scott</li> <li>Jerry</li> <li>Tom</li> <li>Rose</li> <li>John</li> <li>Smith</li> <li>Andy</li>
+</ul>
+	<script>
+    /*需求：生成8个不能重复的随机数*/
+    //所有查询结果都是类数组对象(就是对象，属性很多)不能用sort,push,但可转变
+    var lis = document.querySelectorAll('ul li');
+    //生成nums与lis相同的随机数
+    var nums=[];
+    //个数相同且不能出现相同数
+    while(nums.length<lis.length){
+        //+1修正
+        var n = parseInt(Math.random()*lis.length+1);
+        //nums里没有出现过就push
+        if(nums.indexOf(n)==-1){
+            nums.push(n);
+        }
+    }
+    //随机生成序号放入data-i中
+    for(var i=0;i<lis.length;i++) {
+        lis[i].setAttribute('data-i', nums[i])
+    }
+    //需求：将li按data-i升序排列
+    //问题：lis是类数组对象，没有sort方法,
+    //解决：将类数组对象转化为标准数组，Array.prototype.slice.call()
+   var lis = Array.prototype.slice.call(lis);
+    //执行sort操作的lis已经根据data-i进行排序
+  lis.sort(function(a,b){
+ 	//return a.getAttribute("data-i")-b.getAttribute("data-i");
+  	return a.dataset.i-b.dataset.i;//HTML5中读取自定义属性
+    	//"data-XXX"-->dataset的集合中，属性名为XXX
+})
+    //清空ul,把已经排序的数组重新放ul中
+    var ul =  document.querySelector('ul');
+    ul.innerHTML='';
+    for(var i=0;i<lis.length;i++){
+        ul.appendChild(lis[i]);
+    }
+</script>
+</body>
+</html>

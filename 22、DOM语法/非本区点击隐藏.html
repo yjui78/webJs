@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>只能输入数字</title>
+    <style>
+        div {width:200px;height:200px;background:#ccc;display:none;}
+    </style>
+    <script>
+    window.onload= function(){
+        otxt = document.querySelector('#txt');
+        odiv = document.querySelector('#odiv');
+        otxt.onclick=function(ev){
+            var e= ev||event;
+            odiv.style.display='block';
+            alert('odiv')
+            //阻止冒泡
+            e.cancelBubble=true;
+        }
+        document.onclick = function(){
+            alert('document')
+            odiv.style.display='none';
+        }
+    }
+    </script>
+</head>
+<body>
+<input type="button" id="txt" value="显示">
+<br>
+<div id="odiv"></div>
+
+</body>
+</html>

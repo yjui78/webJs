@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1、JS结束时间与当前时间间隔</title>
+</head>
+<body>
+<div class='divClass' id='timeCont'>
+    <p>当前时间   <span id='nowTime'></span></p>
+    <p>结束时间   <span  id='end'></span></p>
+    <p style='background:#f00;width: 300px;line-height: 2rem;'>相差时间   <span  id='interval'></span></p>
+</div>
+<script>
+    //1、当前时间new Date()转成年月日时分秒2019-04-17 10:27:27
+    
+    function time(now){
+        var yy = now.getFullYear(); //年
+        var mm = now.getMonth() + 1; //月
+        var dd = now.getDate(); //日
+        var hh = now.getHours(); //时
+        var ii = now.getMinutes(); //分
+        var ss = now.getSeconds(); //秒
+        var time = yy + "-";
+        if (mm < 10) time += "0";
+        time += mm + "-";
+        if (dd < 10) time += "0";
+        time += dd + " ";
+        if (hh < 10) time += "0";
+        time += hh + ":";
+        if (ii < 10) time += '0';
+        time += ii + ":";
+        if (ss < 10) time += '0';
+        time += ss;
+        return time;
+    }
+    setInterval(function(){
+        var nowTime =  time(new Date())
+        var end_time = '2020-5-16 17:00:00';
+        document.querySelector('#nowTime').innerHTML = nowTime;
+        document.querySelector('#end').innerHTML = end_time;
+        document.querySelector('#interval').innerHTML = timeDown(end_time);
+    },1000)
+
+    // 2、结束时间2020-5-16 17:00:00与当前时间new Date()比较时间差
+    function timeDown(endDateStr) {
+		    //结束时间
+		    var endDate = new Date(endDateStr);
+		    //当前时间
+		    var nowDate = new Date();
+		    //相差的总秒数
+		    var totalSeconds = parseInt((endDate - nowDate) / 1000);
+		    //天数
+		    var days = Math.floor(totalSeconds / (60 * 60 * 24));
+		    //取模（余数）
+		    var modulo = totalSeconds % (60 * 60 * 24);
+		    //小时数
+		    var hours = Math.floor(modulo / (60 * 60));
+		    modulo = modulo % (60 * 60);
+		    //分钟
+		    var minutes = Math.floor(modulo / 60);
+		    //秒
+		    var seconds = modulo % 60;
+		    //输出到页面
+            this.timeCon=days + " 天 " + hours + " 小时 " + minutes + " 分 " + seconds + " 秒";
+            return this.timeCon;
+    }
+    
+
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>$refs使用</title>
+</head>
+<body>
+<div id="app">
+	<counter ref = 'one' @change = 'handleChange'></counter>
+	<counter ref = 'two' @change = 'handleChange'></counter>
+	<div>{{total}}</div>
+</div>
+<script src="vue2.js"></script>
+<script type="text/javascript">
+	/*
+		用$refs实现一个求和效果
+	*/
+	Vue.component('counter',{
+		template:'<div @click="handleClick">{{number}}</div>',
+		data(){
+			return{
+				number:0
+			}
+		},
+		methods:{
+			handleClick(){
+				this.number++;
+				this.$emit('change',this.number)
+
+			}
+		}
+
+	})
+	new Vue({
+		el:'#app',
+		data:{
+			total:0
+		},
+		methods:{
+			handleChange(){
+				// 直接操作子组件里的数据number
+				this.total = this.$refs.one.number+this.$refs.two.number;
+			}
+		}
+	})
+</script>
+</body>
+</html>

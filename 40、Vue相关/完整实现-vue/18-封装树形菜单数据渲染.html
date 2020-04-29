@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+ 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+        ul{padding:0;margin:0;list-style:none}
+		.tree-menu{width:360px;height:100%;padding:0px 12px;border-right:1px solid #e6e9f0}
+		.tree-menu-comm span{display:block;font-size:12px;position:relative}
+		.tree-contro .ico{background-position:3px -92px}
+		.tree-title .ico{position:absolute;left:-13px;    top: 5px;width:15px;height:26px;opacity:0.8;
+			background:url(images/icon.png) no-repeat;background-size: 100%;}
+		.tree-menu-comm span strong{display:block;width:82%;position:relative;line-height:22px;padding:2px 0;padding-left:5px;color:#161719;font-weight:normal}
+		.tree-nav{background:#e7f2fe;border:1px solid #bfdaf4;padding-left:14px;margin-left:0px}
+		.tree-title{border:1px solid #fff;margin-top:1px}
+		.tree-contro-none .ico{background-position:-999px -99px}
+		.tree-contro .ico{background-position:3px -92px}
+    </style>
+    <script src="vue2.js"></script>
+    <script>
+    </script>
+</head>
+ 
+<body>
+<div id="app">
+	<m-tree :data='treeList'></m-tree>
+</div>
+
+<script>
+/*
+	你的数据结构应该是下面的类型：
+       传入的数据结构：
+             [
+                    {
+                       title:XXX,
+                       children:[
+                             {
+                               title:XXXX,
+                               chidren:[]
+                             }
+                      ]
+                   }
+			 ]    
+
+	  设置的props：
+      监控状态变化：
+          事件名on-select-change 点击树节点触发
+*/
+
+/*
+	知识点：
+	1、封装树型菜单，菜单内嵌套菜单数据，递归用v-if判断如果有chidren就行为递归
+	2、因为用递归的方法，所有缩进要计算div是第几层调用，每次用当里字号*2
+*/
+    var data = [{
+        title: "目录",
+        chidren: [
+	        {
+	            title: "我的音乐",
+	            chidren: [
+	            {
+	                title: "周杰伦",
+	                chidren: [{
+	                    title: "发如雪",
+	                    chilren:[{
+	                    	title:'111'
+	                    }]
+	                }]
+	            }, 
+	            {
+	                title: "王杰",
+	                chidren: [{
+	                    title: "一场游戏一场梦"
+	                }]
+	            }]
+	        }, 
+	        {
+	            title: "我的照片"
+	        }
+        ]
+    }];
+
+    //最外层div提取出来，
+    Vue.component('m-tree',{
+    	props:{
+    		data:{
+    			type:Array
+    		}
+    	},
+    	template:`
+    		<div class="tree-menu-comm tree-menu" >
+    			<!--这里是最外层数据，所以不用判断chidren-->
+    			<m-tree-list :list='data'></m-tree-list>
+    		</div>
+    	`
+    })
+    //子组件,实现递归
+    Vue.component('m-tree-list',{
+    	// 调用次数，不用外面调用，在自己里完成
+    	props:{
+    		list:{
+    			type:Array,
+    			default:[]
+    		},
+    		// 递归累加用的,第一层不传,默认为0
+    		incrementCount:{
+    			type:Number,
+    			default:0
+    		}
+    	},
+    	computed:{
+    		// count为调用的次数
+    		count(){
+				//不能直接++，因为是父组件传过来的，先赋值再加
+				var c = this.incrementCount;
+				return ++c;
+    		},
+    		stylePadding(){
+    			return {
+    				 "paddingLeft" :16*this.count+'px'
+    			}
+    		}
+    	},
+
+    	template:`
+			<ul>
+				<li v-for='item of list'>
+	               <div class="tree-title" :style='[stylePadding]'>
+	                	<span><strong>{{item.title}}---{{count}}</strong> <i class="ico"></i></span>
+	               </div>
+	               <!--结构相同，这里开始有chidren,如果当前有children,调用本身，递归-->
+                   <!--父组件传的用里边count值，调用一次累加一次-->
+	               <m-tree-list 
+	               		v-if='item.chidren'
+	               		:list='item.chidren'
+	               		:increment-count ='count'
+	               		></m-tree-list>
+	            </li>
+			</ul>
+    	`
+    })
+
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            treeList:data
+        }
+    });
+ 
+
+</script>
+</body>
+ 
+</html>

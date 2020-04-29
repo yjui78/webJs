@@ -1,0 +1,10 @@
+
+.loading{font-size:14px;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;display:none}
+.loading .loading-img{position:absolute;width:1.5rem;height:1.5rem;left:50%;top:50%;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;background:rgba(0,0,0,0.7) url(../images/loading.gif) center 0.3rem no-repeat;background-size:0.5rem 0.5rem;color:#fff;transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);text-align:center;padding-top:0.9rem}
+.prompt{font-size:14px;display:none;position:fixed;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;background:rgba(0,0,0,0.7);color:#fff !important;max-width:6rem;padding:0.1rem;top:50%;left:50%;transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);z-index:9999;width:auto}
+.confirm-box{width:100%;height:100%;top:0;left:0;position:fixed;display:none;z-index:100}
+.confirm{font-size:14px;position:fixed;border-radius:5px;-webkit-border-radius:5px;-moz-border-radius:5px;background:#fff;border:1px solid #B1B1B1;top:50%;left:50%;transform:translate(-50%,-50%);-webkit-transform:translate(-50%,-50%);-moz-transform:translate(-50%,-50%);padding:0.2rem 0.3rem 0.3rem 0.3rem;width:5rem;text-align:center;box-shadow:0 0 0.15rem #B1B1B1;z-index:9999}
+.confirm .confirm-title{font-weight:bold;font-size:16px}
+.confirm .confirm-con{margin:0.15rem 0}
+.confirm .cancel,.confirm .determine{display:inline-block;width:38%;height:0.55rem;line-height:0.55rem;cursor:pointer;border-radius:50px;font-size:14px;margin:0 0.15rem;border:1px solid #ccc}
+.confirm .determine{color:#fff;background:#F00000;border:none}

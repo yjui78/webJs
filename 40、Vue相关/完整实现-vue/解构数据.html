@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>js实现的点击div区域外隐藏div区域</title> 
+</head> 
+<body> 
+<div id='app'>
+	<ul>
+		<!-- 也可以用in 一样结果-->
+		<li v-for='item of list'>{{item}}</li>
+	</ul>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+var list =[...'妙味课堂'];
+new Vue({
+	el:'#app',
+	data:{
+		list:list
+	}
+})
+
+</script>
+</body> 
+</html>

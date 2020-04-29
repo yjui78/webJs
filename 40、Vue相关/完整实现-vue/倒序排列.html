@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡-vue</title>
+   <link rel="stylesheet" type="text/css" href="public.css">
+</head>
+<body>
+<div id='app'>
+	<ul >
+		<li data-i='0'>1</li>
+		<li data-i='1'>2</li>
+	</ul>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+var lis = document.querySelectorAll('ul li');
+var lis = Array.prototype.slice.call(lis);
+lis.sort(function(a,b){
+ 	//return a.getAttribute("data-i")-b.getAttribute("data-i");
+  	return b.dataset.i-a.dataset.i;
+})
+var ul =  document.querySelector('ul');
+ul.innerHTML='';
+for(var i=0;i<lis.length;i++){
+    ul.appendChild(lis[i]);
+}
+</script>
+</body>
+</html>

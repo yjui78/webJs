@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <img v-bind:src="url" :width='w' :title ="t" alt=""> -->
+        <img src="{{url}}" alt="">
+    </div>
+</body>
+<script src="vue2.min.js"></script>
+<script type="text/javascript">
+var vm = new Vue({
+    el:'#app',
+    data:{
+        w:'100px',
+        t:"这是一张图片",
+        url:'https://www.baidu.com/img/bd_logo1.png?qua=high'
+    }
+})
+</script>
+
+</html>

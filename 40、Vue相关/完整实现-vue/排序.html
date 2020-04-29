@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>对li内span数值进行排序</title>
+</head>
+<body>
+
+  <ul id='ul1'> 
+    <li data-index='1' data-price='80'> <span>80</span></li>
+    <li data-index='2' data-price='23'><span>23</span></li>
+    <li data-index='3' data-price='32'><span>32</span></li>
+    <li data-index='4' data-price='44'><span>44</span></li> 
+    <li data-index='5' data-price='2'><span>2</span></li> 
+    <li data-index='6' data-price='4'><span>4</span></li>
+    <li data-index='7' data-price='5'><span>5</span></li>
+    <li data-index='8' data-price='1'><span>1</span></li>
+  </ul>
+  <input type="button" id="btn1" value="排序" />
+<script type="text/javascript">
+     var oUl1=document.getElementById('ul1')
+     var oBtn=document.getElementById('btn1');
+     oBtn.onclick=function(){
+         var aLi=oUl1.getElementsByTagName('li');
+         var arr=[];
+        
+         for(var i=0;i<aLi.length;i++)  //把li用数组表示
+         {
+             arr[i]=aLi[i];
+         }
+         arr.sort(function(li1,li2){
+             var n1=parseInt( li1.getAttribute('data-price'));
+             var n2=parseInt( li2.getAttribute('data-price'));
+             return n1-n2;  升序排列
+         })
+         for(var i=0;i<arr.length;i++){
+             oUl1.appendChild(arr[i]);   //排序之后再写入
+         }
+    }
+</script>
+</body>
+</html>

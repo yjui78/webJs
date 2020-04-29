@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>单向数据流(父组件传子组件)</title> 
+</head> 
+<body> 
+<template id='tem'>
+	<div><h2>这是一个标题{{count}}</h2></div>
+</template>
+
+<div id='app'>
+	<custom-component :count2='count'></custom-component>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+/*
+Vue.component('custom-component',{
+	props:['count'],
+	data(){
+		//父级传来的数据在子组件中重新定义一下incrementCount
+		return{
+			incrementCount:this.count
+		}
+	},
+	template:`
+		<div>
+			<h2>这是一个标题{{count}}</h2>
+			<input type='button' value='改变count的值' @click='changeCount'>
+			{{incrementCount}}
+		</div>
+	`,
+	methods:{
+		changeCount(){
+			// 直接这么写可以实现,但是会报错，在本组件中定义count
+			this.incrementCount++;
+		}
+	}
+})
+*/
+//使用computed的方法
+Vue.component('custom-component',{
+	props:['count2'],
+	data(){
+		//父级传来的数据在子组件中重新定义一下incrementCount
+		return{
+			incrementCount:this.count2
+		}
+	},
+	computed:{
+		incrementCount2(){
+			return this.incrementCount
+		}
+	},
+	template:`
+		<div>
+			<h2>这是一个标题{{count2}}</h2>
+			<input type='button' value='改变count的值从父组件接收的数据在变' @click='changeCount'>
+			{{incrementCount2}}
+		</div>
+	`,
+	methods:{
+		changeCount(){
+			// 直接这么写可以实现,但是会报错，在本组件中定义count
+			this.incrementCount++;
+		}
+	}
+})
+new Vue({
+	el:'#app',
+	data:{
+		count:0
+	}
+})
+
+</script>
+</body> 
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>deep</title>
+</head>
+<body>
+<div id='app'>
+	<div>
+		<p>Obj-a:{{obj.b}}</p>
+		<p>Obj-a:<input type="text" v-model='obj.b' name=""></p>
+	</div>
+</div>
+<script src="vue2.js"></script>
+<script src='jquery-1.10.1.min.js'></script>
+<script type="text/javascript">
+	var vm= new Vue({
+		el:'#app',
+		data:{
+			obj:{
+				a:'111',
+				b:'222'
+			}
+		},
+		created:function(){
+
+		},
+		// 新值和旧值,value值，没value值取内容
+		watch: {
+			'obj':{
+				handler(newval,oldval){
+					console.log(newval)
+				},
+				deep:true
+			}
+		}
+	})
+</script>
+</body>
+</html>

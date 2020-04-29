@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>组件通信</title> 
+</head> 
+<body> 
+<div id='app'>
+    <my-component @tem-click = 'clickAlert' :lightdata=lightdata></my-component>  
+    <my-component @tem-click = 'clickAlert'></my-component>  
+</div>
+<template id='promary'>
+    <div>
+        <p>{{lightdata}}</p>
+        <input type="button" value='添加' @click='modelClick'>
+    </div>
+</template>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+//子组件接收lightdata用props
+Vue.component('my-component',{
+    props:['lightdata'],
+    data(){
+        return{
+            lightdata1:this.lightdata
+        }
+    },
+    // template:`<h5>{{lightdata1}}----子组件自己的数据</h5>`,
+    template:`#promary`,
+    methods:{
+        modelClick(){
+            this.$emit('tem-click')
+        }
+    }
+})
+// 父组件数据lightdata
+var vm = new Vue({
+  el:'#app',
+  data:{
+    lightdata:'这是父组件向子组件传的lightdata数据'
+  },
+  methods:{
+    clickAlert(){
+        alert(1)
+    }
+  },
+//   components: {
+//     'my-component': Child,  // <my-component> 将只在父模板可用
+//     methods:{
+//         handler1(){
+//             alert(1)
+//         }
+//     },
+//  }
+})
+
+</script>
+</body> 
+</html>

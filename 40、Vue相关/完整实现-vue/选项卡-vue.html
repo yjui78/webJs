@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡-vue</title>
+   <link rel="stylesheet" type="text/css" href="public.css">
+   <style type="text/css">
+#odiv{width:100px;height:100px;background:#ccc;display:none;}.aa{color:red;}.bb{background:#ccc;}.tab-header{float:left;width:303px;}.tab-item{float:left;width:100px;}.tab-content{float:left;display:block;width:300px;border:1px solid #ccc;height:100px;}.tab{float:left;height:415px;width:300px;}.active{border:1px solid #f00;}
+  </style>
+
+</head>
+<body>
+<div id='app'>
+  <div class="tab" id="box">
+      <div class="tab-header">
+          <div class="tab-item" v-bind:class= '{active:index===currentIndex}' v-for = "(val,index) in tabData" 
+          v-on:click='tab(index)'
+         > {{val.title}}</div>
+      </div>
+      <div class="tab-content">
+          <div style="display:block"  v-for = "(val,index) in tabData">
+            <p v-for = "option  in val.list" :style="{display:index===currentIndex?'block':'none'}">{{option .subTitle}}--{{index}}</p>
+          </div>
+      </div>  
+  </div>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+let tabData =[
+  {
+    title:'标签一',
+    list:[
+      {subTitle:'css课程一'},
+      {subTitle:'css课程二'}
+    ]
+  },
+  {
+    title:'标签二',
+    list:[
+      {subTitle:'js课程一'},
+      {subTitle:'js课程二'}
+    ]
+  },
+  {
+    title:'标签三',
+    list:[
+      {subTitle:'jq课程一'},
+      {subTitle:'jq课程二'}
+    ]
+  }
+];
+
+var vm = new Vue({
+  el:'#app',
+  data:{
+    tabData:tabData,
+    currentIndex:0 //当前显示下标
+  },
+  methods:{
+    tab(index){
+      this.currentIndex =index
+    }
+  }
+})
+console.log(tabData);    //1
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>deep</title>
+</head>
+<body>
+<div id='app'>
+	<script type='template-x' id='tem'>
+       <h3>这是一个模板</h3>
+    </script>
+</div>
+
+<script src="vue2.js"></script>
+<script type="text/javascript">
+	var vm= new Vue({
+		el:'#app',
+		data:{
+            
+        },
+        template:'#tem'
+	})
+</script>
+</body>
+</html>

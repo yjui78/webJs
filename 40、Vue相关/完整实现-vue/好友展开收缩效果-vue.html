@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8" /> 
+  <title>QQ菜单实例展开与收缩</title> 
+  <style>
+*{margin:0;padding:0}li{list-style:none;line-height:30px;border-bottom:1px solid #A2CEC8}.list{margin:50px auto;width:200px;border:1px solid #A2CEC8;padding:3px}.list .item{}.list .item h2{font-size:18px;background:#BC5866;position:relative;font-weight:400;line-height:30px;padding-left:20px}.ul1 li{padding-left:20px;background:#010001;color:#fff;}.icoRight{width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:5px solid #6C6E6E;position:absolute;left:10px;top:50%;margin-top:-5px}.active .icoBottom{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid #6C6E6E;position:absolute;left:6px;top:50%;margin-top:-2px}.ul1{display:none;}.item.active .ul1{display:block;}
+
+</style> 
+<script type="text/javascript">
+    var qqData = [
+    {
+        title:'我的好友',
+        list:[
+            {subTitle:'张国'},
+            {subTitle:'王杰'},
+            {subTitle:'周杰'}
+        ]
+    },
+    {
+        title:'我的同事',
+        list:[
+            {subTitle:'李国'},
+            {subTitle:'宋杰'},
+            {subTitle:'张杰'}
+        ]
+    },
+     {
+        title:'我的朋友',
+        list:[
+            {subTitle:'五五'},
+            {subTitle:'三三'},
+            {subTitle:'二二'}
+        ]
+    }
+
+]
+</script>
+ </head> 
+ <body> 
+ <div class='wrap' id='app'>
+     <div class="list">
+         <div class="item"  
+         v-for='(item,index) in qqData'
+         v-bind:class='{active:currentIndex === index}'
+         >
+             <h2 v-on:click='tab(index)'><span ><i class='icoRight icoBottom'></i>{{item.title}}</span></h2>
+             <ul class='ul1' >
+                 <li v-for='sub in item.list'>{{sub.subTitle}}---{{index}}</li>
+             </ul>
+         </div>   
+     </div>
+ </div>
+ <script type="text/javascript" src="vue2.js"></script>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        qqData:qqData,
+        currentIndex:0,
+    },
+    methods:{
+      tab(index){
+        //已经记录值设为空,点击相同标题时
+        console.log("this.currentIndex:"+this.currentIndex);
+        console.log("index:"+index);
+        this.currentIndex = this.currentIndex === index?'':index;
+      }
+    }
+})
+</script>
+ </body>
+</html>

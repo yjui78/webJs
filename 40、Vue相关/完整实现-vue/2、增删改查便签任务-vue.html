@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<title>增删改查</title>
+	<!-- <link rel="stylesheet" type="text/css" href="css/style1.css"> -->
+	<style type="text/css">
+	body{background:#efefef}.cont{margin:0 auto;width:100%}h2{color:#fff;font-size:14px;line-height:30px}.page-content{margin:0 auto;width:800px}.page-top{background:#E9593F}.main{width:800px;margin:0 auto}.big-title{font-size:14px}button{padding:0;margin:0}.task-input{border:1px solid #999;width:100%;line-height:24px;padding-left:10px;color:#333;background:#fff}ul,li{list-style:none;padding:0;margin:0}.task-count{}.task-count li{color:#E9593F;font-size:14px;margin-top:10px}.action a{color:#000;text-decoration:none;padding:3px 10px}.tasks{}.action{float:right}.f1{float:left}.big-title{font-size:14px;float:left;width:100%}.tasks{float:left;width:100%;background:#fff}.view label{color:#000}.completed{text-decoration:line-through}li.todo{position:relative;line-height:40px;float:left;width:100%}li.todo.completed label{color:#999}span.no-task-tip{color:#999;font-size:14px;padding-left:10px;line-height:40px}.todo-list{border-top:1px solid #cfc8c8}.destroy{display:none}.completed .destroy{display:block;border:0;background:#fff;padding:3px;float:right;margin-right:20px;margin-top:5px}.edit{display:none}.editing .edit{display:block;border:1px solid #999;width:120px;height:30px;padding:0 10px;float:left;margin-left:5px;margin-top:5px;position:absolute;top:0;left:20px}.editing label{display:none}.view{width:90%}li.todo{border-bottom:1px solid #cfc8c8;}.action a.active{border:1px solid #999;}
+	</style>
+</head>
+<body>
+<div class='cont'>
+	<div class="page-top">
+		<div class="page-content">
+			<h2>任务计划列表</h2>
+		</div>
+	</div>
+	<div class="main" id='app'>
+		<h3 class="big-title">添加任务</h3>
+		<input placeholder="例如：吃饭睡觉打豆豆：   提示：+回车即可添加任务" name="" class='task-input' type='text'
+			@keyup.Enter = 'addTodo()' v-model="todo"
+
+		>
+		<ul class='task-count' v-show='list.length'>
+			<!-- 同于：{{ list.filter(function(item){return !item.isChecked}).length }} -->
+			<!-- 或写成：{{  list.filter(item=>!item.isChecked).length  }} -->
+			<li class='f1'>{{noCheckedLength}}个未任务完成</li>
+			<li class='action'>
+				<!-- 选中状态 -->
+				<a href="#all"
+					 :class="{active:visibility==='all'}"
+					>所有任务</a>
+				<a href="#unfinished" 
+					:class="{active:visibility==='unfinished'}"
+				
+					>未完成的任务</a>
+				<a href="#finished"  
+					:class="{active:visibility==='finished'}"
+				
+					>完成的任务</a>
+			</li>
+		</ul>
+		<h3 class='big-title'>任务列表：</h3>
+		<div class="tasks">
+			<!-- list.length为0不显示；成立显示 ,!0显示 -->
+			<span class="no-task-tip" v-show = '!list.length' >还没有添加任何任务</span>
+			<!-- <span class='no-task-tip tip-toggle'>
+				<input type="checkbox" class='toggle' name="">
+				<span>全标记为完成</span>
+			</span> -->
+			<ul class="todo-list">
+			<!-- completed 加横线-->
+				<li class="todo"
+				 :class='{completed:item.isChecked===true ,editing:item ===editorTodo }'
+				 v-for='(item,index) in filteredList'
+				 >
+					<div class="view">
+						<!-- data中isChecked为值判断是否选中用v-model-->
+						<input class="toggle" checked="" type='checkbox' v-model = 'item.isChecked'>
+						<label  @dblclick ='edtorTodo(item)'>{{item.title}}</label>
+						<button class='destroy' @click= 'deleteTodo(index)'> X</button>
+					</div>
+					<!-- 监控双击里的值 ，editorTodo===item说明正在编辑就获取点,获取表达式的值的update--> 
+					<input type="text" 
+						class='edit'
+						v-model = 'item.title' 
+						v-focus='editorTodo === item'
+						@blur = 'editorTodod(item)'
+						@keyup.enter = 'editorTodod(item)'
+						@keyup.esc = 'cancelTodo(item)'
+					>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+/*
+	本项目主要练习：添加，删除，编辑，ESC返回之前数据，统计任务完成度,用本地存储localStorage管理数据
+	1、ev.target.value当前触发的值传$event,
+	2、v-model做数据绑定, data中isChecked为值判断是否选中用v-model, v-model = 'item.isChecked'>
+	3、list.length为0不显示；成立显示 ,!0显示
+	4、刪除当前项目item写法
+		var index = this.list.indexOf(todo);
+		this.list.splice(index,1)
+	5、push添加任务，splice删除任务触发视图更新
+	6、编辑任务双击通过class-editing判断数据区的显示隐藏，(edtorTodos记录值)用到自定义指令，focus,blur ，directives--转成v-focus
+	钩子函数updata(指令绑定的元素)表达式更新时触发
+	7、取消编辑按ESC保留编辑之前的内容：先记录之前的在data里记录beforeTitle
+	8、isChecked是false未完成，true完成,用筛选list.filter(function(item){return !item.isChecked}).length
+	9、自定义指令，@dblclick后可以自动获取焦点
+	10、编辑后失去焦点功能：@blur不需要自己定义
+	11、编辑后按enter也可以修改成功:@keyup.enter = 'editorTodod(item)'
+	12、修改不成功的，按ESC按时,回到之前的title(取消这次的编辑)
+	13、一行可以放两个相同的事件如 @keyup.enter = 'editorTodod(item)'   ; @keyup.esc = 'cancelTodo(tode)'
+	14、统计任务未完成状态：isChecked为false时未完成:用原生的filter数组下的list.filter(function(){})
+	15、浅监控，深监控用handler:function(){},deep:true
+	16、任务完成程度，所有，未完成，已完成利用hash过滤数据监控地址栏变化
+
+*/
+	/* 假数据
+        var list = [
+            {
+                title: "吃饭睡觉打豆豆1",
+                isChecked: false
+            },
+            {
+                title: "吃饭睡觉打豆豆1",
+                isChecked: true
+            },
+        ];
+     */
+
+        //本地存储localStorage中数据，这里list假数据用不上了
+        var store ={
+        	//存数据，存list数据，所以要转json字符串形式
+        	save(key,value){
+        		localStorage.setItem(key,JSON.stringify(value));
+        	},
+        	//取数据数组形式，json字符串转成json
+        	fetch(key){
+        		return JSON.parse(localStorage.getItem(key))||[];
+        	}
+        }
+        /*filteredList中过滤的时候有三种情况,computed中提取出来的，
+        filter过滤放外边，声明一次就行，没必要发生变化在声明*/
+		var filter = {
+			all:function(list){
+				return list
+			},
+			finished:function(list){
+				return list.filter(function(item){
+					return item.isChecked
+				})
+			},
+			unfinished:function(list){
+				return list.filter(function(item){
+					return !item.isChecked
+				})
+			}
+		}
+        var list = store.fetch('miaov-class');//key值一致
+        var vm = new Vue({
+        	el:'#app',
+        	data:{
+        		list:list,
+        		todo:'',
+        		editorTodo:'' ,     //记录正在编辑的数据
+        		beforeTitle:''	,	//记录之前的title
+        		visibility:'all',	// 通过这个属性值的变化对数据进行筛选
+        		currentIndex:1
+        	},
+        	//添加，删除，编辑都需要存值。监控list是函数用watch监听数据发生变化
+			watch:{
+				/*浅监控，刷新页面数据在，只监控一层，不监控里边对象isChecked是不是选中，
+				 list:function(){
+				 	store.save('miaov-class',this.list)
+				 }
+				 */
+				//深监控，可以监控到里边的对象的变化
+				list:{
+					handler:function(){
+						store.save('miaov-class',this.list)
+					},
+					deep:true
+				}
+			},
+        	methods:{
+        		//添加任务，添加默认false
+        		addTodo(){
+        			this.list.push({
+        				'title':this.todo,
+        				 isChecked: false 
+        			});
+        			//添加完文本清空
+        			this.todo='';
+        			console.log(this.list)
+        		},
+        		//删除任务
+        		deleteTodo(index){
+        			this.list.splice(index,1)    
+        		},
+        		//编辑的任务
+        		edtorTodo(todo){
+        			console.log(todo)
+        			//编辑的任务,记录下编辑这条任务的title，方便在取消编辑的时候重新给之前的title
+        			this.beforeTitle=todo.title;
+        			//之前值记录下
+        			this.editorTodo = todo;
+        		},
+        		//编辑完成@blur
+        		editorTodod(todo){
+        			this.editorTodo = '';
+
+        		},
+        		//返回之前编辑
+        		cancelTodo(todo){
+        			todo.title =this.beforeTitle;
+        			//让div显示出来，input隐藏
+        			this.editorTodo=''
+        			alert(todo.title) 
+        		},
+        		tab(index){
+        			this.currentIndex =index
+        		}
+        	},
+        	//自定义指令，@dblclick后可以自动获取焦点
+        	directives:{
+        		"focus":{
+        			//el绑定元素，binding对象有value指令的绑定值，true/false
+        			update(el,binding){
+        				//为true是原生元素，调用它的原生方法el.focus();
+        				if(binding.value){
+        					el.focus();
+        				}
+        			}
+        		}
+        	},
+        	computed:{
+        		noCheckedLength(){
+        			//同于箭头函数表示：return this.list.filter(item=>!item.isChecked).length
+        			// 注意这里用Vue实例上的list加this，不加this不好使
+        			return this.list.filter(function(item){
+        				return !item.isChecked
+        			}).length
+        		},
+        		//这时页面中数据要改成filteredList
+        		filteredList:function(){
+        			// 返回当前选中的hash,找到返回过滤后的，没找到返回所有数据list
+        			return filter[this.visibility] ?filter[this.visibility](list) : list
+        		},
+        	}
+
+        })
+        
+        //监听hash的值的变化#all，去除#
+        function watchHashChange(){
+        	var hash = window.location.hash.slice(1); //#之后
+        	//拿到hash值用visibility改变
+        	vm.visibility = hash;
+        	
+        	//标签选中状态,与无hash值时选中第一个
+        	console.log('--------------------------------------')
+        	// var flag = 0;
+        	// var oas =  document.querySelectorAll('.action a');
+	        // for(var i=0;i<oas.length;i++){
+	        // 	oas[i].className=''
+	        // 	var href =oas[i].hash.slice(1);
+	        // 	if(href == hash){
+	        // 		flag--;
+	        // 		console.log('相同了：'+hash+','+href);
+	        // 		oas[i].className='active'
+	        // 	}else {
+	        // 		flag++;
+	        // 		console.log('没有hash')
+	        // 	}
+	        // }
+	        // if(flag ==3){
+	        // 	 document.querySelectorAll('.action a')[0].className='active';
+	        // }
+	        if(vm.visibility!=hash){
+	        	alert(2)
+	        }
+	        console.log('--------------------------------------')
+
+        	
+        }
+        watchHashChange();
+
+        window.addEventListener('hashchange',watchHashChange)
+
+</script>
+
+
+</body>
+</html>

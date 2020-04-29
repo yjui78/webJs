@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>16-封装alert提醒组件</title>
+	<style type="text/css">
+.m-alert{position:relative;width:50%;padding:8px 16px;margin:0;box-sizing:border-box;border-radius:4px;position:relative;background-color:#fff;overflow:hidden;color:#fff;display:table;transition:opacity .2s;margin-top:10px;border:1px solid #ccc}.m-content{display:table-cell;padding:0 8px}.m-message{font-size:13px;line-height:18px;margin-left:10px}.m-alert-success{background-color:#13ce66}.m-alert-info{background-color:#50bfff}.m-alert-warning{background-color:#f7ba2a}.m-alert-error{background-color:#ff4949}.m-closebtn{font-size:16px;color:#fff;opacity:1;right:15px;position:absolute;cursor:pointer;font-style:normal}.m-icon{width:16px;display:table-cell;margin-top:5px;position:absolute;top:6px;height:16px;left:10px}#app{width:500px}.m-icon-info{background:url(images/m-icon-info.png) no-repeat;background-size:100%}
+	</style>
+</head>
+<body>
+<div id="app">
+	<div class="m-alert m-alert-info" style="">
+		<i class="m-icon m-icon-info"></i>
+		<div class="m-content">
+			<span class="m-message">标题</span>
+			<i  class="m-closebtn m-icon-close">X</i>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+/*
+				alert提醒框有四种状态：
+						info success error warning
+ 
+				设置的props：
+					type 提醒框类型 默认为info
+					title 提示信息 '这里有一个消息要提示'
+					closeable 是否禁用关闭 默认为true
+					showicon 是否显示图标 默认为false
+					style 设置提醒框样式 默认为{}
+ 
+				定制模板：
+					slot为iconTmp  定制icon模板
+					slot为titleTmp 定制提示信息结构
+ 
+				监控状态变化：
+					事件名close-click   点击关闭X触发
+ 
+			*/
+
+	new Vue({
+		el:'#app',
+		data:{
+
+		}
+	})
+</script>
+</body>
+</html>

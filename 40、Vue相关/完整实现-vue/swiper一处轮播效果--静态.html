@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>移动端图片轮播swiper</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<link rel="stylesheet" type="text/css" href="swiper.min.css">
+	<style type="text/css">
+.banner{position:relative;overflow:hidden;height:4.1rem;}body{font-size:0.25rem;margin:0;}.tabs-name{text-align:center;font-weight:bold;font-size:0.3rem;padding-top:0.3rem}.tabs-ds{text-align:center;font-size:0.25rem;margin:0.2rem 0;color:#666}.paginations{position:absolute;left:0;text-align:center;bottom:0.2rem;width:100%;z-index:1500;height:0.25rem}.swiper-slide img{height:4.1rem}.swiper-pagination-bullet{width:0.08rem;margin:0 0.08rem;height:0.08rem;background-color:#fff;vertical-align:middle;opacity:1}.swiper-pagination-bullet-active{background:#b44b4b;width:0.16rem;height:0.16rem}.posive .tabs-con{width:6.8rem;margin:0 auto;padding-bottom:0.3rem;margin-top:0.6rem;border-bottom:1px dashed #ccc}.posive .tabs-con-title{font-size:0.3rem}.posive .tabs-con-text{margin-top:0.15rem;color:#666;font-size:0.25rem}
+	</style>
+</head>
+<body>
+
+
+<div id="main">
+	 <div class="banner">
+        <div class="swiper-containerd">
+          <div class="swiper-wrapper" id="swiper-banner">
+
+          </div>
+        </div>
+        <div class="paginations"></div>
+    </div>
+</div>
+
+<script src="zepto.min.js"></script>
+<script src="vue2.js"></script>
+<script src="rem.js"></script>
+
+<!--当前页面js-->
+<script type="text/javascript" src="swiper.min.js"></script>
+<script type="text/javascript">
+
+//swiper官网  https://www.swiper.com.cn/api/autoplay/19.html
+	var res={
+  		  data:[
+  		   { thumb: "images/1.png"},
+  		   { thumb: "images/2.png"},
+  		   { thumb: "images/3.png"}
+  		  ]
+	}
+	
+$(function(){
+  //banner图片轮播
+ var mySwiper = new Swiper('.swiper-containerd', {
+      pagination: {
+          "el": ".paginations",
+      },
+      loop: true,
+      autoplay: true,
+init: false,
+      disableOnInteraction: false
+ });
+ // 请求接口成功时
+  var bannerImgs = res.data;
+  var slideHtml = '';
+  for (var i = 0; i < bannerImgs.length; i++) {
+      slideHtml += `<div class="swiper-slide"><img src="${bannerImgs[i].thumb}" /></div>`;
+  }
+  $('.swiper-containerd .swiper-wrapper').html(slideHtml);
+  mySwiper.init();
+
+
+})
+  </script>
+</body>
+</html>
+

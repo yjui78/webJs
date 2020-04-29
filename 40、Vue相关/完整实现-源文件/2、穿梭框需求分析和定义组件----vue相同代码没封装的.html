@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head> 
+  <meta charset="UTF-8" /> 
+  <title>一个组title='目标列表' 件不同数据渲染</title> 
+  <style>
+  *{margin:0;padding:0}
+ul,li{padding:0}
+.transfer-list{width:300px;border:1px solid #ccc;display:inline-block;height:300px;float:left}
+.transfer-list-body{height:100%;border-top:none;border-radius:0 0 6px 6px;position:relative;overflow:hidden}
+.transfer-list-content{height:100%;padding:4px  0;overflow:auto}
+.transfer-list-content-item{padding:7px 10px;clear:both;color:#495060;white-space:nowrap;list-style:none;cursor:pointer;transition:background .2s ease-in-out;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.transfer-operation{float:left;display:inline-block;overflow:hidden;margin:0 16px;vertical-align:middle;margin-top:120px}
+.transfer-header{background:#E6E5E4;line-height:40px;padding-left:10px}
+.transfer-operation input{padding:5px}
+</style> 
+
+</script>
+ </head> 
+ <body> 
+ <div class="transfer" id='app'>
+     <!--原值：title='源列表'；动态绑定为属性:data='originData'，加v-bind解析成属性-->
+     <transfer-list title='源列表' :data='originData'></transfer-list>
+
+     <div class="transfer-operation">
+         <p style="margin-bottom: 10px;"><input type="button" name="" value="<"  v-on:click='targetToOrigin' /></p>
+         <p><input type="button" name="" value=">" v-on:click='originToTarget' /></p>
+     </div>
+     <transfer-list title='目标列表' :data='targetData'></transfer-list>
+ </div>
+ <script type="text/javascript" src="vue2.js"></script>
+<script>
+let  listData = {
+        originData:[//源列表
+            {
+                id:1000,
+                title:'js课程',
+                checked:false
+            },
+            {
+                id:1101,
+                title:'css课程',
+                checked:false
+            },
+            {
+                id:1002,
+                title:'vue课程',
+                checked:true
+            },
+        ],
+        targetData:[//目标列表
+            {
+                id:105660,
+                title:'Node课程',
+                checked:true
+            },
+            {
+                id:11088881,
+                title:'canvas课程',
+                checked:true
+            }
+        ]
+}
+/*
+    1、定义组件，用-不能用驼峰方式transferList不对
+    2、左右数据不同处理，标题不同：源列表，目标列表，用传参方式定制组件用props,title=''单独设置
+    3、动态数据绑定v-bind:data='originData'表示从data数据里获取值,加v-bind是属性，不加是本身的json值
+    4、v-model 用在交互的标签上input是否选中,select,textarea,根据type类型不同，作用在type上
+*/
+Vue.component('transfer-list',{
+    props:['title','data'],//组件自定义title传进来,类似函数传参
+    template:`<div class="transfer-list">
+             <div class="transfer-header">
+                 <input type="checkbox" name="">
+                 <span class="transfer-header-title">{{title}}</span>
+                 <span class="transfer-header-count">{{checkedLength}}/{{data.length}}</span>
+             </div>
+             <div class="transfer-listd-body">
+                 <ul class="transfer-list-content">
+                     <li class="transfer-list-content-item" v-for='item in data'>
+                         <input type="checkbox" name="" v-model = 'item.checked' >
+                         <span>{{item.title}}</span>
+                     </li>
+                 </ul>  
+             </div>
+         </div>`,
+         //选中的个数
+         computed:{
+            checkedLength(){
+                return this.data.filter(item=>item.checked).length;
+            }
+         }
+
+})
+var vm = new Vue({
+    el:'#app',
+    data:{
+        // listData:listData
+        ...listData
+    },
+    methods:{
+        //源到目标
+        originToTarget(){
+            //返回[{},{}],所以用...,用map做进一步处理转移不选中
+            let originChecked = this.originData.filter(item=>item.checked).map((item)=>{
+                // map数据处理成：[{id: 1101, title: "css课程", checked: false}]
+                 // 不用map处理是这样的：[{…}, __ob__: Observer]
+                return {
+                    ...item ,       //选中过滤出来,再复制出一份传target
+                    checked:false
+                }
+            });
+            console.log(originChecked)
+            //选中的移右边
+            this.targetData.push(...originChecked); //push数据中每一项，用...,解构就去除[]只是里边对象了{}
+            //源目标的数据找之前没选中的目标重置一下,
+            this.originData = this.originData.filter(item=>!item.checked)
+        },
+        //目标到源
+        targetToOrigin(){
+            var targetChecked = this.targetData.filter((item)=>item.checked).map((item)=>{
+                //复制一份选中的false掉到另一个里
+                return {
+                    ...item,
+                    checked:false
+                }
+            })
+            this.originData.push(...targetChecked);
+            //重置target里之前没选中的数据
+            this.targetData = this.targetData.filter(item=>!item.checked)
+        }
+    }
+})
+</script>
+ </body>
+</html>

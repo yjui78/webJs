@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>template-组件封装</title>
+</head>
+<body>
+<div id='app'>
+     <template-swiper :ligit='ligit'></template-swiper>
+</div>
+<template id='tabs-list-t'>
+    <ul>
+        <li v-for='item,index in ligit'>{{item.name}}-{{item.age}}-{{item.addr}}</li>
+    </ul>
+</template>
+<script src="vue2.js"></script>
+<script type="text/javascript">
+    Vue.component('template-swiper',{
+        // :light是props
+        props:['ligit'],
+        data(){
+            return {
+                // data1随便起的
+                data1:this.ligit
+            }
+        },
+        template:'#tabs-list-t'
+    })
+	var vm= new Vue({
+		el:'#app',
+		data : {
+            // light与props一致
+            ligit:[
+                {name:'YJUI',age:123,addr:'地址'},
+                {name:'hui',age:12,addr:'地址2'},
+            ]
+        },
+	})
+</script>
+</body>
+</html>

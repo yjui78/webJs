@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>slot</title>
+</head>
+<body>
+<div id="app">
+
+		<custom-component>
+		<!--在父组件中使用就是父组件中的数据 -->
+			{{message}}
+		</custom-component>
+</div>
+<script type="text/javascript" src='vue2.js'></script>
+<script type="text/javascript">
+// 在子组件中使用就是子组件中的数据
+Vue.component('custom-component',{
+	data(){
+		return{
+			message:'我是子组件中的数据'
+		}
+	},
+	template:`
+		<div>
+			<slot></slot>
+			{{message}}
+		</div>
+	`
+})
+new Vue({
+	el:'#app',
+	data:{
+		message:'我是父组件的数据'
+	}
+})
+</script>
+</body>
+</html>

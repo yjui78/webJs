@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+      body{margin:0;font-family:"微软雅黑";}ul,li{margin:0;padding:0;list-style:none;}input{outline:none;cursor:pointer;}.clearFix:after{display:block;content:'';clear:both;}.warp{width:348px;padding:100px 76px 50px;margin:50px;box-shadow:2px 2px 10px #6789ad;}.searchIpt{position:relative;width:336px;border:1px solid #3736ae;padding:5px;border-radius:24px;background:#e4e4fe;}.searchIpt input{line-height:34px;border-radius:18px;}.searchIpt input:nth-of-type(1){float:left;width:228px;padding-left:40px;border:1px solid #c9c9d5;background:#d9d9e2;}.searchIpt input:nth-of-type(2){float:right;width:58px;height:36px;border:1px solid #fd635e;background:#fd635e;}.searchIpt span{position:absolute;top:12px;left:15px;width:23px;height:23px;}.searchIpt input:nth-of-type(1):focus{background:#fff;border-color:#fd635e;}.list{margin-top:9px;}.list li{margin:3px 0;color:#333;line-height:30px;padding-left:16px;width:270px;box-sizing:border-box;border-radius:14px;}.list li.active,.list li:hover{color:#fff;background:#fd635e;cursor:pointer;}
+    </style>
+</head>
+<body>
+<!--组件模板-->
+<template id='temp'>
+    <div><h2>这是一个标题</h2></div>
+</template>
+
+
+
+<div id="app">
+    <!-- X错的写法，在不符合W3C标准的嵌套下table是包裹不上的，如果需要用is -->
+    <table><custom-select btn-value='查询'></custom-select></table>
+    <hr>
+
+    <!--用is的正确写法,table在最外层能包裹上 -->
+    <table>
+        <tr is='custom-select'></tr>
+    </table>
+    <hr>
+</div>
+
+
+<script src="vue2.js"></script>
+<script>
+/*
+
+*/
+  //全局组件
+  Vue.component('custom-select',{
+    template:'#temp'
+  })
+
+ new Vue({
+    el:'#app',
+    data:{ },
+ })
+</script>
+</body>
+</html>

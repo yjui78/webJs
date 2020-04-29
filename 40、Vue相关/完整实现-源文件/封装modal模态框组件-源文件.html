@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>15-封装modal模态框组件</title>
+	<style type="text/css">
+.modal-backdrop{position:fixed;top:0;right:0;bottom:0;left:0;background-color:rgba(0,0,0,.3);display:flex;justify-content:center;align-items:center}.modal{margin: 50px auto;background-color:#fff;box-shadow:2px 2px 20px 1px;overflow-x:auto;display:flex;flex-direction:column;width:400px}.modal-header{border-bottom:1px solid #eee;color:#313131;justify-content:space-between;display:flex}.modal-footer{border-top:1px solid #eee;justify-content:flex-end;padding:15px;display:flex}.modal-content{position:relative;padding:20px 10px}.btn-close,.btn-confirm{border-radius:8px;margin-left:16px;width:56px;height:36px;border:none;cursor:pointer}.btn-close{color:#313131;background-color:transparent}.btn-confirm{color:#fff;background-color:#2d8cf0}h4{margin:0}.btn{}.blue{background:blue;color:#fff;border:0;padding:5px 10px;border-radius:5px;margin-right:10px}
+	</style>
+</head>
+<body>
+
+ <div class="modal" v-show="show" transition="fade">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <!--头部-->
+    <div class="modal-header">
+      	<h4 class="title">这是标题</h4>
+    </div>
+    <!--内容区域-->
+    <div class="modal-content">
+      	<div>在这里添加内容</div>
+    </div>
+    <!--尾部,操作按钮-->
+    <div class="modal-footer">
+    	<input type="button" value="确定" class='btn blue'>
+    	<input type="button" value="取消" class='btn'>
+    </div>
+   </div>
+  </div>
+  <script type="text/javascript" src="vue2.js"></script>
+  <script type="text/javascript">
+  	/*
+		 设置的props：
+		 	modalTitle 提醒信息 默认为 '这是一个模态框'
+		 定制模板：
+		 	slot为modal-content 定制提醒信息模板
+		 	slot为modal-footer  定制底部模板
+		 监控状态变化：
+			事件名on-ok      点击确定触发
+			事件名on-cancel  点击取消触发
+  	*/
+    
+  	Vue.component('m-model',{
+  		template:`
+
+  		`
+  	})
+  	new Vue({
+  		el:'#app',
+  		data:{
+
+  		}
+  	})
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>窗口右下角消息弹出框</title>
+    <meta charset="utf-8"/>
+    <style>
+        *{margin:0;padding:0}
+        #msg{width:200px;height:200px;position:fixed;right:30px;bottom:-200px;background-color:LightBlue;}
+        #msg>a{float:right;padding:5px 10px;border:1px solid black;cursor:pointer;}
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="msg">
+        <a>X</a>
+    </div>
+</div>
+<script src="vue2.js"></script>
+<script src="index.js"></script>
+</body>
+</html>

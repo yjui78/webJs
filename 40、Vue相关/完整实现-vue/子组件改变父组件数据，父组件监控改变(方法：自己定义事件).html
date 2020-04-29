@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>子组件改变父组件数据，父组件监控改变(方法：自己定义事件)</title> 
+</head> 
+<body> 
+
+<div id='app'>
+	<h2  >父组件中的数据：{{count}}</h2>
+	<hr>
+	<custom-component :count='count' @increment-click = 'countHandle'></custom-component>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+
+Vue.component('custom-component',{
+	props:{
+		//父级传来类型string,子组件接收Number，abc数据能渲染，但后台报错
+		count:{
+			// type:Number,	 //type:[Number,String] , 可以是多种类型的写法
+			/*default:10     //不传值默认是default设置的值
+				default:function(){return 11} //也可以写成函数，return就是默认值
+			*/
+			// required:true    //必传且为字符串类型 ,custom-component上必须加上:count='count'
+			//自定义验证规则
+			validator:function(value){	//value是父组件传来的值count
+				//符合条件显示，不符合条件console是报错，传20时正常显示，
+				return value>10       	
+			}
+		}
+	},
+	data(){
+		//父级传来的数据在子组件中重新定义一下incrementCount
+		return{
+			incrementCount:this.count
+		}
+
+	},
+	template:`
+		<div>
+			<h2>子组件中获取数据{{incrementCount}}</h2>
+			<input type='button' value='改变count的值父组件本值也跟着变' @click='changeCount'>
+			{{incrementCount}}
+		</div>
+	`,
+	methods:{
+		changeCount(){
+			// 直接这么写可以实现,但是会报错，在本组件中定义count
+			this.incrementCount++;
+			this.$emit('increment-click');
+		}
+	}
+})
+new Vue({
+	el:'#app',
+	data:{
+		//count:"abc"   //父组件传来类型String时
+		/*父组件不向子组件传值时，可设置默认值，不传值不是改data里数据，是<custom-component> 里不加这句:count='count'*/
+		count:20     
+	},
+	methods:{
+		countHandle(){
+			this.count++;
+		}
+	}
+})
+
+</script>
+</body> 
+</html>

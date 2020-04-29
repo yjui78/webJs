@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>父组件</title> 
+</head> 
+<body> 
+<div id='app'>
+    <child :message = 'parentMsg'></child>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript" src="./components/child.js"></script>
+<script type="text/javascript">
+//父组件数据lightdata
+var vm = new Vue({
+  el:'#app',
+  data:{
+    parentMsg:'hello,我是父组件数据'
+  },
+  methods:{
+
+  },
+  components:{
+      'child':Vue.childTem
+  }
+})
+</script>
+</body> 
+</html>

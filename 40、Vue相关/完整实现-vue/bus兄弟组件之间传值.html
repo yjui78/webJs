@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>非父子组件间传值(Bus/总线/发布订阅模式/观察者模式)</title>
+</head>
+<body>
+<div id="main">
+	<child content='Dell'></child>
+	<child content='Lee'></child>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+	/*
+		实现效果点击其中一个组件，另一个内容跟随变化
+	*/
+
+	//bus实例yong'you拥有所有的属性和方法
+	Vue.prototype.bus = new Vue();
+	
+	Vue.component('child',{
+		data(){
+			return {
+				selfContent : this.content
+			}
+		},
+		props:{
+			content:String
+		},
+		template:'<div @click="handleClick">{{selfContent}}</div>',
+		methods:{
+			handleClick(){
+				// 触发事件change,不需要在组件中定义@change,用$on接收
+				this.bus.$emit('change',this.selfContent)
+			},
+
+		},
+		mounted:function(){
+			var _this = this;
+			this.bus.$on('change',function(msg){
+				_this.selfContent = msg;
+			})
+		}
+
+	})
+	var vm = new Vue({
+		el:'#main'
+	})
+</script>
+</body>
+</html>

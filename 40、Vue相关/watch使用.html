@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>watch</title>
+</head>
+<body>
+<div id='app'>
+	<select v-model="id" name="">
+	    <option value="-1">请选择</option>
+	    <option v-for="item in versionList" :value="item.cid">{{item.name}}</option>
+	</select>
+</div>
+<script src="vue2.js"></script>
+<script src='jquery-1.10.1.min.js'></script>
+<script type="text/javascript">
+	var vm= new Vue({
+		el:'#app',
+		data:{
+			versionList:[
+				{name:'selet0',cid:0},
+				{name:'selet1',cid:1},
+				{name:'selet2',cid:2},
+			]
+		},
+		created:function(){
+
+		},
+		watch: {
+			id(newval,oldval){
+				alert(val)
+			}
+		}
+	})
+</script>
+</body>
+</html>

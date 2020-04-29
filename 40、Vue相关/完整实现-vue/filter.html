@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>filter</title>
+</head>
+<body>
+<div id='app'>
+	<div v-for='item,index in dep1'>{{item.per}}</div>
+	<!-- <div v-for='item,index in dep'>{{item.per}}</div> -->
+	<div>{{dep.per}}</div>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+var vm = new Vue({
+	el:'#app',
+	data:{
+		dep1: [
+            {per: 20, num: "20%"},
+            {per: 30, isCan: false, num: "30%"},
+            {per: 40, isCan: false, num: "40%"},
+            {per: 50, isCan: false, num: "50%"},
+            {per: 60, isCan: false, num: "60%"},
+            {per: 70, isCan: false, num: "70%"},
+            {per: 80, isCan: false, num: "80%"}
+        ],
+        dep2: [
+            {per: 20, num: "20%"},
+            {per: 30, isCan: false, num: "30%"},
+            {per: 40, isCan: false, num: "40%"},
+            {per: 50, isCan: false, num: "50%"},
+            {per: 60, isCan: false, num: "60%"},
+            {per: 70, isCan: false, num: "70%"},
+            {per: 80, isCan: false, num: "80%"}
+        ],
+        dep:'',
+	},
+	components: {
+
+    },
+    created: function () {
+    	var self = this;
+    	//filter（）：操作当前元素集，删除不匹配的元素，得到一个新的集合
+    	self.dep1 = self.dep1.filter(function (e, i) {
+    		if(e.per>30){
+    			return self.dep1; //页面返回 40 50 60 70 80
+    		}
+    	})
+    	self.init();
+    },
+    mounted:function(){
+
+    },
+    methods: {
+    	init(){
+    		var self = this;
+    		//find() 方法返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined
+    		self.dep = self.dep2.find(function (e) {
+	            return e.per>20; //页面返回 30
+	        })
+	        console.log(self.dep)
+    	}
+    },
+    watch: {
+
+    },
+    filters: {
+
+    }
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+    	body{margin:0;font-family:"微软雅黑";}ul,li{margin:0;padding:0;list-style:none;}input{outline:none;cursor:pointer;}.clearFix:after{display:block;content:'';clear:both;}.warp{width:348px;padding:100px 76px 50px;margin:50px;box-shadow:2px 2px 10px #6789ad;}.searchIpt{position:relative;width:336px;border:1px solid #3736ae;padding:5px;border-radius:24px;background:#e4e4fe;}.searchIpt input{line-height:34px;border-radius:18px;}.searchIpt input:nth-of-type(1){float:left;width:228px;padding-left:40px;border:1px solid #c9c9d5;background:#d9d9e2;}.searchIpt input:nth-of-type(2){float:right;width:58px;height:36px;border:1px solid #fd635e;background:#fd635e;}.searchIpt span{position:absolute;top:12px;left:15px;width:23px;height:23px;}.searchIpt input:nth-of-type(1):focus{background:#fff;border-color:#fd635e;}.list{margin-top:9px;}.list li{margin:3px 0;color:#333;line-height:30px;padding-left:16px;width:270px;box-sizing:border-box;border-radius:14px;}.list li.active,.list li:hover{color:#fff;background:#fd635e;cursor:pointer;}
+    </style>
+</head>
+<body>
+<!--组件模板-->
+<div id="app">
+	<!--不同select传入不同ul数据-->
+	<custom-select btn-value='查询' v-bind:list = 'list1'></custom-select>
+	<hr>
+	<custom-select btn-value='搜索' v-bind:list = 'list2'></custom-select>
+</div>
+</section>
+
+<script src="vue2.js"></script>
+<script>
+/*
+	1、props动态获取组件数据标题,props驼峰方式
+		自定义组件：<custom-select btn-value='查询'></custom-select>
+		组件模板内加入值：props:['btnValue'] ,template中input内v-bind:value="btnValue" ，span内是{{btnValue}}
+		可以写成单词的形式，一般写组合的会多些
+	2、ul也提取作为一个组件custom-list
+	3、父组件--->子组件 ：两个组件select数据实际上是不一样的，v-bind动态绑定数据在父组件中v-bind动态绑定数据props接收，子组件用这个数据在绑定:list='list'再props接收,如果多个组件传值用vuex
+	4、子组件--->父组件 ：子组件,点击事件@click数据放父组件数据里用$on自定义事件，$emit触发父组件所关心的自定义组件
+	5、每个组件有个自的单独方法
+
+*/
+	
+	// var Event =  new Vue();
+
+	//全局组件
+	Vue.component('custom-select',{
+		data(){
+			return {
+				//判断显示隐藏
+				selectShow:false,
+				//动态绑定这个值
+				val:''
+			}
+		},
+		// data1, 父组件:value = 'val'动态绑定的数据都用v-bind绑定
+		props:['btnValue','list'],
+		template:`<div>
+			<section class="warp">
+			    <div class="searchIpt clearFix">
+			        <div class="clearFix">
+			            <input type="text" class="keyword" :value = 'val' @click ='selectShow=!selectShow'>
+			            <input type="button"  v-bind:value="btnValue" class="button">
+			            <span></span>
+			        </div>
+			        <custom-list  v-show ='selectShow' :list='list' v-on:receive='changeValueHandle' ></custom-list>
+			    </div>
+			</section>
+		</div>`,
+		methods:{
+			changeValueHandle(value){
+				//父组件接收子组件的文本$on
+				this.val =value;
+				this.selectShow=false;
+			}
+			
+		},
+	})
+
+	//子组件,点击事件@click数据放父组件数据里
+	Vue.component('custom-list',{
+		// 父组件传给子组件的list
+		props:['list'],
+		template:`
+		<ul class="list">
+            <li v-for='item in list' @click='selectValue(item)'>{{item}}</li>
+         </ul>`,
+         methods:{
+	 		selectValue(todo){
+	 			//发送子组件的文本$emit,receive父组件自定义事件名传入，changeValueHandle事件会触发
+	 			this.$emit('receive',todo)
+	 		}
+	 	}
+	})
+
+ new Vue({
+ 	el:'#app',
+ 	data:{ 
+		list1:['北京','上海','杭州'],
+		list2:['蔬菜','水果','粮食']
+ 	},
+ 	
+ })
+</script>
+</body>
+</html>

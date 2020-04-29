@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+   <link rel="stylesheet" type="text/css" href="public.css">
+</head>
+<body>
+<div id='app'>
+  <div v-for = "(item,index) in limeList">{{item}}</div>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+// 计算小时7的显示页面中
+var vm = new Vue({
+  el:'#app',
+  data:{
+    list:[1,2,3,4,5,6,7]
+  },
+  computed:{
+    limeList(){
+        limeList = this.list.filter(item=>item<7)
+        return limeList;
+    }
+  }
+})
+
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>封装alert提醒组件</title>
+	<style type="text/css">
+.m-alert{position:relative;width:50%;padding:8px 16px;margin:0;box-sizing:border-box;border-radius:4px;position:relative;    background-color: #50bfff;overflow:hidden;color:#fff;display:table;transition:opacity .2s;margin-top:10px;border:1px solid #ccc}
+.m-content{display:table-cell;padding:0 8px}
+.m-message{font-size:13px;line-height:18px;margin-left:10px}
+.m-alert-success{background-color:#13ce66}
+.m-alert-info{    background-color: #50bfff;}
+.m-alert-warning{background-color:#f7ba2a}
+.m-alert-error{background-color:#ff4949}
+.m-closebtn{font-size:16px;color:#fff;opacity:1;right:15px;position:absolute;cursor:pointer;font-style:normal}
+.m-icon{width:16px;display:table-cell;margin-top:5px;position:absolute;top:6px;height:16px;left:10px}
+#app{width:500px}
+.m-icon-info{background:url(images/info.png) no-repeat;background-size:100%}
+.m-icon-error{background:url(images/error.png) no-repeat;background-size:100%}
+.m-icon-warning{background:url(images/warning.png) no-repeat;background-size:100%}
+.m-icon-success{background:url(images/success.png) no-repeat;background-size:100%}
+.m-icon-message{background:url(images/ad.png) no-repeat;background-size:100%}
+	</style>
+</head>
+<body>
+<div id="app">
+	<!-- closeable传值判断X显隐，showicon传值判断图标显隐,不传走默认-->
+	<m-alert type='warning' title='这是一个警告' 
+	
+	v-bind:showicon='true'
+	style='background-color:pink;' 
+	@close-click = 'close'
+	></m-alert>
+	<m-alert type='error' title='错误了，请重写'>
+		<template slot='titleTmp'>
+			<p >这是定制模板</p>
+			<p >这是定制模板</p>
+			<p >这是定制模板</p>
+			<p >这是定制模板</p>
+			<p >这是定制模板</p>
+			<p >这是定制模板</p>
+			<p >这是定制模板</p>
+		</template>
+
+		<!-- 定制自己的图标 -->
+		<i slot='iconTmp' class="m-icon m-icon-message"></i>
+	</m-alert>
+	<m-alert v-bind:closeable='false' type='info' title='这是一个默认信息'></m-alert>
+	<m-alert type='success' title='恭喜你，成功了'></m-alert>
+	<!-- 不传默认info -->
+	<m-alert></m-alert>
+</div>
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+			/*
+				alert提醒框有四种状态：
+						info success error warning
+ 
+				设置的props：
+					type 提醒框类型 默认为info
+					title 提示信息 '这里有一个消息要提示'
+					closeable 是否禁用关闭 默认为true
+					showicon 是否显示图标 默认为false
+					style 设置提醒框样式 默认为{}
+ 
+				定制模板：
+					slot为iconTmp  定制icon模板
+					slot为titleTmp 定制提示信息结构
+ 
+				监控状态变化：
+					事件名close-click   点击关闭X触发 ，使用的组件上加	@close-click = 'close'
+ 
+			*/
+
+			/*
+			封装alert提醒组件再自定义组件内的东西，随意更改替换样式，文本，按钮等
+
+				知识点：
+				1、用props接收组件中传来的值，
+					type是警告样式包含背景class与icon图标class
+					title是标题，不传走默认，传了以传的为主
+					表示字符串这样写：closeable='false'  这里closeable为Boolean类型, 
+					要布尔值这样写：  v-bind:closeable='false'
+				2、v-if用在true/false显示隐藏中，这里判断closeable、showicon显隐用到
+				3、style自定义样式，不用已有的,这里会报错，网上说使用vue版本的问题vue2.2.0好使，其他不好使
+				4、假如提示的内容很多或不想用span标签，想用p标签，可以定制用slot
+				5、假如提供的图标太少了，想自己定制用slot
+				6、点击X时外层methods监测到,组件内用this.$emit
+
+
+			*/
+   	Vue.component('m-alert',{
+   		props:{
+   			type:{
+   				type:String,
+   				default:'info'
+   			},
+   			title:{
+   				type:String,
+   				default:'这是提示信息'
+   			},
+   			// 判断X是否显示,默认显示，用v-if判断true/false
+   			closeable:{
+   				type:Boolean,
+   				default:true
+   			},
+   			//图标显隐,默认隐藏，用v-if='!showicon'
+   			showicon:{
+   				type:Boolean,
+   				default:false
+   			},
+   			style:String
+   		},
+   		computed:{
+   			// 背景和icon动态传值方法，定义type
+   			classes(){
+   				return `m-alert-${this.type}`
+   			},
+   			iconclass(){
+   				return `m-icon-${this.type}`
+   			}
+   		},
+   		template:`
+   			<div class="m-alert" :class='[classes]' style='style'>
+   				<slot name='iconTmp'>
+   					<i v-if='showicon' class="m-icon" :class='[iconclass]'></i>
+   				</slot>
+				<div class="m-content">
+				<slot name='titleTmp'>
+					<span class="m-message">{{title}}</span>
+				</slot>
+					
+					<i v-if='closeable' class="m-closebtn m-icon-close" @click='closeHandle'>X</i>
+				</div>
+			</div>
+   		`,
+   		methods:{
+   			closeHandle(){
+   				this.$emit('close-click')
+   			}
+   		}
+   	})
+	new Vue({
+		el:'#app',
+		data:{
+
+		},
+		methods:{
+			close(){
+				alert('点击了X')
+			}
+		}
+	})
+</script>
+</body>
+</html>

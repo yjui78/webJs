@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>父组件</title> 
+</head> 
+<body> 
+<div id='app'>
+    <h3>全局组件</h3>
+    <father></father>
+
+    <h3>局部组件</h3>
+    <fatherlocal></fatherlocal>
+
+    <h5>子组件</h5>
+    <child :fromfather = 'giveData'></child>
+</div>
+<!-- 全局组件模板father模板 -->
+<template id="father">
+    <div>
+        <h5>{{name}}</h5>
+    </div>
+</template>
+
+<!--局部组件模板fatherlocal -->
+<template id="father-local">
+    <div>
+        <h5>{{name}}</h5>
+    </div>
+</template>
+
+<!--子组件child -->
+<template id="child">
+    <div>
+        <h5>{{name}}</h5>
+        <p>{{cmsg}}</p>
+        <p>{{cmsgtwo}}</p>
+        <p>{{fromfather}}</p>
+        <p>{{fromfather.fmsg}}</p>
+    </div>
+</template>
+
+<script type="text/javascript" src="vue2.js"></script>
+<script type="text/javascript">
+// 定义组件
+var FATHER = {
+    template:'#father',
+    data:function(){
+        return {
+            name:'全局-组件数据'
+        }
+    }
+}
+var CHILD = {
+    template:'#child',
+    props:['fromfather'],
+    data:function(){
+        return {
+            name:'子组件',
+            cmsg:'子组件里的第一个数',
+            cmsgtwo: "子组件里的第二个数据"
+        }
+    },
+    mounted:function(){
+         this.cmsg = this.fromfather;
+        console.log(this.fromfather)
+    }
+}
+
+
+//定义全局组件
+Vue.component('father',FATHER);
+Vue.component("child", CHILD);
+
+
+var vm = new Vue({
+  el:'#app',
+  data:{
+    giveData:{
+        fmsg: "这是父组件里的数据"
+    }
+  },
+  methods:{},
+  
+  // 局部组件fatherlocal
+  components:{
+      'fatherlocal':{
+            template:'#father-local',
+            data:function(){
+                return {
+                    name:'局部-父组件数据'
+                }
+            }
+      },
+  }
+})
+</script>
+</body> 
+</html>

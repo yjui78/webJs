@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>slot</title>
+</head>
+<body>
+<div id="app">
+		<custom-component>
+			<!--写在组件内，不加slot占位不会显示，加slot占位可设置默认值-->
+			<!--对应template中显示位置-->
+			<div slot='one'>替换第1个提醒</div>
+			<div slot='three'>替换第3个提醒</div>
+			<!-- 插入方法1 -->
+
+			<!-- <div slot='two'>替换第2个提醒</div>
+			<span slot='two'>替换第2个提醒</span> -->
+
+			<!--方法2：批量插入-->
+			<template slot='two'>
+				<div>替换第2个提醒</div>
+				<div>替换第2个提醒</div>
+				<div>替换第2个提醒</div>
+			</template>
+			<div>替换无名slot2</div>
+		</custom-component>
+</div>
+<script type="text/javascript" src='vue2.js'></script>
+<script type="text/javascript">
+/*
+显示：
+	以template模板中内容为最后显示位置
+*/
+Vue.component('custom-component',{
+	template:`
+		<div>
+			<slot name='one'><p>提醒1内容</p></slot>
+			<slot name='two'><p>提醒2内容</p></slot>
+			<slot name='three'><p>提醒3内容</p></slot>
+			<slot></slot>
+		</div>
+	`
+})
+new Vue({
+	el:'#app',
+	data:{}
+})
+</script>
+</body>
+</html>

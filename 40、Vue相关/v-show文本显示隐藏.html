@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #div1 {width:100px;height:100px;background:#ccc;}
+    </style>
+</head>
+<body>
+    <div id="app">
+       <input id="btn" type="button" v-model="btnText"  @click='showToggle' >
+       <!-- <p v-if="willShow">msg</p>
+       <p v-else>隐藏</p> -->
+       <div id="div1" v-show = 'isShow'></div>
+    </div>
+</body>
+<script src="vue2.min.js"></script>
+<script type="text/javascript">
+var vm = new Vue({
+    el:'#app',
+    data:{
+        btnText:'隐藏',
+        isShow :true
+    },
+    methods:{
+        showToggle(){
+            this.isShow=!this.isShow;
+            if(this.isShow){
+                this.btnText='隐藏'
+            }else {
+                this.btnText='显示'
+            }
+        }
+    }
+})
+</script>
+
+</html>

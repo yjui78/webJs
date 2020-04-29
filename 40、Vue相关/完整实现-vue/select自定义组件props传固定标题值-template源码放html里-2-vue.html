@@ -1,0 +1,94 @@
+-<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+      body{margin:0;font-family:"微软雅黑";}ul,li{margin:0;padding:0;list-style:none;}input{outline:none;cursor:pointer;}.clearFix:after{display:block;content:'';clear:both;}.warp{width:348px;padding:100px 76px 50px;margin:50px;box-shadow:2px 2px 10px #6789ad;}.searchIpt{position:relative;width:336px;border:1px solid #3736ae;padding:5px;border-radius:24px;background:#e4e4fe;}.searchIpt input{line-height:34px;border-radius:18px;}.searchIpt input:nth-of-type(1){float:left;width:228px;padding-left:40px;border:1px solid #c9c9d5;background:#d9d9e2;}.searchIpt input:nth-of-type(2){float:right;width:58px;height:36px;border:1px solid #fd635e;background:#fd635e;}.searchIpt span{position:absolute;top:12px;left:15px;width:23px;height:23px;}.searchIpt input:nth-of-type(1):focus{background:#fff;border-color:#fd635e;}.list{margin-top:9px;}.list li{margin:3px 0;color:#333;line-height:30px;padding-left:16px;width:270px;box-sizing:border-box;border-radius:14px;}.list li.active,.list li:hover{color:#fff;background:#fd635e;cursor:pointer;}
+    </style>
+</head>
+<body>
+<!--组件模板，父组件-->
+
+<div id='app'>
+    <custom-select :list='list1' btn-value='查询'></custom-select>
+    <hr>
+    <custom-select :list='list2' btn-value='搜索'></custom-select>
+</div>
+<!--子组件-->
+<template id='transtate-list'>
+    <section class="warp">
+        <div class="searchIpt clearFix">
+            <div class="clearFix">
+                <input type="text" 
+                    :value='val' 
+                    @click='showUl=!showUl'
+                    class="keyword">
+                <input type="button" :value='btnValue' class="button">
+                <span></span>
+            </div>
+            <custom-list :list='list' v-show='showUl' v-on:receive = 'changeValueHandle'></custom-list>
+        </div>
+    </section>
+</template>
+
+<template id='t-ul'>
+    <ul class="list" style="">
+        <li v-for='item in list'
+            @click='selectValue(item)'
+        >{{item}}</li>
+    </ul>
+</template>
+
+
+<script src="vue2.js"></script>
+<script>
+/*
+  1、props动态获取组件数据标题,props驼峰方式
+    自定义组件：<custom-select btn-value='查询'></custom-select>
+    组件模板内加入值：props:['btnValue'] ,template中input内v-bind:value="btnValue" ，span内是{{btnValue}}
+    可以写成单词的形式，一般写组合的会多些
+    2、每个组件Vue.component里也可以写data(){ return 数据}或data:function(){return 数据}函数的形式，写成对象就共享了
+*/
+  //全局组件，父组件
+   Vue.component('custom-select',{
+        props:['btnValue','list'],
+        template:'#transtate-list',
+        data(){
+            return {
+                val:'',
+                showUl:false
+            }
+        },
+        methods:{
+            changeValueHandle(value){
+               this.val=value;
+               this.showUl=false;
+
+            }
+        }
+        
+    }),
+
+    Vue.component('custom-list',{
+        props:['list'],
+        template:'#t-ul',
+        methods:{
+            selectValue(todo){
+                console.log(todo)
+                this.$emit('receive',todo)
+            }
+        }
+    })
+
+    new Vue({
+        el:'#app',
+        data:{
+          list1:['北京','上海','杭州'],
+          list2:['蔬菜','水果','粮食'],
+        },
+        
+    })
+</script>
+</body>
+</html>

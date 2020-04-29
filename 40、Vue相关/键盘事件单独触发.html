@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #div1 {width:100px;height:100px;background:#ccc;}
+    </style>
+</head>
+<body>
+    <div id="app">
+            <input type="text"  @keydown.13 = "show1($event)">
+    </div>
+</body>
+<script src="vue2.min.js"></script>
+<script type="text/javascript">
+var vm = new Vue({
+    el:'#app',
+    methods:{
+        show1(ev){
+           alert(ev.keyCode);
+        }
+    }
+})
+</script>
+
+</html>

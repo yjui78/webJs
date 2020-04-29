@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>watch--handler方法和immediate属性</title>
+</head>
+<body>
+<div id='app'>
+	<div>
+      <p>Number: {{ myNumber }}</p>
+      <p>Number: <input type="text" v-model.number="myNumber"></p>
+	</div>
+</div>
+<script src="vue2.js"></script>
+<script src='jquery-1.10.1.min.js'></script>
+<script type="text/javascript">
+	var vm= new Vue({
+		el:'#app',
+		data:{
+			myNumber: -1,
+		},
+		created:function(){
+
+		},
+		//handler方法就是你watch中需要具体执行的方法；
+		//immediate为true时则立即触发回调函数；如果为false，则和上面的例子一样，不会立即执行回调。
+		watch: {
+			 handler(newVal, oldVal) {
+                console.log('newVal', newVal);
+                console.log('oldVal', oldVal);
+            },
+            immediate: false
+		}
+	})
+</script>
+</body>
+</html>

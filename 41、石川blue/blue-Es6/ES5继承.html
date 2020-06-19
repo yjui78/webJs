@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ES5</title>
+  </head>
+  <body>
+ 
+    <script>
+        //父类Person,子类Worker 
+        function Person(name,age){
+            this.name =  name;
+            this.age = age;
+        }
+        //ES5 添加方法要用原型的方式
+        Person.prototype.showName = function(){
+            alert(this.name);
+        }
+        Person.prototype.showAge = function(){
+            alert(this.age);
+        }
+        // -----------------继承---------
+        //ES5继承也要有个类或说函数 ，子级大于等于父级，父级有name,age,子级也要有，Worker是子； 
+        //Person有姓名有年龄但不一定有工作，但Worker都有，接下来操作继承父级属性
+        function Worker(name,age,job){
+          //继承父类的属性靠骗的方法用call,apply也可以把name,age交给Person去执行,把所有属性加到这个this上，this是Worker对象，不研究写法本身，完成父类属性继承即可
+          Person.call(this,name,age);
+          // 给父类加上自己的属性
+          this.job = job;
+        }
+        // 继承父类的方法,new一个父类的方法，把父类的实例放到这里作用我的prototype,我身上就有了父类的东西
+        Worker.prototype =  new Person();
+        //修正contructor,因为把Person实例扔在prototype上会破坏contructor属性;在打回Worder身上，要不就是Person了
+        Worker.prototype.constructor = Worker;
+        // 再加自己的东西
+        Worker.prototype.showJob = function(){
+          alert(this.job);
+        }
+        let w = new Worker('YJUI',18,'随便')
+        w.showName();
+        w.showAge();
+        w.showJob();
+
+
+    </script>
+  </body>
+</html>

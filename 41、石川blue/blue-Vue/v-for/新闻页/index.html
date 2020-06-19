@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-for</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<body>
+    <div id="app">
+        <table class="table" id="tab1">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>标题</th>
+                <th>频道</th>
+                <th>发布时间</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="data in news">
+                <td>{{data.ID}}</td>
+                <td>{{data.title}}</td>
+                <td>{{data.channel}} -- {{channels[data.channel]}}</td>
+                <td>{{time_conversion(data.time,3)}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script type="text/javascript">
+var vm = new Vue({
+    el:'#app',
+    data:{
+            news:[
+                {
+                    "ID":514,
+                    "title":"习近平：在庆祝改革开放40周年大会上的讲话（现场实录）",
+                    "time":1545109421,
+                    "channel":"index"
+                },
+                {
+                    "ID":515,
+                    "title":"泰安调生育保险待遇 女职工生育津贴按158天计算",
+                    "time":1463981682,
+                    "channel":"guonei"
+                },
+                {
+                    "ID":516,
+                    "title":"四川凉山州木里县发生3.4级地震 震源深度12千米",
+                    "time":1463983643,
+                    "channel":"guonei"
+                },
+                {
+                    "ID":517,
+                    "title":"65岁大妈与28岁小伙相恋 大妈：我可以做试管婴儿",
+                    "time":1545032457,
+                    "channel":"index"
+                },
+                {
+                    "ID":518,
+                    "title":"个税专项扣除办法或出炉 首套房认房还是认贷将明确",
+                    "time":1545094399,
+                    "channel":"index"
+                },
+            ],
+            channels:{
+                index:'首页新闻',
+                guonei:'国内新闻',
+            }
+    },
+    created(){
+        
+    },
+    methods:{
+        fn(){
+            this.age++;
+        },
+        time_conversion(stamp,type){
+            var date = new Date(stamp*1000),
+            year = date.getFullYear(),
+            month = date.getMonth() + 1 <10? '0' + (date.getMonth()+1) : date.getMonth()+1,
+            dat = date.getDate() < 10 ? '0'+date.getDate() : date.getDate(),
+            day = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")[date.getDay()],
+            hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
+            minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
+            second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+            var currentTime = year + "-" + month + "-" + dat + " " + hour + ":" + minute;
+            var currentTime2 = year + "年" + month + "月";
+            var currentTime3 = year + "-" + month + "-" + dat;
+            if(type == 1){
+                return currentTime;
+            }
+
+            if(type == 2){
+                return currentTime2;
+            }
+
+            if(type == 3){
+                return currentTime3;
+            }
+        }
+    }
+})
+</script>
+
+</html> 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>窗口弹窗位置居中</title>
+    <style>
+        .popBox{position:fixed;width:100%;left:0;top:0;background:rgba(0,0,0,0.6);height:100%;z-index:999}
+        .pb{width:500px;height:500px;position:absolute;top:8%;left:50%;transform:translateX(-50%);background:#efefef;border:1px solid #666}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="popBox">
+            <div class="pb"></div>
+        </div>
+    </div>
+    <script src="js/vue.min.js"></script>
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <script>
+        var app =  new Vue({
+            el:'#app',
+            data:{
+                pageHeight:'',   //窗口高
+            },
+            created: function () {
+            },
+            methods: {
+                //获取窗口高度
+                getClientHeight: function () {
+                    var clientHeight = 0;
+                    if (document.body.clientHeight && document.documentElement.clientHeight) {
+                        var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+                    } else {
+                        var clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+                    }
+                    return clientHeight;
+                },
+                popTop(){
+                    var self = this;
+                    setTimeout(function () {
+                        self.pageHeight = self.getClientHeight();
+                        document.querySelector('.popBox .pb').style.top = (self.pageHeight-500)/2+'px';
+                        console.log('当前窗口高度：'+self.pageHeight)
+                    }, 0)
+                }
+            },
+            mounted: function () {
+                var self = this;
+                console.log(self.getClientHeight(),1)
+                self.popTop();
+                window.onresize = function(){
+                    self.popTop();
+                }
+            },
+        })
+    </script>
+    </body>
+</html>

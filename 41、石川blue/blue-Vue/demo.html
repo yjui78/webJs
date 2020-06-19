@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" Content="text/html; charset=utf-8;">
+<title>移动端触摸滑动</title>
+<meta name="author" content="rainna" />
+<meta name="keywords" content="rainna's js lib" />
+<meta name="description" content="移动端触摸滑动" />
+<meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+</head>
+<body>
+<div class="vogueHover"></div>
+<script>
+var data =[
+    {
+        "id": "1",
+        hotInfoaccess: [  //车品
+            {code: "", name: "车品1", price: "149000.00"},
+             {code: "", name: "车11", price: "500.00"}
+         ],
+        hotInfons: [  //内饰
+            {code: "EM", name: "内饰", price: "0.00"},
+            {code: "W96", name: "内饰1", price: "720.00"}
+        ],
+        hotInfopz: [  //配置
+            {code: "4BD", name: "配置11", price: 0},
+            {code: "9S0", name: "配置1", price: "2000.00"}
+        ],
+        hotInfowg: [  //外观
+            {code: "0Q", name: "外观1", price: "2000.00"},
+            {code: "0Q", name: "外观11", price: "2000.00"},
+        ]
+    },
+    {
+        "id": "2",
+        hotInfoaccess: [  //车品
+            {code: "", name: "车品2", price: "149000.00"},
+         ],
+        hotInfons: [  //内饰
+            {code: "EM", name: "内饰2", price: "0.00"},
+        ],
+        hotInfopz: [  //配置
+            {code: "4BD", name: "配置2", price: 0},
+        ],
+        hotInfowg: [  //外观
+            {code: "0Q", name: "外观2", price: "2000.00"},
+        ]
+    },
+    {
+        "id": "3",
+        hotInfoaccess: [  //车品
+            {code: "", name: "车品3", price: "149000.00"},
+         ],
+        hotInfons: [  //内饰
+            {code: "EM", name: "内饰3", price: "0.00"},
+        ],
+        hotInfopz: [  //配置
+            {code: "4BD", name: "配置3", price: 0},
+        ],
+        hotInfowg: [  //外观
+            {code: "0Q", name: "外观3", price: "2000.00"},
+        ]
+    },
+    
+]
+// 临时数组
+var dataArr=[];
+for(var j in data){
+    dataArr.push({});
+}
+var idx ={
+    'hotInfowg':0,
+    'hotInfons':1,
+    'hotInfopz':2,
+    'hotInfoaccess':3,
+}
+ for(var i=0;i<data.length;i++){
+    dataArr[i].id =data[i].id;
+    dataArr[i].tabList =[{},{},{},{}];
+
+    //外观
+    /*
+    if(data[i].hotInfowg.length>0){
+        dataArr[i].tabList[idx.hotInfowg].title = '外观';
+        dataArr[i].tabList[idx.hotInfowg].itemNames =data[i].hotInfowg;
+    }
+    //内饰
+    if(data[i].hotInfons.length>0){
+        dataArr[i].tabList[idx.hotInfons].title = '内饰';
+        dataArr[i].tabList[idx.hotInfons].itemNames =data[i].hotInfons;
+    }
+    //配置
+    if(data[i].hotInfopz.length>0){
+        dataArr[i].tabList[idx.hotInfopz].title = '配置';
+        dataArr[i].tabList[idx.hotInfopz].itemNames =data[i].hotInfopz;
+    }
+    //车品
+    if(data[i].hotInfoaccess.length>0){
+        dataArr[i].tabList[idx.hotInfoaccess].title = '车品';
+        dataArr[i].tabList[idx.hotInfoaccess].itemNames =data[i].hotInfoaccess;
+    }
+    */
+    lastData(i,data[i].hotInfowg,idx.hotInfowg,'外观');
+    lastData(i,data[i].hotInfons,idx.hotInfons,'内饰');
+    lastData(i,data[i].hotInfopz,idx.hotInfopz,'配置');
+    lastData(i,data[i].hotInfoaccess,idx.hotInfoaccess,'车品');
+
+    
+ }
+function lastData(i,datas,tabName,title){
+    if(datas.length>0){
+        dataArr[i].tabList[tabName].title = title;
+        dataArr[i].tabList[tabName].itemNames =datas;
+    }
+}
+ console.log(dataArr,'整理后')
+</script>   
+</body>
+</html>

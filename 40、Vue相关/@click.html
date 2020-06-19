@@ -8,15 +8,31 @@
 </head>
 <body>
     <div id="app">
-        <input type="button" value="button" v-on:click="get">
     </div>
 </body>
 <script src="vue2.min.js"></script>
 <script type="text/javascript">
-var num = 1100,00000;
-num = num.replace(/[ ]/g, ""); //去除空格  
-num = num.replace(/,/gi, '');
-console.log(num)
+//map方法使thumb加上域名 -->
+var data =[
+	{
+		id: "11", 
+		title: "新车小程序title1",
+		thumb: "/Public/Uploads/Picture/images/2020/04/762142626738116469589494467455.jpg",
+	},
+	{
+		id: "12", 
+		title: "新车小程序title2",
+		thumb: "/Public/Uploads/Picture/images/2020/04/226186575376145816491471666188.png",
+	}
+];
+console.log(data,'整理这前')
+var banners = data.filter(item=>{
+	// console.log(item)
+	item.thumb = 'https://mall.faw-vw.com'+item.thumb;
+	return item
+})
+console.log(banners,'整理这后')
+
 </script>
 
 </html>

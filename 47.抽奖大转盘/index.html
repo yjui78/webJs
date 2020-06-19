@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>窗口弹窗位置居中</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+</head>
+<body>
+    <div id="app">
+        <div class="popBox">
+            <div class="pb"></div>
+        </div>
+    </div>
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/public.js"></script>
+    <script>
+        var app =  new Vue({
+            el:'#app',
+            data:{
+                currentTime: "2020-6-4", 	//当前服务器返回的时间，用来判断活动时间
+                isLogin: true,     			//用户是否登录
+                luckDraw2:"", 		        //买券抽奖，判断用户是否已参与过，1可以抽奖 2不能抽奖 3已经抽过
+            },
+            created: function () {
+                var _this = this;
+                // 获取当前时间
+                methods.ajax("/Activity/SystemDate/getSysDate", {}, function(res) {
+                    _this.currentTime = '2020-06-10';
+                    _this.getLuckDraw2Info();
+                })
+            },
+            methods: {
+              // 获取买券抽奖数据
+                getLuckDraw2Info:function(){
+                    var _this=this;
+                    if(_this.isLogin){
+                        // 判断用户是否有抽奖资格,需登录406,
+                        // methods.ajax("/Activity/User/IsLottery", {}, function(res) { 
+                           var res =  {
+                                "code": 200,
+                                "msg": "",
+                                "data": 1                // 1可以抽奖 2不能抽奖 3已经抽过
+                            }
+                            _this.luckDraw2=res.data;    //1可，2不可，3已抽奖
+                        // })
+                        
+ 
+                    }
+                },
+            },
+            mounted: function () {
+               
+            },
+        })
+    </script>
+    </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <label for="ab1"><input type="checkbox" id="ab1"  @click = "checkbox()">我同意 {{dis1}}</label><br/>
+        <button type ="button" :disabled = "!dis1">注册</button>
+        <hr>
+        <label for="ab2"><input type="checkbox" id="ab2" v-model="dis2">我同意 {{dis2}}</label><br/>
+        <button type ="button" :disabled = "!dis2">注册</button>
+    </div>
+</body>
+<script src="../js/vue2.js"></script>
+<script type="text/javascript">
+var vm = new Vue({
+    el:'#app',
+    data:{
+        dis1:false,
+        dis2:false
+    },
+    methods:{
+        checkbox(){
+            console.log(event.target.checked)
+            this.dis1 = event.target.checked;
+        } 
+    }
+})
+</script>
+
+</html> 

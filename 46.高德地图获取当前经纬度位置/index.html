@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>高德地图获取当前地址经纬度位置</title>
+</head>
+<body>
+    <div id="app">
+            <p>lng:{{lng}}</p>
+            <p>lat:{{lat}}</p>
+        </div>
+    </div>
+    <script src="js/vue.min.js"></script>
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <script>
+        // 高德地图，app是Vue名，getLocation是vue中的方法
+        var script = document.createElement('script')
+        script.src = "https://webapi.amap.com/maps?v=1.4.15&key=d1825316245c891b054550e5528f6c33&callback=app.getLocation"
+        document.getElementsByTagName('head')[0].appendChild(script)
+
+        var app =  new Vue({
+            el:'#app',
+            data:{
+                pageHeight:'',   //窗口高度
+                lng:'',
+                lat:'',
+
+            },
+            created: function () {
+            },
+            methods: {
+               // 高德定位当前城市
+                getLocation() {
+                    var self = this;
+                    var map = new AMap.Map('container', {
+                        resizeEnable: true
+                    })
+                    AMap.plugin('AMap.Geolocation', function() {
+                        var geolocation = new AMap.Geolocation({
+                            // 是否使用高精度定位，默认：true
+                            enableHighAccuracy: true,
+                            // 设置定位超时时间，默认：无穷大
+                            timeout: 10000,
+                            // 定位按钮的停靠位置的偏移量，默认：Pixel(10, 20)
+                            buttonOffset: new AMap.Pixel(10, 20),
+                            //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                            zoomToAccuracy: true,
+                            //  定位按钮的排放位置,  RB表示右下
+                            buttonPosition: 'RB'
+                        })
+                        geolocation.getCurrentPosition()
+                        AMap.event.addListener(geolocation, 'complete', onComplete)
+                        AMap.event.addListener(geolocation, 'error', onError)
+
+                        function onComplete(data) {
+                            //data是具体的定位信息
+                            console.log(data);
+                            console.log(data.position);
+                            // 放本地存储里
+                            localStorage.setItem('location', JSON.stringify(data.position))
+                            self.lng = JSON.parse(localStorage.getItem("location")).lng;
+			                self.lat = JSON.parse(localStorage.getItem("location")).lat;
+                        }
+
+                        function onError(data) {
+                            // 定位出错
+                            console.log('定位出错', data);
+                            // app.localCityCode = 82
+                            // app.getCars()
+                        }
+                    })
+                },
+            },
+            mounted: function () {
+             
+            },
+        })
+    </script>
+    </body>
+</html>

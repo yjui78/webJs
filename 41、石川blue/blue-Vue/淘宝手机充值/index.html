@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{padding:0;margin:0;box-sizing:border-box}
+        .row{display:flex;flex-direction:row}
+        .tmall{width:290px;padding:10px 20px 0px;background:#ffffff;position:relative;border:1px solid #ccc}
+        .tmall{width:290px;padding:10px 20px 0px;background:#ffffff;position:relative}
+        .tmall .tmall-tabs .tab{padding:3px 10px;font-size:14px;color:#666}
+        .tmall .tmall-tabs .tab.current{color:#FF4300}
+        .tmall-tabbody-container{width:100%;height:300px;overflow:hidden;position:relative;margin-top:15px}
+        .tmall .tmall-tabbodys .tabbody{min-width:250px;width:250px;padding-top:4px}
+        .tmall .tmall-tabbodys .tabbody .input-group{width:188px}
+        .space-between{justify-content:space-between}
+        .tmall .tmall-tabbodys{width:100%;position:absolute;left:0px;transition:.3s all ease;margin-top:20px}
+        .input{height:26px;border:1px solid #cccccc;position:relative}
+        .input input.hasricon{padding:4px 20px 4px 6px}
+        .input .tip{height:24px;font-size:12px;color:#cccccc;position:absolute;top:0;right:26px}
+        .center{display:flex;justify-content:center;align-items:center}
+        .iconfont{font-family:"iconfont" !important;font-size:16px;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:0.2px;-moz-osx-font-smoothing:grayscale}
+        .input .ricon{width:26px;height:24px;color:#cccccc;position:absolute;top:0;right:0}
+        .input input.hasricon{padding:4px 20px 4px 6px}
+        .input input{padding:4px 6px}
+        .input input{color:#000000;font-size:12px}
+        .fill{width:100%;height:100%}
+        input{border:none;outline:none;display:block}
+        .input .select-option{position:absolute;top:24px;left:-1px;color:#000000;background:#fafafa;width:-webkit-calc(100% + 2px);border:1px solid #cccccc;border-bottom:none}
+        .input .select-option li:nth-child(odd){border-right:1px solid #a9a9a9}
+        .input .select-option li{width:50%;height:30px;font-size:14px;float:left;border-bottom:1px solid #a9a9a9}
+        .input .select-option li span{font-weight:bold}
+        .input .select-option li:hover{background:#a9a9a9;color:#ffffff}
+        .input:hover{border:1px solid #a9a9a9;color:#000000;z-index:999}
+        .pointer{cursor:pointer}
+        .input-group .button{border:none;border-radius:2px;padding:0;height:27px;width:68px;line-height:27px;background:#ff4200;font-size:12px;font-weight:700;color:#fff}
+        .input-group .price span{color:#f60;font-weight:700;font-family:verdana,arial}
+        .input-group .price{font-size:14px;padding:5px 0;color:#666666}
+    </style>
+</head>
+<body>
+    <!-- 知识点：动画，@click赋值， -->
+    <div id="app">
+        <div id="tmall" class="tmall">
+            <div class="tmall-tabs row space-between">
+                <div class="tab pointer" v-for = 'value,index in tabs' :class="{'current':index == cur}" @click = 'cur = index'
+                >{{value}}</div>
+            </div>
+            <div class="tmall-tabbody-container">
+                <div class="input">
+                    <input type="text" placeholder="请输入手机号码" class="fill hasricon" v-model="mobile">
+                    <div class="tip center"><i class="iconfont"></i>{{getSP(mobile)}}</div>
+                    <div class="ricon center"><i class="iconfont"></i></div>
+                </div>
+                <div class="tmall-tabbodys row space-between"   :style = "{left:-250*cur+'px'}">
+                    <div class="tabbody">
+                        <div class="input-group">
+                            <div class="input mg-1 pointer" @click="listShow=true">
+                                <input type="text" disabled="disabled" class="fill hasricon pointer" :value="curAmount+'元'">
+                                <div class="ricon pointer center"><i class="iconfont">^</i></div>
+                          
+                                <div class="select-option" v-show ="listShow">
+                                    <ul>
+                                        <li class="center" v-for ="amount in amountList"
+                                        @click.stop = 'curAmount = amount;listShow=false;'><span>{{amount}}</span>元</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="price">售价：¥<span v-if = "curAmount"> {{curAmount!=0?curAmount-0.1:curAmount}} 元</span></div>
+                            <div class="button pointer center">立即充值</div>
+                        </div>
+                    </div>
+                    <div class="tabbody"><div class="input-group">222</div></div>
+                    <div class="tabbody"><div class="input-group">333</div></div>
+                    <div class="tabbody"><div class="input-group">444</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="vue2.js"></script>
+<script type="text/javascript">
+var vm = new Vue({
+    el:'#app',
+    data:{
+        tabs:['充话费','充流量','充固话','充宽带'],
+        amountList: [10, 20, 30, 50, 100, 200, 300, 500, 1000, 2000],
+        cur:0,
+        mobile:'',
+        curAmount:0,
+        listShow:false,
+    },
+    methods:{
+        getSP(str){
+            if(str.length!=11){
+                return '';
+            }else{
+                if(/^((13[5-9])|(15[01289]))/.test(str)){
+                    return '中国移动';
+                }else if(/^(13[0-2])/.test(str)){
+                    return '中国联通';
+                }else if(/^(18[01])/.test(str)){
+                    return '中国电信';
+                }else if(/^170/.test(str)){
+                    return '虚拟运营商';
+                }else{
+                    return '未知';
+                }
+            }
+        },
+    }
+})
+</script>
+</html> 

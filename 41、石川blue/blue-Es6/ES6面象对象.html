@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ES6</title>
+  </head>
+  <body>
+ 
+    <script>
+        
+        // ES6实现面象对象
+        class Person{
+            constructor(name,age){
+                this.name = name;
+                this.age = age;
+            }
+            showName(){
+                alert(this.name)
+            }
+            showAge(){
+                alert(this.age);
+            }
+        }
+        let w = new Person('YJUI',18,'随便');
+        w.showName();   //结果  YJUI
+        w.showAge();    //结果  18
+
+
+    </script>
+  </body>
+</html9

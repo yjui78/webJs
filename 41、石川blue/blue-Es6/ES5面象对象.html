@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ES5</title>
+  </head>
+  <body>
+ 
+    <script>
+         /*
+            不如的位置：
+            1、使用函数声明类，Person即是类也是构造函数，
+        
+        
+        */
+
+        //写法一
+        // function Person(name,age){
+        //     this.name =  name;
+        //     this.age = age;
+           
+        // }
+        // //ES5 添加方法要用原型的方式
+        // Person.prototype.showName = function(){
+        //     alert(this.name);
+        // }
+        // Person.prototype.showAge = function(){
+        //     alert(this.age);
+        // }
+        // let p = new Person('YJUI',22);
+        // p.showName();
+        // p.showAge();
+       
+        //写法二
+        function Person(name,age){
+            this.name =  name;
+            this.age = age;
+            this.showName = function(){
+                alert(this.name)
+            }
+            this.showAge = function(){
+                alert(this.age)
+            }
+        }
+        let p = new Person('YJUI',22);
+        p.showName();    //结果：YJUI
+        p.showAge();     //结果：22  
+    </script>
+  </body>
+</html>

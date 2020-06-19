@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ES6</title>
+  </head>
+  <body>
+ 
+    <script>
+        // ES6写法，好处统一
+        // 有单独的类声明，构造函数声明
+        class Person{
+            constructor(name,age){
+                this.name = name;
+                this.age = age;
+            }
+            showName(){
+                alert(this.name)
+            }
+            showAge(){
+                alert(this.age);
+            }
+        }
+        let p = new Person('YJUI',22);
+        // p.showName();
+        // p.showAge();
+//  var arr = [1,2,3,4]
+var json ={
+  a:1,
+  b:2,
+  c:3
+}
+json.forEach(function(val,index){
+   console.log(val)
+
+ })
+
+    </script>
+  </body>
+</html>

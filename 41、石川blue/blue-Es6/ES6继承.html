@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ES6</title>
+  </head>
+  <body>
+ 
+    <script>
+        
+        // ES6实现继承
+        class Person{
+            constructor(name,age){
+                this.name = name;
+                this.age = age;
+            }
+            showName(){
+                alert(this.name)
+            }
+            showAge(){
+                alert(this.age);
+            }
+        }
+
+        // Worker(子类)extend(继承)Person(父类)，
+        class Worker extends Person{
+          //constructor构造函数里即要写自己的属性还要加父类的属性，super(超类/父类)替代call和apply
+           constructor(name,age,job){
+             super(name,age);
+            // 加上自己的属性
+             this.job = job;
+           }
+          //父类的方法怎么继承：只要写了extend方法自动拿过来，不需要管，而且contructor也不会乱掉
+          //这里只需要加上子类需要的东西即可
+           showJob(){
+             alert(this.job);
+           }
+        }
+        let w = new Worker('YJUI',18,'随便');
+        w.showName();   //结果  YJUI
+        w.showAge();    //结果  18
+        w.showJob()     //结果  随便
+    </script>
+  </body>
+</html9

@@ -8,52 +8,53 @@
 </head>
 <body>
     <div id="app">
-        <div class="popBox">
-            <div class="pb"></div>
+        <!-- 大转盘 -->
+        <div class="link luck-draw1">
+            <img src="images/img_11.jpg" />
+            <div class="game">
+                <div class="luck-draw-box">
+                    <div class="turnplate" style="background-image:url(images/luck-draw1-bg.png);background-size:100% 100%;">
+                        <canvas class="item" id="wheelcanvas" width="700px" height="700px"></canvas>
+                        <img class="pointer" src="images/luck-draw1-jt.png" @click="luckDraw" />
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- 通用弹窗 -->
+        {{popup.type}}
+        <div class="popup" v-show="popup.show">
+            <div class="popup-box">
+                <!-- 关闭按钮 -->
+                <span class="close-btn" @click="popup.show=false;popup.isShowQD=false;"></span>
+                <!-- 已参与过活动 -->
+                <div class="tips" v-show="popup.type=='ycy'">
+                    <div class="tips-con">
+                        已参与过活动
+                    </div>
+                </div>
+                <!-- 未购券提示 -->
+                <div class="tips" v-show="popup.type=='wgq'">
+                    <div class="tips-con">
+                        亲亲，您还未购券，无法参与抽奖。
+                    </div>
+                </div>
+                 <!-- 未中奖提示 -->
+                 <div class="tips" v-show="popup.type=='wzj'">
+                    很遗憾，未能抽中奖品！
+                </div>
+                <!-- 买券抽奖中奖提示 -->
+                <div class="tips prize" v-show="popup.type=='mqzj'">
+                    <div class="tips-con zjtxt">
+                        中奖了，{{prizeName}}!
+                    </div>
+                </div>
+            </div>
+        </div> 
     </div>
     <script src="js/jquery-1.10.1.min.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/public.js"></script>
-    <script>
-        var app =  new Vue({
-            el:'#app',
-            data:{
-                currentTime: "2020-6-4", 	//当前服务器返回的时间，用来判断活动时间
-                isLogin: true,     			//用户是否登录
-                luckDraw2:"", 		        //买券抽奖，判断用户是否已参与过，1可以抽奖 2不能抽奖 3已经抽过
-            },
-            created: function () {
-                var _this = this;
-                // 获取当前时间
-                methods.ajax("/Activity/SystemDate/getSysDate", {}, function(res) {
-                    _this.currentTime = '2020-06-10';
-                    _this.getLuckDraw2Info();
-                })
-            },
-            methods: {
-              // 获取买券抽奖数据
-                getLuckDraw2Info:function(){
-                    var _this=this;
-                    if(_this.isLogin){
-                        // 判断用户是否有抽奖资格,需登录406,
-                        // methods.ajax("/Activity/User/IsLottery", {}, function(res) { 
-                           var res =  {
-                                "code": 200,
-                                "msg": "",
-                                "data": 1                // 1可以抽奖 2不能抽奖 3已经抽过
-                            }
-                            _this.luckDraw2=res.data;    //1可，2不可，3已抽奖
-                        // })
-                        
- 
-                    }
-                },
-            },
-            mounted: function () {
-               
-            },
-        })
-    </script>
+    <script src="js/index.js"></script>
     </body>
 </html>

@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>统计页面访问次数</title>
+</head>
+<body>
+<script language="javascript">
+function window_onload(){
+	if(window.name==""){
+		window.name = "0";
+	}
+	else{
+		window.name = eval(window.name) + 1;
+		console.log("已经刷新"+ window.name+'次');
+	}
+}
+window_onload();
+</script>
+</head>
+<body>
+ 
+</body>
+</html>

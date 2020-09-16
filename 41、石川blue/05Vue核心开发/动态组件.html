@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" Content="text/html; charset=utf-8;">
+<title>表达式、指令、vDOM、计算属性、filter</title>
+<meta name="author" content="YJUI" />
+<meta name="keywords" content="rainna's js lib" />
+<meta name="description" content="移动端触摸滑动" />
+<meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+</head>
+<body>
+<!-- 现在相当于用了两次这个组件，一个是alert那里,一个是页面,想让页面不是NAN传值就行了 -->
+<div id="root">
+    <Blue></Blue>
+</div>
+<script src="vue2.js"></script>
+<script type="text/javascript">
+// 全局组件
+
+let Blue = Vue.extend({
+    data(){
+        return {};
+    },
+    template:`<span>abc</span>`
+})
+// 使用（2）挂成全局组件
+Vue.component('Blue',Blue)
+let vm = new Vue({
+    el:'#root',
+    data:{
+    },
+    methods:{},
+    
+})
+</script>   
+</body>
+</html>

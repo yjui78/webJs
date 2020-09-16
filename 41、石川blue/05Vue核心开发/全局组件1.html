@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" Content="text/html; charset=utf-8;">
+<title>表达式、指令、vDOM、计算属性、filter</title>
+<meta name="author" content="YJUI" />
+<meta name="keywords" content="rainna's js lib" />
+<meta name="description" content="移动端触摸滑动" />
+<meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+</head>
+<body>
+    <div id="root">
+        <login></login>
+    </div>
+    <script src="vue2.js"></script>
+    <script type="text/javascript">
+    Vue.component('login',{
+        template:` <div style="color:red;">组件{{c}}  <aaa></aaa></div>`,
+        data(){
+            return {
+                c:33
+            }
+        },
+        components:{
+          //组件内声明完就能用，不论data在tempate前还是后，全局范围内到处都能用
+          aaa:{
+              template:`<span>{{b}}</span>`,
+              data(){
+                return {
+                    b:99
+                }
+              }
+          },
+        }
+    })
+    let vm = new Vue({
+        el:'#root',
+        data:{
+            a:12
+        } 
+    })
+    </script>  
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" Content="text/html; charset=utf-8;">
+<title>表达式、指令、vDOM、计算属性、filter</title>
+<meta name="author" content="YJUI" />
+<meta name="keywords" content="rainna's js lib" />
+<meta name="description" content="移动端触摸滑动" />
+<meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+</head>
+<body>
+<div id="root">
+    <blue></blue>
+</div>
+<script src="vue2.js"></script>
+<script type="text/javascript">
+let Blue = Vue.extend({
+    data(){
+        return {};
+    },
+    template:`<span>abc</span>`
+})
+
+let obj = new Blue();//可以传参
+// 组件要挂载某个html元素上才能渲染,所以创建弄个div
+let oDiv = document.createElement('div');
+//obj 挂载到div上
+obj.$mount(oDiv);
+// obj里有$el对应就是template里的span
+if(obj.$el.innerHTML=='abc'){
+    alert('组件正常')
+}else {
+    alert('有问题')
+}
+// 使用（1）当components放上去
+let vm = new Vue({
+    el:'#root',
+    data:{
+    },
+    methods:{},
+    // components:{
+    //     blue:Blue
+    // }
+})
+</script>   
+</body>
+</html>

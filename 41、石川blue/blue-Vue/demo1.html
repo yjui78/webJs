@@ -10,126 +10,24 @@
 </head>
 <body>
 <div class="vogueHover" id="app">
-    <ul>
-        <li v-for ="item in dataArr1">
-            <div>id:{{item.id}}</div>
-            <ul>
-                <li v-for ="item2 in item.tabList" v-if ="item2.itemNames.length!=0">
-                    <p>{{item2.title}}</p>
-                    <span v-for = "item3 in item2.itemNames" >{{item3.name}}</span>
-                </li>
-            </ul>
-        </li>
-    </ul>
+    {{a}}
 </div>
-<script src='../blue-Vue/淘宝手机充值/vue2.js'></script>
+<script src='js/vue2.js'></script>
 <script>
-var data =[
-    {
-        "id": "1",
-        hotInfoaccess: [ //车品
-            {code: "", name: "车品1", price: "149000.00"},
-             {code: "", name: "车11", price: "500.00"}
-         ],
-        hotInfons: [  //内饰
-            {code: "EM", name: "内饰", price: "0.00"},
-            {code: "W96", name: "内饰1", price: "720.00"},
-            {code: "W96", name: "内饰1", price: "720.00"},
-            {code: "W96", name: "内饰1", price: "720.00"},
-        ],
-        hotInfopz: [  //配置
-            {code: "4BD", name: "配置11", price: 0},
-            {code: "9S0", name: "配置1", price: "2000.00"}
-        ],
-        hotInfowg: [  //外观
-            {code: "0Q", name: "外观1", price: "2000.00"},
-        ]
-    },
-    {
-        "id": "2",
-        hotInfoaccess: [  //车品
-            {code: "", name: "车品2", price: "149000.00"},
-         ],
-        hotInfons: [  //内饰
-            {code: "EM", name: "内饰2", price: "0.00"},
-        ],
-        hotInfopz: [  //配置
-            {code: "4BD", name: "配置2", price: 0},
-        ],
-        hotInfowg: [  //外观
-            {code: "0Q", name: "外观2", price: "2000.00"},
-        ]
-    },
-    {
-        "id": "3",
-        hotInfoaccess: [  //车品
-            {code: "", name: "车品3", price: "149000.00"},
-         ],
-        hotInfons: [  //内饰
-            {code: "EM", name: "内饰3", price: "0.00"},
-        ],
-        hotInfopz: [  //配置
-            {code: "4BD", name: "配置3", price: 0},
-        ],
-        hotInfowg: [  //外观
-            {code: "0Q", name: "外观3", price: "2000.00"},
-        ]
-    },
-    {
-        "id": "3",
-        hotInfoaccess: [  //车品
-            {code: "", name: "车品3", price: "149000.00"},
-         ],
-        hotInfons: [  //内饰
-            {code: "EM", name: "内饰3", price: "0.00"},
-        ],
-        hotInfopz: [  //配置
-            {code: "4BD", name: "配置3", price: 0},
-        ],
-        hotInfowg: [  //外观
-            {code: "0Q", name: "外观3", price: "2000.00"},
-        ]
-    },
-]
-// 临时数组
-var dataArr=[];
-console.log(data,'before')
-for(var j in data){
-    dataArr.push({});
+function unique(arr){
+    for(var i=0,hash=[],result =[];i<arr.length;i++){
+        if(hash[arr[i]]===undefined){
+            result[result.length]=arr[i];
+            hash[arr[i]]=true;
+        }
+    } 
+    return result;
 }
-var idx ={
-    'hotInfowg':0,
-    'hotInfons':1,
-    'hotInfopz':2,
-    'hotInfoaccess':3,
-}
- for(var i=0;i<data.length;i++){
-    dataArr[i].id =data[i].id;
-    //内层标签列表初始
-    dataArr[i].tabList =[];  
-    // console.log('循环：'+i) 
-    // ,接口标签数据,列表内整理对应标签数据,标题
-    lastData(i,data[i].hotInfowg,idx.hotInfowg,'外观');
-    lastData(i,data[i].hotInfons,idx.hotInfons,'内饰');
-    lastData(i,data[i].hotInfopz,idx.hotInfopz,'配置');
-    lastData(i,data[i].hotInfoaccess,idx.hotInfoaccess,'车品');
- }
- console.log(JSON.parse(JSON.stringify(dataArr)) ,'整理after')
-function lastData(i,datas,tabName,title){
-    // datas无数据时也输出，页面中控制显示隐藏
-    dataArr[i].tabList.push({});
-    dataArr[i].tabList[tabName].title = title;
-    dataArr[i].tabList[tabName].itemNames =datas;
-}
- var vm = new Vue({
-     el:'#app',
-     data:{
-        dataArr1:dataArr
-     },
-     created: function () {
-     }
- })
+ console.log(unique([2,3,2,1,3,4,1,5]));  //[2, 3, 1, 4, 5]
 
+
+
+  
 </script>   
 </body>
 </html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+        <title>CSS3--点击弹出菜单动画</title>
+        <script src='rem.js'></script>
+		<!--公用css-->
+        <style>
+        .action{position:fixed;z-index:98;bottom:20%;right:0.3rem;display:flex;flex-direction:column;align-items:flex-end}
+        .action.open .group{width:5.6rem}
+        .action .option .btn.open{transform:rotate(45deg);background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAABXUlEQVRoge3a0a3CMBBE0SnBJaSElEAJdEopr4RXQkqAjzDSCpEIsNc7tvZK/Np7hIDYAsiyLMuy4VoBlOghTioAllaLrQD+AfxBE10A3ABs2Getitj786WGJpbzVaMLduQdeuhXLGdbWiyshnbD2g1U0O5Yu1E0uhvWbhiF7o61G/dGh2HtAL3Q4Vg7iDdaBmsH8kLLYZkHWhbLWqLlsawFehgsq0EPh2W/oIfFsm/Qw2PZJ+hpsOwMPR2WHaGnxLJ36Gmx7Ag9JRZ4/5lVuC5y6Qg7Jfro2zj6usils58ehTuypn3yOzsN+puHiuHRvzxBDYuueVwcDt3i2XgYdMuDgDza49Qji/Y84smhe5xnZdA9D+/h6IibijB05LVMd7TCHVQ3tALWzuKKVsLamVzQiljmgl6w/9lLDcte0RuAS+2i63MhNSwjegNwbbXoCk0sK2jwzmZZlmVZ5x6bMoW02l6QZgAAAABJRU5ErkJggg==)}
+        .action .group{display:flex;width:0.96rem;transition:width 1s;-moz-transition:width 1s;-webkit-transition:width 1s;-o-transition:width 1s;height:0.96rem;overflow:hidden;background-color:#00B0F0;position:relative;border-radius:0.48rem}
+        .action .buttons{flex:1;width:5.6rem;display:flex;overflow-y:hidden}
+        .action .buttons .item{flex:1;width:1.8rem;height:0.96rem;background:transparent no-repeat center;background-size:contain;white-space:nowrap;display:flex;flex-direction:column;align-items:center;justify-content:space-around;font-size:0.24rem;color:#001E50}
+        .action .option{width:0.96rem;height:0.96rem;font-size:0}
+        .action .option .btn.close{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAABXUlEQVRoge3a0a3CMBBE0SnBJaSElEAJdEopr4RXQkqAjzDSCpEIsNc7tvZK/Np7hIDYAsiyLMuy4VoBlOghTioAllaLrQD+AfxBE10A3ABs2Getitj786WGJpbzVaMLduQdeuhXLGdbWiyshnbD2g1U0O5Yu1E0uhvWbhiF7o61G/dGh2HtAL3Q4Vg7iDdaBmsH8kLLYZkHWhbLWqLlsawFehgsq0EPh2W/oIfFsm/Qw2PZJ+hpsOwMPR2WHaGnxLJ36Gmx7Ag9JRZ4/5lVuC5y6Qg7Jfro2zj6usils58ehTuypn3yOzsN+puHiuHRvzxBDYuueVwcDt3i2XgYdMuDgDza49Qji/Y84smhe5xnZdA9D+/h6IibijB05LVMd7TCHVQ3tALWzuKKVsLamVzQiljmgl6w/9lLDcte0RuAS+2i63MhNSwjegNwbbXoCk0sK2jwzmZZlmVZ5x6bMoW02l6QZgAAAABJRU5ErkJggg==)}
+        .action .option .btn{width:0.96rem;height:0.96rem;border-radius:100%;background:transparent no-repeat center;background-size:0.44rem}
+        </style>
+	</head>
+	<body>
+        <div id="app">
+            <!-- DIALOG 右侧操作-->
+            <div class="action" :class="{'open' : actionStatus}">
+                <div class="group">
+                    <div class="buttons">
+                        <div class="item">配装器</div>
+                        <div class="item">金融计算器</div>
+                        <div class="item">参数配置</div>
+                    </div>
+                    <div class="option">
+                        <div class="btn close" v-if="actionStatus" @click="toggleAction">关闭</div>
+                        <div class="btn open" v-if="!actionStatus" @click="toggleAction">展开</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+    <script src="vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data() {
+                return { 
+                    actionStatus: false, // 浮动动按钮状态，未打开
+                }
+            },
+            created() {},
+            methods:{
+                toggleAction() {
+                    this.actionStatus = !this.actionStatus
+                },
+            },
+        })
+    </script>
+</html>

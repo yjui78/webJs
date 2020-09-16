@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" Content="text/html; charset=utf-8;">
+<title>表达式、指令、vDOM、计算属性、filter</title>
+<meta name="author" content="YJUI" />
+<meta name="keywords" content="rainna's js lib" />
+<meta name="description" content="移动端触摸滑动" />
+<meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+</head>
+<body>
+<div id="root">
+    <cmp :name="'blue'"></cmp>
+</div>
+<script src="vue2.js"></script>
+<script type="text/javascript">
+Vue.component('cmp',{
+    // props指定接收的参数
+    props:['name'],
+    template:`<div>姓名：{{name}}<br/></div>`,
+    data(){
+        return {
+            name2:'zhangsan'
+        }
+    },
+})
+let vm = new Vue({
+    el:'#root',
+    data:{
+        a:'blue'
+    },
+})
+</script>   
+</body>
+</html>

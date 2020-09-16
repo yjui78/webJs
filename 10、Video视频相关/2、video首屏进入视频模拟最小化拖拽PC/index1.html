@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>video遮罩缩小拖拽关闭</title>
+		<meta charset="utf-8" />
+		<style>
+			.videoBox.video_pop{position:fixed;width:100%;left:0;top:0;background:rgba(0,0,0,0.6);height:100%;z-index:150000}
+			.videoBox .video_page{margin:0 auto;width:600px;margin-top:10%;position:relative}
+			.videoBox .video_page video{width:100%;border-top-right-radius:10px}
+			.videoBox .video_page .videoImg{position:absolute;left:0;top:0;width:100%;height:100%;z-index:99;border-radius:0px 10px 0px 10px;background:rgba(0,0,0,0.2)}
+			.videoBox .video_page .closeVideo{color:#fff;position:absolute;right:-50px;font-size:26px;font-weight:300;background:url(images/closex.png) no-repeat;width:26px;height:26px;display:inline-block;background-size:100%;cursor:pointer}
+			.videoBox .hzhIco{background:url(images/hzh.png) no-repeat;width:28px;height:28px;display:inline-block;background-size:86%;position:absolute;z-index:999999;border:none;top:14%;right:10px;cursor:pointer}
+			.videoBox .smallw{width:300px;position:fixed;bottom:50px;width:300px;height:fit-content;background:#fef4eb;padding:5px;border:1px solid #666}
+			.videoBox .smallw .hzhIco{top:26%;background:url(images/fangda.png) no-repeat;background-size: 100%;right: 18px;}
+			.videoBox .smallw .tjpos{background:rgba(0,0,0,0.3);height:36px;line-height:36px;margin:0;cursor:move}
+			.videoBox .smallw .closeVideo{background:url(images/closeblack.png) no-repeat;background-size:100%}
+		</style>
+	</head>
+	<body>
+		<div id='app'>
+			<div id='videoPop' class='videoBox video_pop'>
+				<div id="vpage" onselectstart="return false;" :style="{'top': videoPop.topup+'px'}" class="video_page">
+					<p class='tjpos' id='title'>开屏测试视频</p>
+					<div class="videoImg" style="display: none;"></div>
+					<div class="closeVideo" ></div>
+					<div id="pipButton" class="hzhIco" @click = 'scaleFn(event)'  ></div>
+					<video id="video1" controlslist="nodownload noremotedplayback" muted
+					disablepictureinpicture="true" controls="controls" 
+					src="images/mp41.mp4" 
+					></video>
+				</div>
+			</div>
+		</div>
+		<script src='js/vue.js'></script> 
+		<script src='js/drag.js'></script>
+		<script>
+		var vm = new Vue({
+			el:'#app',
+			data(){
+				return {
+					scaleFlag:'big',
+					videoPop:{
+						winHeight:'',
+						videoHeight:'',
+						topup:'',
+					},
+				}
+			},
+			created: function () {
+				localStorage.setItem('flag1',false);
+				this.videoFn();
+			},
+			methods:{
+				videoFn(){
+					setTimeout(function(){
+						document.getElementById("video1").play();
+					},2000)
+				},
+				scaleFn(){
+					var self = this;
+					var oVpage = document.getElementById('vpage');
+					var oVideoPop = document.getElementById('videoPop');
+					if(self.scaleFlag == 'small'){
+						self.scaleFlag = 'big';
+						localStorage.setItem('flag1',true)
+					}else{
+						self.scaleFlag = 'small';
+						oVpage.classList.add('smallw');
+						localStorage.setItem('flag1',false)
+					}
+				},
+				getClientHeight(){
+					var clientHeight=0;
+					if(document.body.clientHeight&&document.documentElement.clientHeight){
+						var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+					}else{
+						var clientHeight = (document.body.clientHeight>document.documentElement.clientHeight)?document.body.clientHeight:document.documentElement.clientHeight;
+					}
+					return clientHeight;
+				},
+
+			},
+			mounted(){
+				 //3、VIEDO
+				 var self = this;
+				 window.onresize = function(){
+					setTimeout(function(){
+						if(self.scaleFlag =='big'){
+							var vpage  =  document.getElementById('vpage');
+							self.videoPop.winHeight = self.getClientHeight();
+							self.videoPop.videoHeight = vpage.offsetHeight;
+							self.videoPop.topup = (self.videoPop.winHeight-self.videoPop.videoHeight)/2-60
+						}
+						if(self.scaleFlag =='small'){
+							var iWinWidth = document.documentElement.clientWidth;
+							var vpage  =  document.getElementById('vpage');
+							vpage.style.left = (iWinWidth-vpage.offsetWidth-60)+'px';
+						}
+					},0)
+				}
+			},
+			watch:{
+				scaleFlag(newVal,oldVal){
+					var self = this;
+					var oPopwin = document.getElementById('vpage');
+					var oVideoPop =document.getElementById('videoPop');
+					var odragTitle = document.getElementById('title');
+					var winHeight = document.documentElement.clientHeight;
+					var iWinWidth = document.documentElement.clientWidth;
+					if(newVal =='small'){
+						localStorage.setItem('flag1',true);
+						oPopwin.style.top = (self.getClientHeight()-300)+'px';
+						oPopwin.style.left = (iWinWidth-oPopwin.offsetWidth-60)+'px';
+						oPopwin.style = 'margin:initial;margin-top:initial;bottom:0;right:0;';
+						new Drag(oPopwin, {handle:odragTitle, limit:false});
+						oVideoPop.classList.remove('video_pop');
+						oPopwin.classList.add('smallw');
+					}  else {
+						localStorage.setItem('flag1',false);
+						oPopwin.style = 'position:relative;bottom:initial;right:initial;margin:0 auto;left:0;';	
+						oPopwin.classList.remove('smallw');	
+						oVideoPop.classList.add('video_pop');
+						setTimeout(function(){
+							oPopwin.style.top = (winHeight-oPopwin.offsetHeight)/2+'px';
+							localStorage.setItem('top',oPopwin.style.top);
+						},0)
+					}
+				}
+			}
+		})
+		// vm.$mount(document.getElementById('app'));
+		// vm.$mount('#app');
+		</script>
+	</body>
+</html>

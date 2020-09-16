@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" Content="text/html; charset=utf-8;">
+<title>表达式、指令、vDOM、计算属性、filter</title>
+<meta name="author" content="YJUI" />
+<meta name="keywords" content="rainna's js lib" />
+<meta name="description" content="移动端触摸滑动" />
+<meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+</head>
+<body>
+<div id="root">
+    <div :title="a+12" v-pre>{{a}}</div>
+</div>
+<script src="vue2.js"></script>
+<script type="text/javascript">
+
+let vm = new Vue({
+    el:'#root',
+    data:{
+        a:11
+    },
+    methods:{
+     
+    }
+})
+</script>   
+</body>
+</html> 

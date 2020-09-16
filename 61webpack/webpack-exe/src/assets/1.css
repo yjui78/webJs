@@ -1,0 +1,9 @@
+.box {
+  width: "104px";
+}
+
+.box2 {
+  width: "104px";
+  height: "88px";
+  background: "url(./img.png)";
+}

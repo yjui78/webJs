@@ -1,0 +1,58 @@
+项目：捷达专题
+PC、移动端单独CSS，HTML共用一个JS文件，
+捷达项目git地址：
+https://git.bjscfl.com:7777/jetta/jetta-site-new.git
+
+
+<!-- 测试地址 -->
+http://119.3.193.244
+<!-- 正式地址 -->
+https://jetta.faw-vw.com
+<!-- 获取车系列表接口 -->
+/jetta/index.php?act=vehicle&op=vehicleTypeList
+<!-- 不用传参数 -->
+
+<!-- 获取省份、城市接口 -->
+/jetta/index.php?act=dealerservice&op=selectProvinceCity
+<!-- 传参 -->
+"tenantId":"3", <!-- 固定值3-->
+"provinceCode":""  <!-- 省份id，如果传了省份id就会返回该省下城市信息，不传返回省份信息-->
+
+
+<!-- 获取验证码接口 -->
+/jetta/index.php?act=testdrive&op=getVerificationCodeWithLimit
+<!-- 传参 -->
+"mobile":"", <!-- 手机号-->
+"group":"EBO", <!-- 固定值EBO-->
+"deviceType":"WEB", <!-- 固定值WEB-->
+"deviceId":"1" <!-- 固定值1-->'\
+
+<!-- 获取经销商接口 -->
+/jetta/index.php?act=dealerservice&op=querydealerinfo
+<!-- 传参 -->
+"tenantId":"3", <!-- 固定值3 -->
+"provinceCode":"", <!-- 省份code -->
+"cityCode":"" <!-- 城市code -->
+<!-- 信息提交接口 -->
+/jetta/index.php?act=testdrive&op=createOrder
+<!-- 传参 -->
+"token": "", <!-- 用户token，可为空 -->
+"userName": "",  <!-- 姓名 -->
+"mobile": "", <!-- 手机号 -->
+"verificationCode": "", <!-- 短信验证码 -->
+"vehicleSeriesCode": "", <!-- 车系code -->L0、0L、0M
+"appointmentTime": "", <!-- 试乘试驾预约时间(时间戳毫秒) -->
+"plannedTime": 0, <!-- 计划购车时间(时间戳毫秒)，固定为0 -->
+"source": "官网", <!-- 媒体渠道-固定值 -->
+"dealerCode": "", <!-- 经销商code -->
+"dealerName": "", <!-- 经销商中文名称 -->
+"sourceType": "自营平台",  <!-- 渠道类型固定值 -->
+注意，接口传参的时候需要把参数json对象JSON.stringify()一下 ，如下示例：
+ajax({
+	url:"",
+	data:JSON.stringify({
+		"tenantId":"3",
+		"provinceCode":"",
+		"cityCode":""
+	})
+})

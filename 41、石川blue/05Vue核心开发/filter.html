@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" Content="text/html; charset=utf-8;">
+<title>表达式、指令、vDOM、计算属性、filter</title>
+<meta name="author" content="YJUI" />
+<meta name="keywords" content="rainna's js lib" />
+<meta name="description" content="移动端触摸滑动" />
+<meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+<style media="screen">
+    /* 所有带v-cloak的元素一律none */
+    *[v-cloak]{
+        display:none;
+    }
+</style>
+</head>
+<body>
+<!-- 把时间戳转成日期格式 -->
+<div id="root" v-cloak>
+    {{a | time2str|aa|aa}}
+  </div>
+  <script src="vue2.js"></script>
+  <script type="text/javascript">
+  let vm = new Vue({
+      el:'#root',
+      data:{
+          a:1595469353094
+      },
+      filters:{
+          time2str(ts){
+              let oDate = new Date(ts);
+              return oDate.getFullYear()+'-'+(oDate.getMonth()+1)+'-'+oDate.getDate();
+          },
+           aa(input){
+              console.log(input)    //{{a | time2str|a|a}}   time2str后第一个a的console.log(input) 2020-7-23，第二个2020-7-23=
+              return input+'=';
+           }
+      }
+  })
+  </script> 
+</body>
+</html> 

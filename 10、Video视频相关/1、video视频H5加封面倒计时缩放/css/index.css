@@ -1,0 +1,21 @@
+.hidden{display:none}
+.video_pop{position:fixed;width:100%;left:0;top:0;background:rgba(0,0,0,0.8);height:100%;z-index:150000}
+.video_page{width:6rem;margin:0 auto;height:100%;top:1rem;overflow:hidden;position:relative;z-index:999999}
+.video_pop .videoTop{font-size:.3rem;color:#fff;line-height:.65rem}
+.video_pop .bgTop{background:#000;position:relative}
+.video_page .bgTop{height:9.9rem}
+.video_page .video-cover{position:absolute;left:0;top:0;width:100%;height:100%;z-index:99}
+.video_page .video{height:100%;max-height:9.96rem;margin:0 auto;display:block;width:100%}
+.video_page .countdown{width:1.08rem;height:.48rem;position:absolute;right:0;text-align:center;line-height:.48rem;z-index:999999;color:#fff;font-size:.24rem;top:0;border-radius:0px .2rem 0px .2rem;background:rgba(0,0,0,.6)}
+.video_page .play-ico{position:absolute;width:.6rem;top:50%;z-index:11;left:50%;transform:translate(-50%,-50%);z-index:999}
+
+#pipButton.zoom{background:url(../images/hzh.png) no-repeat;width:28px;height:28px;display:inline-block;background-size:86%;position:absolute;z-index:999999;border:none;top:-.6rem;right:0.6rem}
+.video_page .closeVideo{position:absolute;right:.05rem;background:url(../images/closex.png) no-repeat;width:.4rem;height:.4rem;display:inline-block;background-size:100%;top:-.6rem}
+.video_page .bgTop{height:9.9rem}
+.video_page.sScreen{width:2.1rem;bottom:1.2rem;right:0;position:fixed;height:auto;top:auto}
+.video_page.sScreen .bgTop{height:auto}
+.video_page.sScreen .tjpos{font-size:.24rem}
+.sScreen #pipButton.zoom{background:url(../images/fangda.png) no-repeat;width:.4rem;height:.4rem;display:inline-block;background-size:86%;position:absolute;z-index:999999;border:none;top:-.49rem;right:.4rem}
+.video_page.sScreen .closeVideo{width:.3rem;height:.3rem;top:-.47rem}
+.video_page.sScreen .videoTop{background:#fff;color:#000;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;width:2.1rem;padding-right:.9rem}
+.sScreen .closeVideo{background:url(../images/closeblack.png) no-repeat;display:block;display:inline-block;background-size:100%}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<title>PC</title>
+	</head>
+	<body>
+      <div id = 'app'>
+        <input type="text" v-model="curAmount">
+        <input type="text"  :value="curAmount+'元'">
+      </div>
+	</body>
+    <script src="vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:'#app',
+            data:{
+                curAmount:11
+            },
+
+        })
+    </script>
+   
+</html>

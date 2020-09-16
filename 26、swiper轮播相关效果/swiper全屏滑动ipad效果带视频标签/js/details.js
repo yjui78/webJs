@@ -239,7 +239,7 @@ var vm = new Vue({
                 }
                 if (res.data.thumb_void.length> 0) {
                     var videoData = res.data.thumb_void;
-                    console.log(videoData)
+                    console.log(videoData.length)
                     self.videoDataList = videoData
                     for (var j = 0; j < videoData.length; j++) {
                         var item = videoData[j];

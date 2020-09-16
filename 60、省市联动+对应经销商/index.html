@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>省市联动+对应经销商</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <!--rem.js-->
+    <script src="js/rem.js"></script>
+    <style>
+
+    </style>
+    </head>
+    <body>
+    <div id="app" v-cloak>
+        <div class="box">
+            <div class='p1'>
+                <div class="city">
+                      <div>
+                          <select v-model="province.index" @change="changeProvince">
+                            <option :value="item.id" v-for="(item,index) in province.data">{{item.name}}</option>
+                          </select>
+                      </div>
+                      <div>
+                          <select v-model="city.index" @change="changeCity">
+                            <option :value="item.id" v-for="(item,index) in city.data">{{item.name}}</option>
+                          </select>
+                      </div>
+                </div>
+            </div>
+            <div class='p1'>
+                <div class="dealer">
+                    <select v-model = "curDealer_id" @change="changeDealer">
+                      <option :value="item.dealer_id"  v-for="(item,index) in dealer" >{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div style="color:#fff;">
+              <p>省：{{province.index}}</p>
+              <p>城市：{{city.index}}</p>
+              <p>经销商：{{curDealer_id}}</p>
+            </div>
+        </div>
+       
+     </div>
+  </div>
+    <!--公用js-->
+    <script src="js/jquery_1.12.3_jquery.min.js"></script>
+    <script src="js/vue.js"></script>
+    <!--当前页面js-->
+    <script src="js/index.js"></script>
+</body>
+</html>

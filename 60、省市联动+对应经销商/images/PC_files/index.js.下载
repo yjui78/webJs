@@ -1,0 +1,19 @@
+var app = new Vue({
+	el: "#app",
+	data: {
+	 	isShow:true,  //弹窗
+	},
+	created:function(){
+		var _this = this;
+	},
+	methods:{
+		bookFn(){
+			var _this = this;
+
+		}
+	},
+	mounted:function(){
+		var _this=this;
+	
+	}
+})

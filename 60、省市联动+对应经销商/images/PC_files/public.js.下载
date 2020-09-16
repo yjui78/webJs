@@ -1,0 +1,35 @@
+//ajax请求地址
+var AJAXURL = "";
+if (location.href.indexOf("localhost:") > -1 || location.href.indexOf("file:///") > -1 || location.href.indexOf("127.") > -1) {
+    AJAXURL = "http://119.3.193.244";  //测试
+    AJAXURL ="https://jetta.faw-vw.com";  //正式
+}
+//整站功能方法库
+var methods = {
+    //全站ajax请求状态处理
+    ajax: function (url, data, successCallback,errorCallBack) {
+        $.ajax({
+            "type": "post",
+            "url": AJAXURL + url,
+            "async": true,
+            "data": data,
+            "success": function (res) {
+                //返回状态处理
+                if (res.code == 200) {
+                    if (successCallback) {
+                        successCallback(res);
+                    }
+                } else if (res.code == 406) {
+                    //跳转至登录
+                    methods.toLogin();
+                } else {
+                    if (errorCallBack) {
+                        errorCallBack(res)
+                    } else {
+                        methods.prompt(res.msg);
+                    }
+                }
+            }
+        });
+    },
+}

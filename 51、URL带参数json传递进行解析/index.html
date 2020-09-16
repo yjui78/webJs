@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>URL带参数json传递进行解析</title>
+    </head>
+    <body>
+    <script>
+      var common = {
+          getQueryString : function(name){
+            var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+            var r = '';
+            try{
+                r = location.href.split('?')[1].match(reg);
+            }catch(err){}
+            if (r != null && r != 'undefined') {
+                return unescape(r[2]);
+            }
+            return null;
+          }
+      }
+      // ?userpar=token%3dxxxx%26identity%3d123%26sysrole%3d1%26showMenu%3d0%2c1%2c2%2c3%26showColumn%3d0%2c1
+      var userpar = common.getQueryString('userpar');
+      console.log('参数：'+userpar)
+      // token=xxxx&identity=123&sysrole=1&showMenu=0,1,2,3&showColumn=0,1
+      console.log("userpar里的值:    "+userpar)
+
+      var newArr = userpar.toString().split('&');
+      //["token=xxxx", "identity=123", "sysrole=1", "showMenu=0,1,2,3", "showColumn=0,1"]
+      console.log(newArr)
+      // 数据整理
+      var params = [];
+      var object = {}
+      for(var i in newArr){
+        var obj = {}
+        key = newArr[i].toString().split('=')[0];
+        value = newArr[i].toString().split('=')[1];
+        obj[key] = value;
+        object =  Object.assign(object,obj); //追加json
+      }
+      // 进行取值
+      // {token: "xxxx", identity: "123", sysrole: "1", showMenu: "0,1,2,3", showColumn: "0,1"}
+      console.log(object)
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" Content="text/html; charset=utf-8;">
+<title>watch</title>
+<meta name="author" content="YJUI" />
+<meta name="keywords" content="rainna's js lib" />
+<meta name="description" content="移动端触摸滑动" />
+<meta name="viewport" content="target-densitydpi=320,width=640,user-scalable=no">
+<style media="screen">
+    /* 所有带v-cloak的元素一律none */
+    *[v-cloak]{
+        display:none;
+    }
+</style>
+</head>
+<body>
+<!--computed在data数据中有a，在computed中不能在有a-->
+
+<div id="root" v-cloak>
+ {{a}}
+ </div>
+ <script src="vue2.js"></script>
+ <script type="text/javascript">
+    var vm = new Vue({
+        el:'#root',
+        data:{
+            a:10
+        },
+        watch:{
+            'a':function(){
+                console.log('aaa')
+            }
+        },
+    })
+ </script> 
+</body>
+</html> 

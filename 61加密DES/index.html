@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="crypto-js/crypto-js.js"></script>
+<script type="text/javascript" src="crypto-js/tripledes.js"></script>
+<title>DES-（CBC/ECB）加密解密</title>
+</head>
+<body>
+	<script type="text/javascript">
+var key = 'aa7765a4bbdc6f87';
+//CBC模式加密
+function encryptByDESModeCBC(message) {
+	var keyHex = CryptoJS.enc.Utf8.parse(key);
+	
+    var ivHex = CryptoJS.enc.Utf8.parse(key);
+    encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+		iv:ivHex,
+		mode: CryptoJS.mode.CBC,
+		padding:CryptoJS.pad.Pkcs7
+	});
+	return encrypted.ciphertext.toString();
+}
+//CBC模式解密
+function decryptByDESModeCBC(ciphertext2) {
+	var keyHex = CryptoJS.enc.Utf8.parse(key);
+	var ivHex = CryptoJS.enc.Utf8.parse(key);
+	// direct decrypt ciphertext
+	var decrypted = CryptoJS.DES.decrypt({
+			ciphertext: CryptoJS.enc.Hex.parse(ciphertext2)
+		}, keyHex, {
+			iv:ivHex,
+			//模式必须加上
+			mode: CryptoJS.mode.CBC,
+			padding: CryptoJS.pad.Pkcs7
+	});
+	return decrypted.toString(CryptoJS.enc.Utf8);
+}
+
+//DES ECB模式加密
+function encryptByDESModeEBC(message){
+	var keyHex = CryptoJS.enc.Utf8.parse(key);
+	var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+		mode: CryptoJS.mode.ECB,
+		padding: CryptoJS.pad.Pkcs7
+	});
+	return encrypted.ciphertext.toString();
+}
+//DES ECB模式解密
+function decryptByDESModeEBC(ciphertext){
+	var keyHex = CryptoJS.enc.Utf8.parse(key);
+	var decrypted = CryptoJS.DES.decrypt({
+		ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
+	}, keyHex, {
+		mode: CryptoJS.mode.ECB,
+		padding: CryptoJS.pad.Pkcs7
+	});
+	var result_value = decrypted.toString(CryptoJS.enc.Utf8);
+	return result_value;
+}
+// DES ECB模式加密测试
+function ECBtest(){
+	var source = document.querySelector("#source");
+	var cc = encryptByDESModeEBC(source.value);
+	document.querySelector("#target").value=cc;
+	console.log(cc)
+}
+
+// DES ECB模式解密测试
+function ECBtest2(){
+	var source = document.querySelector("#sourceS").value;
+	var dd = decryptByDESModeEBC(source);
+	document.querySelector("#jiemi").value=dd;
+	console.log(dd)
+}
+</script>
+</head>
+<body>
+ <div>
+	加密前：<textarea id="source"  style="width:500px;height:90px;" /></textarea><hr>
+	加密后：<textarea id="target" style="width:500px;height:90px;" ></textarea><hr>
+	<input type="button" onclick="ECBtest();" name="" value="加密" /><hr>
+
+	密文：<textarea id="sourceS" width="400px" style="width:500px;height:90px;" ></textarea><hr>
+	解密后：<textarea id="jiemi"style="width:500px;height:90px;" ></textarea><hr>
+	<input type="button" onclick="ECBtest2();" name="" value="解密"/>
+
+	
+ </div>
+</body>
+</html>

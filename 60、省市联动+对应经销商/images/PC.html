@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)http://127.0.0.1:5500/activity/2020-06-30/pc/index.html -->
+<html style="font-size: 141.467px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<title>PC</title>
+		<!--公用css-->
+		<link rel="stylesheet" type="text/css" href="./PC_files/public.css">
+		<!--当前页面css-->
+		
+		<link rel="stylesheet" type="text/css" href="./PC_files/index.css">
+		<!--rem.js-->
+		<script src="./PC_files/rem.js.下载"></script><script type="text/javascript" src="./PC_files/jweixin-1.3.2.js.下载"></script>
+		
+		<!-- 判断移动端 -->
+		<script>
+			var userAgentInfo = navigator.userAgent;
+			var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");   
+			var flag = 0; 
+			var v=0 
+			for ( v = 0; v < Agents.length; v++)  
+			{   
+			    if (userAgentInfo.indexOf(Agents[v]) > 0) { 
+					if(Agents[v]=="iPad"){
+			        	flag = 1;
+			        }else{
+			        	flag = 2;
+			        }
+			        break;
+			    }
+			}
+			if(flag==2){
+				location.replace("../m/index.html");
+			}
+		</script>
+	</head>
+
+	<body>
+		<!--主体-->
+		<div id="app"><div class="link"><img src="./PC_files/img_01.jpg"> <span class="pos detail1"></span> <span class="pos book1"></span></div> <div class="link"><img src="./PC_files/img_02.jpg"> <span class="pos detail2"></span> <span class="pos book2"></span></div> <div class="link"><img src="./PC_files/img_03.jpg"> <span class="pos detail3"></span> <span class="pos book3"></span></div> <img src="./PC_files/img_04.jpg"> <div class="popBox"><div class="pb"><span class="carimg"></span> <span class="closex"></span> <div class="form"><p class="title">预约试驾</p> <div class="labx"><div class="flex"><label>姓名</label> <input type="text" readonly="readonly" placeholder="请输入姓名" value="探岳 X"></div> <div class="flex"><label>手机号</label> <input type="text" readonly="readonly" placeholder="请输入手机号码" value="探岳 X"></div></div> <div class="labx"><div class="flex"><label>城市</label> <input type="text" readonly="readonly" placeholder="请选择经销商所在城市" value="探岳 X"></div> <div class="flex"><label>经销商</label> <input type="text" readonly="readonly" placeholder="请选择经销商" value="探岳 X"></div></div></div></div></div></div>
+
+		<!--公用js-->
+		<script src="./PC_files/jquery_1.12.3_jquery.min.js.下载"></script>
+		<script src="./PC_files/public.js.下载"></script>
+		<script src="./PC_files/vue.js.下载"></script>
+
+		<!--当前页面js-->
+		<script src="./PC_files/index.js.下载"></script>
+	<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+</body></html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>设备区分判断</title>
+    </head>
+    <body>
+    <!--用VUE，否则{{flag}}不好使，这是VUE的写法  -->
+    <!-- flag=1是ipad,flag = 2 是移动，flag=0是PC -->
+    <div id="app" v-cloak>
+      {{flag}}---sdfds
+      <div id="fit">
+      <!-- 移动端 -->
+      <div v-if="flag==2">
+        <span class='font36'>这是移动</span>
+      </div>
+      <!-- ipad -->
+      <div v-else-if="flag==1">
+        <span class='font36'>ipad</span>
+      </div>
+      <!-- pc端 -->
+      <div v-else>
+        <span class='font36'>这是pc端</span>
+      </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <!--当前页面js-->
+    <script src="js/index.js"></script>
+    <script>
+      alert(2)
+      json = {
+        'token':'4toL3ROfsd_1026',
+        'identity':'1026',
+        'sysrole':1,
+        'showMenu':[1,2,4]
+      }
+      alert(1)
+      console.log(json);
+
+    </script>
+</body>
+</html>

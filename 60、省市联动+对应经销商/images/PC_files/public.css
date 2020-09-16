@@ -1,0 +1,159 @@
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-overflow-scrolling: touch;
+    word-wrap: break-word;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+input[type=search]::-webkit-search-cancel-button{
+    -webkit-appearance: none;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+html {
+    font-size: 55px;
+    /*overflow-x: hidden;*/
+}
+body {
+    -webkit-text-size-adjust: 100% !important;
+    font-size: 0.25rem;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-font-smoothing: antialiased;
+    color: #333;
+    /*overflow-x: hidden;*/
+    background: #fff;
+}
+
+
+em, i {
+    font-style: normal;
+}
+
+/*使用无衬线字体/禁止IOS调整字体大小*/
+
+a,
+img {
+    -webkit-touch-callout: none;
+}
+
+/*禁止长按连接与图片弹出菜单*/
+
+html,
+body {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/*禁止选中文本*/
+
+button,
+optgroup,
+select,
+textarea {
+    -webkit-appearance: none;
+    outline: none;
+    border-radius: 0;
+}
+
+input {
+    outline: none;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+
+/*去掉webkit默认的表单样式*/
+
+a,
+button,
+input,
+optgroup,
+select,
+textarea {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/*去掉a等标签点击时的蓝色外边框和灰色半透明背景*/
+
+input::-webkit-input-placeholder {
+    color: #808080;
+}
+
+/*修改webkit中input的planceholder样式*/
+
+input:focus::-webkit-input-placeholder {
+    color: #808080;
+}
+
+/*修改webkit中focus状态下input的panceholder样式*/
+
+input::-webkit-input-speech-button {
+    display: none;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+[v-cloak] {
+    display: none !important;
+}
+.link {
+    position: relative;
+}
+/* .link span {
+    position: absolute;
+    width: 70%;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+} */
+* {
+    box-sizing: border-box;
+    font-family: Microsoft YaHei;
+}
+.popBox {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    z-index: 999;
+}
+.popBox .pb {
+    width: 50%;
+    background: #fff;
+    width: 900px;
+    height: 603px;
+    background-size: 100%;
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.popBox .pb .closex {
+    background:url(../images/close.png) no-repeat;
+    background-size: 100%;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px;
+    margin: 15px;
+    cursor: pointer;
+}

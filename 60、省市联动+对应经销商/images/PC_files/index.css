@@ -1,0 +1,79 @@
+.link.pos {
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 10;
+  width: 10%;
+  height: 7%;
+  border: 1px solid #f00;
+  cursor: pointer;
+}
+.link.pos.detail1 {
+  top: 56%;
+  left: 35%;
+  height: 5%;
+}
+.link.pos.book1 {
+  top: 70%;
+  left: 22%;
+  width: 14%;
+  height: 5%;
+}
+.link.pos.detail2 {
+  top: 42%;
+  left: 37%;
+}
+.link.pos.book2 {
+  top: 60%;
+  left: 22%;
+  width: 14%;
+}
+.link.pos.detail3 {
+  top: 42%;
+  left: 37%;
+}
+.link.pos.book3 {
+  top: 60%;
+  left: 22%;
+  width: 14%;
+}
+.popBox .pb .carimg {
+  background: url(../images/carbg.jpg) no-repeat;
+  background-size: 100%;
+  width: 260px;
+  height: 110px;
+  display: block;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  margin: 0 auto;
+  margin-top: 6%;
+}
+.popBox .pb .form {
+  width: 80%;
+  margin: 0 auto;
+}
+.popBox .pb .form .labx {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+}
+.popBox .pb .form .labx .flex {
+  width: 49%;
+  color: #000;
+  font-size: 13px;
+}
+.popBox .pb .form .labx label {
+  text-align: right;
+  width: 14%;
+  display: inline-block;
+}
+.popBox .pb .form .labx input {
+  border: 0;
+  background: transparent;
+  border-bottom: 1px solid #856C6C;
+  width: 58%;
+  margin-left: 3%;
+  color: #fff;
+  padding: 1% 0;
+}

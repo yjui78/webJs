@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>专题页移动端放大/置顶/设备判断</title>
+    <link rel="stylesheet" type="text/css" href="css/public.css" />
+    <!--rem.js-->
+    <script src="js/rem.js"></script>
+    <style>
+      body,html{overflow-x:hidden;padding-top:0;}
+      #fit{position:relative}
+      .right-btn{width:80px;position:fixed;right:1%;z-index:100;bottom:22%}
+      .right-btn a{position:absolute;width:100%;top:0;left:0;height:50%}
+      .right-btn a.go-top{height:50%;top:50%}
+      .font36 {font-size:36px;}
+      @media only screen and (max-width: 750px) and (min-width: 100px){
+        .right-btn {
+            width: 0.7rem;
+        }
+        .font36 {margin-left:100px;}
+      }
+    </style>
+    </head>
+    <body>
+    <div id="app" v-cloak>
+      <div id="fit">
+      <!-- 移动端链接 -->
+      <div v-if="flag==2" >
+        <span class='font36'>这是移动</span>
+      </div>
+      <!-- ipad -->
+      <div v-else-if="flag==1" >
+        <span class='font36'>ipad</span>
+      </div>
+      <!-- pc端链接 -->
+      <div v-else>
+        <span class='font36'>这是pc端</span>
+      </div>
+      <img src="images/1.jpg" alt="">
+
+      <!-- 右侧悬浮菜单 -->
+		<div class="right-btn">
+			<img src="images/right-btn.png" />
+			<a href="/" class="go-home"></a>
+			<a href="javascript:void(0)" class="go-top" @click="goTop"></a>
+		</div>
+          
+      </div>
+    </div>
+    
+    <!--公用js-->
+    <script src="js/jquery_1.12.3_jquery.min.js"></script>
+    <script src="js/vue.js"></script>
+    <!--当前页面js-->
+    <script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>es5实现继承</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//父类Person 子类Worker 有单独的showJob在单写，其他的继承Person
+		function Person(name,age){
+			this.name = name;
+			this.age = age;
+		}
+		Person.prototype.showName = function(){
+			console.log(this.name)
+		}
+		Person.prototype.showAge = function(){
+			console.log(this.age)
+		}
+		function Worker(name,age,job){
+			Person.call(this,name,age);  //这里用call方法继承person的name属性和age方法
+			this.job = job;
+		}
+		
+		Worker.prototype = new Person(); //通过new Person(),返回一个person对象，这个person对象有showName方法，所以，worker类也就继承了
+		//修正contructor,因为把Person实例扔在prototype上会破坏contructor属性;在打回Worder身上，要不就是Person了
+		Worker.prototype.constructor = Worker;
+		Worker.prototype.showJob = function(){
+			console.log(this.job)
+		}
+		// 继承父类方法
+		var w = new Worker('YJUI',18,'随便');
+		w.showName();
+		w.showAge();
+		w.showJob();
+	
+	</script>
+</head>
+<body>
+	  //这里用call方法继承person的name属性和age方法
+      //通过new Person(),返回一个person对象，这个person对象有showName方法，所以，worker类也就继承了
+</body>
+</html>

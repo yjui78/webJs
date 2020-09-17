@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>es6实现类写法1-基本写法</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// class类声明，构造函数声明constructor
+		class Person{
+			constructor(name,age){
+				this.name = name;
+				this.age = age;
+			}
+			// 类中方法
+			showName(){
+				console.log(this.name)
+			}
+			showAge(){
+				console.log(this.age)
+			}
+		}
+		var p = new Person('YJUI',18)
+		p.showName();
+		p.showAge();
+
+
+	
+	</script>
+</head>
+<body>
+ 
+</body>
+</html>

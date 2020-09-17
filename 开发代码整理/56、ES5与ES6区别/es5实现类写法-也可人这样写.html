@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>写法2</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// /ES5以函数的形式来写对象,也有人这样写（老师blue课上讲这种写法是绝对有点问题的，但还真行，有没有问题在说
+		function Person(name,age){
+			this.name = name;
+			this.age =  age;
+			this.showName = function(){
+				console.log(this.name)
+			};
+			this.showAge = function(){
+				console.log(this.age)
+			};
+		}
+		var p = new Person('YJUI',18);
+		p.showName();
+		p.showAge();
+		
+	// 总结：ES5造成不统一的现象，（如果自己写自己的没事，合作完成时一个统一的写法是很有必要的了），所以ES6面象对象的写法就出来了
+	</script>
+</head>
+<body>
+ 
+</body>
+</html>

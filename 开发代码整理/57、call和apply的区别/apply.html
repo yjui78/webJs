@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>apply</title>
+</head>
+<body>
+    <script>
+
+    window.number = 'one';
+    document.number = 'two';
+
+    var s1 = {number: 'three' };
+    function changeColor(){
+        console.log(this.number);
+    }
+
+    changeColor.apply();         //one (默认传参)
+    changeColor.apply(window);   //one
+    changeColor.apply(document); //two
+    changeColor.apply(this);     //one
+    changeColor.apply(s1);       //three
+
+
+    //例2
+    function Pet(words){
+        this.words = words;
+        this.speak =  function(){
+            console.log(this.words)
+        }
+    }
+    function Dog(words){
+        //this是Dog指向了Pet，就是复制一份Pet给Dog:
+        // this是Dog{speak: ƒ (),words: "Wang"}，相当于继承一样复制了Pet
+        console.log(this,'this')
+        // Pet.call(this, words);    //结果：Wang
+        Pet.apply(this,arguments)    //结果：Wang
+    }
+   var dog = new Dog('Wang');
+   //进入ƒ Dog(){里找到call后的speak}
+   dog.speak();     
+    </script>
+</head>
+<body>
+ 
+</body>
+</html>

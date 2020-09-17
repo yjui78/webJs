@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>es6继承实现</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// class类声明，构造函数声明constructor
+		class Person{
+			constructor(name,age){
+				this.name =name;
+				this.age = age;
+			}
+			showName(){
+				console.log(this.name)
+			}
+			showAge(){
+				console.log(this.age)
+			}
+		}
+		class Worker extends Person {
+			constructor(name,age,job){
+				super(name,age);  //继承的属性放里
+				this.job = job;
+			}
+			// 子类自己的方法
+			showJob(){
+				console.log(this.job)
+			}
+
+		}
+
+		var w= new Worker('YJUI',18,'随便');
+		w.showName();   //结果  YJUI
+		w.showAge();    //结果  18
+		w.showJob()     //结果  随便
+
+
+	
+	</script>
+</head>
+<body>
+ 
+</body>
+</html>

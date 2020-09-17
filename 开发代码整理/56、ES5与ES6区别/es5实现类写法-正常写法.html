@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>es5实现类写法1-正常的写法</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//ES5是以函数的形式来写对象，使用函数声明类，Person即是类也是构造函数，
+		function Person(name,age){
+			this.name = name;
+			this.age =  age;
+		}
+		// ES5添加方法用原型方式
+		Person.prototype.showName = function(){
+			console.log(this.name)
+		}
+		Person.prototype.showAge = function(){
+			console.log(this.age)
+		}
+		// 创建
+		var p = new Person('YJUI',18);
+		p.showName();
+		p.showAge();
+	
+	</script>
+</head>
+<body>
+ 
+</body>
+</html>

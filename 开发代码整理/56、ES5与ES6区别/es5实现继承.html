@@ -17,6 +17,7 @@
 		Person.prototype.showAge = function(){
 			console.log(this.age)
 		}
+		// 开始子类
 		function Worker(name,age,job){
 			Person.call(this,name,age);  //这里用call方法继承person的name属性和age方法
 			this.job = job;

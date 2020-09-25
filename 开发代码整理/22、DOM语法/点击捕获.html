@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>点击捕获</title>
+  <meta charset="utf-8" />
+  <style type="text/css">
+  	.ulli { float:left;   list-style: none;}
+
+  </style>
+ </head>
+
+ <body>
+ 	<div>
+	    <button>
+	        <p>点击捕获</p>
+	    </button>
+	</div>
+ 	
+  <script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+  <script>
+  	var oP=document.querySelector('p');
+    var oB=document.querySelector('button');
+    var oD=document.querySelector('div');
+    var oBody=document.querySelector('body');
+
+    oP.addEventListener('click',function(){
+        alert('p标签被点击')
+    },true);
+
+    oB.addEventListener('click',function(){
+        alert("button被点击")
+    },true);
+
+    oD.addEventListener('click',  function(){
+        alert('div被点击')
+    },true);
+
+    oBody.addEventListener('click',function(){
+       alert('body被点击')
+    },true);
+
+  </script>
+ </body>
+</html>

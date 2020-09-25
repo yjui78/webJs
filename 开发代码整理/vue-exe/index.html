@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+
+
+<title>vue2</title>
+</head>
+<body>
+	<div id ="app">
+		<button @click='aa'>button</button>
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript">  
+		let vm = new Vue({
+		    el:'#app',
+		    data:{
+		        // vue的bug例子，数组和json都可以
+		        a:12
+		    },
+		    methods:{
+		      	aa(){
+		      		alert(1)
+		      	}
+		    },
+		})
+	</script>
+</body>
+</html>

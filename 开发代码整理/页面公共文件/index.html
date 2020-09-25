@@ -9,23 +9,14 @@
 <title>DES加密</title>
 </head>
 <body>
-	<input type="button" value='a'>
-	<input type="button" value='b'>
-	<input type="button" value='c'>
 	<script type="text/javascript">  
-	 // Encrypt
-	function encrypted(val){
-		var encrypted = CryptoJS.DES.encrypt(val, '9cf3604cae4b3b24').toString();
-		return encrypted
-	}
-
-	// function add(n){
-	//     return n+5;
-	// }
-	function show(n,fn){
-	    alert(fn(n))  
-	}
-	show(12,n=>n+5) 
+ajax('http://taobao.com/api/user').then(user_data=>{
+    if(user_data.vip){
+      ajax('http:/taobao.com/api/vip_items').then()
+    }
+},error=>{
+  alert('error')
+})
 
 	</script>
 

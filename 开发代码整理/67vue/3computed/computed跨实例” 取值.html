@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>跨实例” 取值</title>
+<style>
+
+	
+</style>
+</head>
+<body>
+	<div id='app2'></div>
+	<div id ="app">
+
+{{a}}
+{{total}}
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript">  
+		var vm2 = new Vue({
+			el:'#app2',
+			data:{
+				true_b:2
+			},
+		})
+		var vm =new Vue({
+			el:'#app',
+			data(){
+				return{
+					true_a:5
+				}
+			},
+
+			created(){
+				var _this =this;
+			},
+			computed:{
+				// computed与watch都可以这样表示：a(){} 同于 a:function(){} 同于 'a'(){}同于'a':function(){}
+				'a':function(){
+				 	return this.true_a+5
+				 },
+				/*a(){
+				 	return this.true_a+5
+				 },
+				 同于get()里的，加set才能改变a值
+				 */
+				// a:{
+				// 	get(){
+				// 		return this.true_a+5
+				// 	},
+				// 	set(val){
+				// 		if(val%5==0){
+				// 			this.true_a = val;
+				// 		}
+
+				// 	}
+				// },
+				total:function () {
+					var n1="我是上一个实例的数据 ："+vm2.true_b,
+						n2="我是本实例的数据："+this.true_a;
+					return n1 +" .............  " +n2;
+            	}
+			}
+		})
+	</script>
+</body>
+</html>

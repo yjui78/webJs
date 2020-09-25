@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>props子组件里操作父组件数据$emit</title>
+</head>
+<body>
+	<div id ="app">
+		<div>{{a}}<cmp1  :value="a" @add ="fn"></cmp1></div>
+
+
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript">  
+	// 子组件
+	Vue.component('cmp1',{
+		props:{
+			'value':{
+				type:Number,
+				required:true
+
+			}
+		},
+		template:`<div><button type="button" name="button" @click="hander">+1</button></div>`,
+		methods:{
+			//同于 @click="$emit('add')" 
+			hander(){
+				this.$emit('add')
+			}
+		}
+	})
+	//父组件
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			a:1,
+		},
+		methods:{
+			fn(){
+				this.a++;
+			}
+		}
+	})
+	</script>
+</body>
+</html>

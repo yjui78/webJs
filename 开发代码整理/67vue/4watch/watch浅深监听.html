@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>watch</title>
+<style>
+
+	
+</style>
+</head>
+<body>
+    <div id="root" v-cloak>
+     {{json}}
+       </div>
+       <script src="vue2.js"></script>
+       <script type="text/javascript">
+       let vm = new Vue({
+           el:'#root',
+           data:{
+             json:{
+                 a:12,b:5
+             }
+           },
+          watch:{
+                //json(){}同于 'json'(){}同于'json':function(){}同于'json':function(){}同于json:function(){}
+                //浅度监听
+                json:function(){
+                    console.log('json变了') 
+                },
+                // 深度监听写法
+                json:{
+                    deep:true,
+                    immediate:true,
+                    handler(){
+                        console.log('json变了') 
+                    }
+                },
+                //即性能高也能监听到json.a方法
+                'json.a':function(){
+                    console.log('json变了') 
+                }
+          }
+       })
+       </script> 
+</body>
+</html>

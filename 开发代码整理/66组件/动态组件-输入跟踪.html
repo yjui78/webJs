@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>watch</title>
+<style>
+
+	
+</style>
+</head>
+<body>
+    <div id="root" v-cloak>
+      <input type="text" v-model="name"/>
+      {{temp}}
+      <component :is="temp"></component>
+    </div>
+       <script src="vue2.js"></script>
+       <script type="text/javascript">
+       Vue.component('yjui',{
+           template:`<div>正确</div>`
+       })
+       //输入yjui时出现正确字
+       let vm = new Vue({
+           el:'#root',
+           data:{
+                name:'',
+                temp:false
+           },
+           watch:{
+               name:function(newval){
+                    if(newval=='yjui'){
+                        this.temp =true;
+                        this.temp = this.name;
+                    }else {
+                        this.temp =false;
+                    }
+               }
+           }
+          
+       })
+       </script> 
+</body>
+</html>

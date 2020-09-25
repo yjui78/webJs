@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>filters</title>
+<style>
+	.bone:first-child{margin-left:0}
+	.bone:last-child{margin-right:0}
+	
+</style>
+</head>
+<body>
+	<div id ="app">
+		<p>1、时间戳：{{a|time2str}}</p>
+		<h5>2、千位分隔符：{{price|formatNumber}} </h5>
+		<p>3、转成万单位：{{price | toCurrcney}} 万元</p>
+		<p class=''>4、全大写字母：{{text | Upper}} </p>
+		<p>5、保留小数：{{number  | numFormat(2)}}</p>
+		<p>6、千位分隔+分隔点：{{price | thousand}} </p>
+		<p>7、文字溢出过滤器:{{text2|textOverflow(30)}}</p>
+		<p>8、首字母大写:{{text3|firstUpperCase}}</p>
+		<p>9、隐藏部分手机号:{{phone|hidePhone}}</p>
+		<p>10、隐藏部分身份证号:{{cardNo|hideIdNo}}</p>
+		<p>11、保留两位小数:{{number2|fMoney}}</p>
+		<p>12、四舍五入 保留两位小数：{{shuru|floorTwo}}</p>
+		<p>13、补零 保留两位小数：{{zero|addZero}}</p>
+		<p>14、时间差：{{timeAgo}}</p>
+		
+		<p>15、转换为本地时间格式：{{time|toLocalString}}</p>
+		<p>16、YMDHMS时间转换过滤器：{{time|toYMD}}</p>
+		<p>17、YMD时间转换过滤器：{{time|toTime}}</p>
+		<p>18、YMD时间转换过滤器：{{time|toMonth}}</p>
+		<p>19、YMDHMS时间转换过滤器：{{time|toYMDHMS}}</p>
+		
+		
+
+
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript" src="html-filter.js"></script>
+	<script type="text/javascript">  
+	
+	</script>
+</body>
+</html>

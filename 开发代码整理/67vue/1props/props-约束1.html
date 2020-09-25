@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>props</title>
+</head>
+<body>
+	<div id ="app">
+		<my-button :leixing="a"></my-button>
+
+
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript">  
+	// 子组件
+	// 当ddata:'default' /a/b时会在console.log打印出leixing的值 ，不是就会报错因为返回false
+	Vue.component('myButton',{
+		template:`<div>子组件{{leixing}}</div>`,
+		props:{
+			leixing:{
+				type:String,   //类型必须为String
+				required:true, //为true必须传:leixing='a'
+				validator(arg){ //接收leixing值的范围判断
+					//这里arg是default输出：子组件default
+					if(arg=='default'||arg=='a'||arg=='b'){
+						return true;
+					}else {
+						return false;
+					}
+				}
+			}
+		},
+		created(){
+			console.log(this.leixing)
+		}
+
+	})
+	//父组件
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			a:'default',
+		},
+	})
+	</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>watch</title>
+<style>
+
+	
+</style>
+</head>
+<body>
+    <div id="root" v-cloak>
+       <aaa :aa="a"></aaa>
+    </div>
+       <script src="vue2.js"></script>
+       <script type="text/javascript">
+     /*
+        //局部写法1：<login-dialog :aa='a'></login-dialog>
+        // 结果点击加+1：我是局部组件3
+         var child={
+            template:`<button @click="add">我是局部组件{{a}}</button>`,
+            data(){
+                return {
+                    a:1
+                }
+            },
+            methods:{
+                add(){
+                    this.a++;
+                }
+            }
+        };
+        
+       let vm = new Vue({
+           el:'#root',
+           data:{
+              a:12
+           },
+           components:{
+                'loginDialog':child    //loginDialog:child
+           }
+       })
+       */
+   
+       /*
+       // 写法2:<login-dialog :aa='a'><aaa></aaa></login-dialog>
+       //全局组件里加局部，都用vm实例里数据
+       //    结果：这是全局组件12——我是局部组件12
+       Vue.component('loginDialog',{
+           props:['aa'],
+           template:`<h1 >这是全局组件{{aa}}<aaa :bb = "aa"></aaa></h1>`,
+           components:{
+            'aaa':{
+                props:['bb'],
+                template:`<span>——我是局部组件{{bb}}</span>`,
+            }
+           }
+       })
+     
+       let vm = new Vue({
+           el:'#root',
+           data:{
+              a:12
+           },
+       })
+       */
+      
+
+    
+       // 局部组件用data实例里数据:<aaa :aa="a"></aaa>
+       //    结果：我是局部组件12
+       let vm = new Vue({
+           el:'#root',
+           data:{
+              a:12
+           },
+           components:{ 
+            'aaa':{
+                props:['aa'],
+                template:`<span>我是局部组件{{aa}}</span>`,
+             }
+           }
+       })
+
+
+       </script> 
+</body>
+</html>

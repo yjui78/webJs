@@ -20,6 +20,7 @@
 			leixing:{
 				type:String,   //类型必须为String
 				required:true, //为true必须传:leixing='a'
+				// 这里如加默认值default:'123',required:false, 去掉:leixing=“a”
 				validator(arg){ //接收leixing值的范围判断
 					//这里arg是default输出：子组件default
 					if(arg=='default'||arg=='a'||arg=='b'){

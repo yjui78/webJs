@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>props</title>
+<style>
+	ul {    width: 60%;}
+	ul li {
+		list-style-type: none;
+		width: 23%;
+		display: inline-block;
+		border: 1px solid #999;
+	}
+	ul li.active { border:1px solid #f00;}
+</style>
+</head>
+<body>
+	<div id ="app">
+		<!--如不加:value="cur"default改成3能定到3,但切换不好用了,因为子组件里用着value了，-->
+		<my-tab :tabs="arr" :value="cur" @input ='fn'></my-tab>
+		<!-- 等同于v-model="cur" -->
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript">  
+	// 子组件
+	var myTab =Vue.extend({
+		props:{
+			tabs:{
+				type:Array,
+				required:true,
+			},
+			value:{
+				//不是必传的，默认值为0,不传就是0
+				type:Number,
+				default:3//传value就不执行了，没传才执行default
+			},
+		},
+		// value通过父组件传进来，在操作下把i传出去给value
+		template:`<div><ul><li v-for="(item,i) in tabs" :key="i" :class="{active:i==value}" @click="$emit('input',i)">{{item}}</li></ul></div>`
+	})
+	//父组件
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			cur:0,
+			arr:['新闻','数码','商品','汽车'],
+		},
+		components:{
+			myTab
+		},
+		methods:{
+			fn(i){
+				this.cur =i;
+			}
+		}
+	})
+
+
+	</script>
+</body>
+</html>

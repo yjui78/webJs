@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>props</title>
+</head>
+<body>
+	<div id ="app">
+		{{a}}
+		<!-- <cmp1 :value="a" @input="fn"></cmp1> -->
+		<!-- 上下等同 -->
+		<cmp1 v-model="a"></cmp1>
+
+
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript">  
+	// 子组件
+	var cmp1 = Vue.extend({
+		props:['value'],
+		template:`<div><input type="text" @input="$emit('input',$event.target.value)"/></div>`
+	})
+	//父组件
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			a:'123',
+		},
+		components:{
+			cmp1
+		},
+		methods:{
+			fn(val){
+				console.log(val)
+			}
+		}
+	})
+
+
+	</script>
+</body>
+</html>

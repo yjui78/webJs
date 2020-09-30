@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>.sync实现多tab</title>
+<style>
+	ul {    width: 60%;}
+	ul li {
+		list-style-type: none;
+		width: 23%;
+		display: inline-block;
+		border: 1px solid #999;
+	}
+	ul li.active { border:1px solid #f00;}
+</style>
+</head>
+<body>
+	<div id ="app">
+        <!-- <my-tab :tabs="arr" :index1="cur1" :index2="cur2" @update:index1 ='val=>cur1=val'  @update:index2 ='val=>cur2=val'></my-tab> -->
+        <my-tab :tabs="arr" :index1.sync="cur1" :index2.sync="cur2"></my-tab>
+    </div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript">  
+	// 子组件
+	var myTab =Vue.extend({
+		props:{
+			tabs:{
+				type:Array,
+				required:true,
+			},
+            index1:{
+                type:Number,default:0
+            },
+            index2:{
+                type:Number,default:0
+            }
+		},
+		template:`<div>
+			<ul><li v-for="(item,i) in tabs" :key="i" :class="{active:i==index1}" @click="fn1(i)">{{item}}</li></ul>
+			<ul><li v-for="(item,i) in tabs" :key="i" :class="{active:i==index2}" @click="fn2(i)">{{item}}</li></ul>
+		</div>`,
+		methods:{
+			fn1(i){//@click = $emit('update:index1',i)
+				this.$emit('update:index1',i)
+				console.log(i)
+			},
+			fn2(i){//@click = $emit('update:index2',i)
+				this.$emit('update:index1',i)
+				console.log(i)
+			}
+		}
+	})
+
+	//父组件
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			cur1:0,cur2:0,
+			arr:['新闻','数码','商品','汽车'],
+		},
+		components:{
+			myTab
+		},
+		methods:{
+			fn(i){
+				this.cur =i;
+			}
+		}
+	})
+
+
+	</script>
+</body>
+</html>

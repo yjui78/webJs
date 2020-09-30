@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>slot</title>
+</head>
+<body>
+	<div id ="app">
+		<cmp1>
+			<div slot-scope="scope">{{scope}}</div>
+			  <!-- <template slot-scope="aa">{{aa}}</template> -->
+			</cmp1> 
+
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript">  
+	// 子组件
+	Vue.component('cmp1',{
+		template:`<div><slot a="12" :b="5"></slot></div>`,
+	})
+	//父组件
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			a:'abc',
+		},
+	})
+	</script>
+</body>
+</html>

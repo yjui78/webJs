@@ -36,7 +36,10 @@
 			},
 		},
 		// value通过父组件传进来，在操作下把i传出去给value
-		template:`<div><ul><li v-for="(item,i) in tabs" :key="i" :class="{active:i==value}" @click="$emit('input',i)">{{item}}</li></ul></div>`
+		template:`<div>
+			<ul><li v-for="(item,i) in tabs" :key="i" :class="{active:i==value}" @click="$emit('input',i)">{{item}}</li></ul>
+			<ul><li v-for="(item,i) in tabs" :key="i" :class="{active:i==value}" @click="$emit('input',i)">{{item}}</li></ul>
+		</div>`
 	})
 	//父组件
 	var vm = new Vue({

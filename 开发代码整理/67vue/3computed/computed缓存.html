@@ -1,43 +1,65 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-<meta charset="utf-8">
-<title>computed</title>
-<style>
 
-	
-</style>
+<head>
+    <meta charset="utf-8">
+    <title>computed</title>
+    <style>
+
+
+    </style>
 </head>
+
 <body>
-	<div id ="app">
+    <div id="app">
         <p></p>
-        <p><button @click="add">+price </button>  price：{{price}}
-        <p>total函数值：  {{total}}</p>
+        <p><button @click="add">+price </button> price：{{price}}
+        <p>total函数值： {{total}}</p>
         <button v-on:click="clik">当前tatal值</button> {{total}}
-      </div>
-	<script type="text/javascript" src="vue2.js"></script>
-	<script type="text/javascript">  
-	
-		var vm =new Vue({
-			el:'#app',
-			data:{
-				price:10,
+    </div>
+    <script type="text/javascript" src="vue2.js"></script>
+    <script type="text/javascript">
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                price: 10,
             },
-            methods:{
-                clik(){
+
+
+
+
+
+
+            methods: {
+                clik() {
                     console.log('点击事件')
                 },
-                add(){
-                   this.price++; 
+                add() {
+                    this.price++;
                 }
+
+
             },
-			computed:{
-				total:function(){
+            computed: {
+                // 这样改vm.total会变
+                // total: {
+                //     get() {
+                //         console.log('执行函数...')
+                //         return this.price + 100;
+                //     },
+                //     set(val) {
+                //         this.price = val;
+                //     }
+                // }
+
+                total: function () {
                     console.log('执行函数...')
-                    return this.price+100;
+                    return this.price + 100;
                 }
-			}
-		})
-	</script>
+            }
+        })
+    </script>
 </body>
+
 </html>

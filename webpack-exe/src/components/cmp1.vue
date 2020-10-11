@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button type="button" @click="$emit('aaa')">确定按钮</button>
+  cmp1
   </div>
 </template>
 <script>

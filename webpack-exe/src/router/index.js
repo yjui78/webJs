@@ -4,10 +4,10 @@ Vue.use(Router);
 
 import cmp1 from '@/components/cmp1';
 import cmp2 from '@/components/cmp2';
-let router = new Router({
+
+export default new Router({
 	routes:[ 
-		{path:'/cmp1/:id',component:cmp1},
-		{path:'/cmp2',component:cmp2},
+		{path:'/index/:id',name:'index',component:cmp1},
+		{path:'/news',component:cmp2},
 	]
-})
-export default router;
+});

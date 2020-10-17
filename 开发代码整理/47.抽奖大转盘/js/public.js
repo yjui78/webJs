@@ -1,8 +1,8 @@
 //ajax请求地址
 var AJAXURL = "";
 if (location.href.indexOf("localhost:") > -1 || location.href.indexOf("file:///") > -1 || location.href.indexOf("127.") > -1) {
-    AJAXURL = "https://faw-vw.ftms-wechat.com";
-    // AJAXURL ="https://faw-vw.ysc.bjscfl.com/";
+    // AJAXURL = "https://faw-vw.ftms-wechat.com";
+    AJAXURL ="https://faw-vw.ysc.bjscfl.com/";
 }
 
 //整站功能方法库

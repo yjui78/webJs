@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>vue2</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<meta http-equiv="cache-control" content="max-age=0" />
+	<meta http-equiv="cache-control" content="no-cache" />
+	<style>
+		#touchMove {
+			width: 50px;
+			height: 50px;
+			background: #00B0F0;
+			position: absolute;
+			z-index: 99999;
+			color: #fff;
+			border-radius: 50%;
+			font-size: 14px;
+		}
+
+		#touchMove .txt {
+			width: 30px;
+			display: block;
+			padding: 5px 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<!--车型介绍 -->
+		<div id="touchMove" class="car_info" @touchstart="keepPress($event)" @touchmove=""
+			@touchend="keepPressEnd($event)" @touchcancel="">
+			<span class="txt">车型介绍</span>
+		</div>
+
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			methods: {
+				// 按下时触发
+				keepPress(event) {
+					event.preventDefault()
+					this.pressTime = 0   // 清0计数器
+					let nodeEl = event.currentTarget.parentElement.firstElementChild
+					this.pressTimer = setInterval(() => {
+						this.pressTime = this.pressTime + 1
+						nodeEl.style.display = 'block'
+					}, 500)
+
+				},
+				// 松开时触发
+				keepPressEnd(event) {
+					var _this = this;
+					let el = event.currentTarget.getElementsByClassName('txt')[0]
+					clearInterval(this.pressTimer)
+					if (this.pressTime < 1) { // 长按时间不足500ms时，触发点击事件
+						if (el) {
+							el.click()
+							console.log('点击')
+						}
+					}
+				}
+			},
+			mounted() {
+				//拖拽圆
+				var oDiv = document.getElementById('touchMove');
+				var disX, moveX, L, T, starX, starY, starXEnd, starYEnd;
+
+				oDiv.addEventListener('touchstart', function (e) {
+					e.preventDefault();
+					// 横屏 768 739   113 78
+					if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
+						disX = e.touches[0].clientX - this.offsetLeft;
+						disY = e.touches[0].clientY - this.offsetTop;
+						starX = e.touches[0].clientX;
+						starY = e.touches[0].clientY;
+					} else {
+						// this.offsetTop   right   div
+						// this.offsetLeft  top    div
+						// e.touches[0].clientX left   鼠标
+						// e.touches[0].clientY top 鼠标
+						disX = (e.touches[0].clientY - this.offsetLeft)
+						disY = (((document.documentElement.clientWidth - e.touches[0].clientX) - this.offsetTop))
+						starX = e.touches[0].clientX;
+						starY = (document.documentElement.clientWidth - e.touches[0].clientX);
+					}
+				});
+				oDiv.addEventListener('touchmove', function (e) {
+					// 横屏
+					if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
+						L = e.touches[0].clientX - disX;
+						T = e.touches[0].clientY - disY;
+						starXEnd = e.touches[0].clientX - starX;
+						starYEnd = e.touches[0].clientY - starY;
+						if (L < 0) {
+							L = 0;
+						} else if (L > document.documentElement.clientWidth - this.offsetWidth) {
+							L = document.documentElement.clientWidth - this.offsetWidth;
+						}
+						if (T < 0) {
+							T = 0;
+						} else if (T > document.documentElement.clientHeight - this.offsetHeight) {
+							T = document.documentElement.clientHeight - this.offsetHeight;
+						}
+					} else { // 坚屏
+						L = e.touches[0].clientY - disX;
+						T = (document.documentElement.clientWidth - e.touches[0].clientX) - disY;
+
+						starXEnd = e.touches[0].clientY - starX;
+						starYEnd = document.documentElement.clientWidth - e.touches[0].clientX - starY;
+						if (L < 0) {
+							L = 0;
+						} else if (L > document.documentElement.clientHeight - this.offsetWidth) {
+							L = document.documentElement.clientHeight - this.offsetWidth;
+						}
+						if (T < 0) {
+							T = 0;
+						} else if (T > document.documentElement.clientWidth - this.offsetHeight) {
+							T = document.documentElement.clientWidth - this.offsetHeight;
+						}
+					}
+					moveX = L + 'px';
+					moveY = T + 'px';
+					this.style.left = moveX;
+					this.style.top = moveY;
+				});
+				window.addEventListener('touchend', function (e) {
+					// console.log(parseInt(moveX))
+				});
+			}
+		})
+		// 利用 CSS3 旋转 对根容器逆时针旋转90度
+		var abWidth = 0;
+		var detectOrient = function () {
+			var width = document.documentElement.clientWidth,
+				height = document.documentElement.clientHeight,
+				$wrapper = document.getElementById("app"),
+				style = "";
+			if (width >= height) { // 横屏
+				style += "width:" + width + "px;"; // 注意旋转后的宽高切换
+				style += "height:" + height + "px;";
+				style += "-webkit-transform: rotate(0); transform: rotate(0);";
+				style += "-webkit-transform-origin: 0 0;";
+				style += "transform-origin: 0 0;";
+				style += "overflow: hidden";
+			}
+			else { // 竖屏
+				style += "width:" + height + "px;";
+				style += "height:" + width + "px;";
+				style += "-webkit-transform: rotate(90deg); transform: rotate(90deg);";
+				style += "-webkit-transform-origin: " + width / 2 + "px " + width / 2 + "px;";
+				style += "transform-origin: " + width / 2 + "px " + width / 2 + "px;";
+			}
+			$wrapper.style.cssText = style;
+		};
+		detectOrient();
+		window.onresize = function () {
+			var width = document.documentElement.clientWidth,
+				height = document.documentElement.clientHeight;
+			if (width >= height) { // 横屏
+				alert('请您关闭屏幕旋转，体验更佳');
+			}
+			detectOrient();
+		}
+	</script>
+</body>
+
+</html>

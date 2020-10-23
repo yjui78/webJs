@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>vue2</title>
+</head>
+
+<body>
+	<div id="app">
+		<div v-for="item in arr">{{item.name}}</div>
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				cacheDate: [
+					{ name: 'aa1' },
+					{ name: 'aa2' },
+					{ name: 'aa3' },
+					{ name: 'aa4' },
+				],
+				arr:[],
+
+
+			},
+			methods: {
+			},
+			mounted() {
+				var _this = this;
+				//随机改变数组的排序
+				function randomOrder(targetArray) {
+					var arrayLength = targetArray.length
+					var tempArray1 = new Array();//先创建一个正常顺序的数组
+					for (var i = 0; i < arrayLength; i++) {
+						tempArray1[i] = i
+					}
+					var tempArray2 = new Array(); //再根据上一个数组创建一个随机乱序的数组
+					for (var i = 0; i < arrayLength; i++) {
+						//从正常顺序数组中随机抽出元素
+						tempArray2[i] = tempArray1.splice(Math.floor(Math.random() * tempArray1.length), 1)
+					}
+					//最后创建一个临时数组存储 根据上一个乱序的数组从targetArray中取得数据
+					var tempArray3 = new Array();
+					for (var i = 0; i < arrayLength; i++) {
+						tempArray3[i] = targetArray[tempArray2[i]]
+					}
+					//返回最后得出的数组
+					return tempArray3
+				}
+				//使用实例
+				// var tmp = ["a", "b", "c", "d"];
+				var tmp = _this.cacheDate;
+				_this.arr = randomOrder(tmp);
+				console.log(_this.arr)
+			}
+		})
+	</script>
+</body>
+
+</html>

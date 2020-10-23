@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>vue2</title>
+</head>
+
+<body>
+	<div id="app">
+		<ul>
+			<li v-for="(item,key) in qusData" :index="key">
+				<p>{{item.title}}</p>
+				<label v-for="item2,index in item.anwers" :name='"v"+key'>
+					<input type="radio" :name='"v"+key' @click="radioChange(item2,key)"
+						:value="item2.radios">{{item2.radios}}
+				</label>
+			</li>
+		</ul>
+		<input type="button" value="提交" @click="submit">
+	</div>
+	<script type="text/javascript" src="vue2.js"></script>
+	<script type="text/javascript">
+		let vm = new Vue({
+			el: '#app',
+			data: {
+				qusData: [
+					{
+						title: '问题1?',
+						anwers: [
+							{ radios: '选择1', id: 3 },
+							{ radios: '选择2', id: 2 },
+							{ radios: '选择3', id: 1 },
+						]
+					},
+					{
+						title: '问题2?',
+						anwers: [
+							{ radios: '选择1', id: 3 },
+							{ radios: '选择2', id: 2 },
+							{ radios: '选择3', id: 1 },
+						]
+					},
+					{
+						title: '问题3?',
+						anwers: [
+							{ radios: '选择1', id: 3 },
+							{ radios: '选择2', id: 2 },
+							{ radios: '选择3', id: 1 },
+						]
+					},
+					{
+						title: '问题4?',
+						anwers: [
+							{ radios: '选择1', id: 3 },
+							{ radios: '选择2', id: 2 },
+							{ radios: '选择3', id: 1 },
+						]
+					},
+
+				],
+				// 对象整理暂存
+				temp: {
+					serial: [],
+				},
+				cacheArr: [],//临时        
+				submitfrom:[], //答案选择
+			},
+			methods: {
+				zhuan(par) {
+					return JSON.parse(JSON.stringify(par))
+				},
+				radioChange(item, index) {
+					var _this = this;
+					// _this.temp.serial[index] = item.id
+					// console.log(this.temp.serial, 1)
+					// 对象整理暂存
+					let cache = {
+						serial: index,
+						option: item.id
+					}
+					_this.cacheArr.push(cache)
+					// 重复选择覆盖，升序排列
+					let otheritems = [];
+					let list = {};
+					for (let i = 0; i < _this.cacheArr.length; i++) {
+						let element = _this.cacheArr[i].serial;
+						if (list[element]) {
+							list[element].serial = list[element].serial;
+						} else {
+							list[element] = {};
+							list[element].serial = _this.cacheArr[i].serial;
+						}
+						list[element].option = _this.cacheArr[i].option;
+					}
+					//对象转数组
+					for (let i in list) {
+						otheritems.push(list[i])
+					}
+					console.log(_this.zhuan(otheritems))
+					_this.submitfrom = otheritems;
+				},
+				submit() {
+					var _this = this;
+					(_this.qusData.length != _this.submitfrom.length)?alert("请仔细阅读，不要漏选"):alert('ok')
+				}
+			},
+			mounted() {
+				var _this = this;
+				_this.zhuan(_this.qusData)
+				for (var i = 0; i < _this.qusData.length; i++) {
+					_this.temp.serial.push('')
+				}
+				console.log(_this.zhuan(_this.temp.serial), 1)
+
+			}
+		})
+	</script>
+</body>
+
+</html>

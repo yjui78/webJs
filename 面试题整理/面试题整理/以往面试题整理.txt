@@ -1,0 +1,683 @@
+jsonp原理
+通过jquery的ajax进行跨域，采用jsonp方式实现的，它允许在服务器端生成script,tags返回至客户端，也就是动态生成javascript标签，通过javascript，callback的形式实现数据读取
+
+typeof 返回类型与以上依次对应为 number  object boolean string  object  object  undefined
+
+
+
+js对象与字符串相互转换
+
+const obj = {
+     id: 0,
+     name: '张三',
+     age: 12
+}
+const objToStr = JSON.stringify(obj)
+console.log('obj:', obj)
+console.log('objToStr:', objToStr)
+
+2. json字符串转为对象
+const str = '{"id":0,"name":"张三","age":12}'
+const strToObj = JSON.parse(str)
+console.log('str:', str)
+console.log('strToObj:', strToObj)
+
+
+
+koala是一个前端预处理器语言图形编译工具，支持Less、Sass、Compass、CoffeeScript，帮助web开发者更高效地使用它们进行开发。跨平台运行，完美兼容windows、linux、mac。
+
+s.scss自动执行生成s.css
+
+html{
+font-size:40px;
+}
+$baseFontSize:40;
+@function px2rem($px){
+@return $px / $baseFontSize * 1rem;
+}
+.box{
+    width: px2rem(750);
+    height: px2rem(400);;
+    background-color: lawngreen;
+  }
+生成：
+html {
+  font-size: 40px; }
+
+.box {
+  width: 18.75rem;
+  height: 10rem;
+  background-color: lawngreen; }
+
+
+
+
+一、Less、Sass/Scss是什么?
+1、Less：
+是一种动态样式语言. 对CSS赋予了动态语言的特性，如变量、继承、运算、函数。
+Less 既可以在客户端上运行 (支持IE 6+, Webkit, Firefox)，也可在服务端运行。
+
+
+2、Sass：
+
+是一种动态样式语言，Sass语法属于缩排语法，
+比css比多出好些功能(如变量、嵌套、运算,混入(Mixin)、继承、颜色处理，函数等)，更容易阅读。
+二、less和sass的相同之处
+
+Less和Sass在语法上有些共性，比如下面这些：
+
+1、混入(Mixins)——class中的class；
+2、参数混入——可以传递参数的class，就像函数一样；
+3、嵌套规则——Class中嵌套class，从而减少重复的代码；
+4、运算——CSS中用上数学；
+5、颜色功能——可以编辑颜色；
+6、名字空间(namespace)——分组样式，从而可以被调用；
+7、作用域——局部修改样式；
+8、JavaScript 赋值——在CSS中使用JavaScript表达式赋值。
+三、less和sass的区别
+Less和Sass的主要不同就是他们的实现方式。
+Less是基于JavaScript，是在客户端处理的。
+Sass是基于Ruby的，是在服务器端处理的。
+关于变量在Less和Sass中的唯一区别就是Less用@，Sass用$。
+
+@length: 100px;
+@color:red;
+@opa:0.5;
+@border:10px solid red;
+.borderRadius(@brWidth:10px){
+border-radius: @brWidth;
+}
+.setMargin(lefts,@width){
+margin-left:@width;
+}
+
+
+
+
+
+
+
+sass技术中后缀名.sass和.scss的区别与个人推荐
+
+sass是一种对css的一种提升，可以通过编译生成浏览器能识别的css文件。sass技术的文件的后缀名有两种形式：.sass和.scss。这两种的区别在于.sass文件对代码的排版有着非常严格的要求，而且没有大括号，没有分号。 
+一个a.scss文件代码如下： 
+Scss代码  
+.a {  
+    color: blue;  
+    font-weight: bold;  
+    text-decoration: underline;  
+    .b {  
+        color:black;  
+    }  
+}  
+
+通过sass a.scss a.css编译出来的css文件为a.css： 
+
+Css代码  
+.a {  
+  color: blue;  
+  font-weight: bold;  
+  text-decoration: underline; }  
+  .a .b {  
+    color: black; }   
+
+但是这样的代码将后缀改成.sass就不能通过编译了。首先.sass不要大括号，其次不需要分号，还有行首空格问题，比如第一个元素的属性空2个空格就不能通过编译。.sass文件需要严格的格式要求： 
+Sass代码  、
+.div  
+ color: blue  
+ .b  
+  color: black  
+  font-weight: bold  
+  text-decoration: none  
+  .c  
+   color: white  
+
+编译后： 
+
+Css代码  
+.div {  
+  color: blue; }  
+  .div .b {  
+    color: black;  
+    font-weight: bold;  
+    text-decoration: none; }  
+    .div .b .c {  
+      color: white; }  
+
+
+所以博主推荐大家使用.scss文件，使用起来更顺手。 
+
+
+1.良好的CSS架构目标是什么？
+预测、重用、扩展、维护
+
+2.模块加载的优点，常用哪些？
+a>优点： 
+可维护性 
+1.灵活架构，焦点分离 
+2.方便模块间组合、分解 
+3.方便单个模块功能调试、升级 
+4.多人协作互不干扰 
+可测试性 
+NodeJS ，CommonJS AMD  CMD
+3.css hack技巧
+"9"　例:"border:1px 9;".这里的"9"可以区别所有IE和FireFox.（只针对IE9 Hack）
+
+
+_background-color:#CDCDCD;/*ie6*/
+ _color :#F00   //IE6
+*color:#F00 //IE7
+color  :#F00  //IE8
+
+*background-color:#dddd00; /* ie 7*/IE8 hack
+background-color:red 0; /* ie 8/9*/IE9 hack
+background-color:blue 90;火狐，傲游，浏览器通用
+background-color:red!important;
+
+注意： 不管是什么方法，书写的顺序都是firefox的写在前面，IE7的写在中间，IE6的写在最后面。补充：IE6能识别* ，但不能识别 !important,IE7能识别 *，也能识别!important;FF不能识别 *，但能识别!important;下划线” _ “,IE6支持下划线，IE7和firefox均不支持下划线。
+
+4、HTML5新页面元素5个以上
+（1）figure元素：figure是个组合元素，可以带标题figcaption，一个figure只允许放置一个figcaption。
+(2)details元素:details提供了一种替代Javascript的、将画面上局部区域进行展开或收缩的方法
+(3）mark元素：mark元素表示页面需要突出显示或高亮显示的部分。
+(4）progress元素：一般用于写进度条
+(5） meter元素：定义度量衡。
+
+5、针对不同浏览器写出box-shadow格式
+-moz-box-shadow:3px 5px 5px #969696;
+-webkit-box-shadow:3px 5px 5px #969696;
+box-shadow:3px 5px 5px #969696;
+ filter: progid:DXImageTransform.Microsoft.Shadow(color='#969696', Direction=125, Strength=9);
+
+ 6、UL ,OL,DL三种列表html结构
+ul（无序列表）ol（有序列表）dl（自定义列表）
+7、不换行设置哪些
+white-space:nowrap
+
+8、英文单词不发生词内换行
+word-break: break-word;
+9、display:none 和visibility:hidden 区别
+.display:none是彻底消失，不在文档流中占位，浏览器也不会解析该元素；visibility:hidden是视觉上消失了，可以理解为透明度为0的效果，在文档流中占位，浏览器会解析该元素；
+10、文字超出  。。。
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+两行：
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+
+11、编写10000个随机整数排序
+
+12，编写当前访问的设备类型
+
+13，最优方式向<body>中添加10个<p>hello</p>,然后删除所有p标签
+
+
+14，给html元素绑定click事件，使绑定事件后的li元素依然可以触发处理函数
+<ul><li>1</li><li>2</li><li>3</li></ul>
+
+15、结果
+for(var i=0;i<5;i++){
+ setTimeout(function(){
+console.log(i);
+},1000)
+}
+55555
+16、Function.bind函数相同功能
+
+
+1运行:
+
+var a=1;
+ function test(){
+    console.log(a); //undefined
+    var a=2;
+    console.log(this.a);//1 window
+    setTimeout(function(){
+        console.log(a);//3
+    },0)
+    return function(){
+        console.log(a);//2
+        a=3;
+        console.log(a);//3
+    }
+ }
+ test()();
+
+2运行:
+ var a = 5;
+ function test(){
+    a=0;
+    console.log(a);
+    console.log(this.a)
+    console.log(this)
+    var a;
+    console.log(a)
+ }
+ test(); //0 5  Window 0
+ new test(); //0 undefined test{} 0
+主要的区别就是this的指向变了
+直接调用test()时，this的指向是window或global。 
+使用new调用 new test()时， this的指向变成被实例化的对象。
+
+当作为构造函数来使用的时候，函数内的这个 this 就指向一个新的对象，这个对象是这个构造函数的实例，
+以这种方式调用构造函数实际上会经历以下4个步骤：
+(1) 创建一个新对象；
+(2) 将构造函数的作用域赋给新对象（因此this 就指向了这个新对象）；
+(3) 执行构造函数中的代码（为这个新对象添加属性）；
+(4) 返回新对象。
+
+
+3运行:
+异步、作用域、闭包。
+结果是：0 1 2 3 3 3
+ for (var i = 0; i < 3; i++) {
+   setTimeout(function() {
+        console.log(i);
+     }, 0);
+    console.log(i);
+ }
+
+
+知识点：
+因为是setTimeout是异步的。
+正确的理解setTimeout的方式(注册事件)： 有两个参数，第一个参数是函数，第二参数是时间值。 调用setTimeout时，把函数参数，放到事件队列中。等主程序运行完，再调用。
+ setTimeout(function() {
+         console.log(1);
+ }, 0);
+ console.log(2);   //先打印2，再打印1
+
+
+
+这么写完，会弹出1吗。不会！！只是绑定事件而已！ 必须等我们去触发事件，比如去点击这个按钮，才会弹出1。
+setTimeout也是这样的！只是绑定事件，等主程序运行完毕后，再去调用。
+btn.onclick = function() {
+        alert(1);
+};
+
+for (var i = 0; i < 3; i++) {}
+ console.log(i); //3，也就说i可以在for循环体外访问到。所以是没有块级作用域。
+
+
+运行程序看结果：
+https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
+
+面试题：
+
+//then() 方法返回一个  Promise 。它最多需要有两个参数：Promise 的成功和失败情况的回调函数。
+// 这道题应该考察我JavaScript的运行机制的，让我理一下思路。首先先碰到一个 setTimeout，于是会先设置一个定时，在定时结束后将传递这个函数放到任务队列里面，因此开始肯定不会输出 1 。然后是一个 Promise，里面的函数是直接执行的，因此应该直接输出 2 3 。然后，Promise 的 then 应当会放到当前 tick 的最后，但是还是在当前 tick 中。因此，应当先输出 5，然后再输出 4 。最后在到下一个 tick，就是 1 。“2 3 5 4 1”
+
+setTimeout(function(){
+    console.log(1)
+},0)
+new Promise(function executor(resolve) {
+    console.log(2);
+    for(var i=0;i<10000;i++){
+        i==9999&&resolve(); 
+    }
+    console.log(3);
+}).then(function(){
+    console.log(4);
+})
+ console.log(5);
+//2 3 5 4 1
+
+面试题：
+var name = "w";
+(function(){
+    //var name;   变量声明提升到此处 undefined
+    if(typeof name==='undefined'){
+        var name='j';//声明操作会被提升到它所在执行环境的顶部，并赋值 undefined而赋值操作则会原地待命。
+        console.log('G'+name);  //Gj
+    }else {
+        console.log('h'+name);
+    }
+})();
+
+面试题：
+var json = {
+    val:10,
+    dbl: function () {
+    this.val*=2;
+    }
+};
+json.dbl();   //db1作为方法调用，此时this为json json.val=20 (10*2)
+var dbl = json.dbl;   //db1函数赋值给db1变量后，此时的db1是一个普通的函数
+dbl();  //普通函数调用，this指向window ，window.val为 2 (1*2)
+json.dbl.call(window); 
+  //call方法调用，指定this为window，window.val为4 (2*2) 
+alert(window.val+json.val)   //所以结果为 24
+
+
+总结：
+页面中所有由setTimeout定义的操作，都将放在同一个队列中依次执行。而这个队列的执行时间需要等到函数调用栈执行完毕后才会执行，也就是等待所有的可执行代码执行完毕，才会轮到setTimeout执行其内部操作，并且按照其时延时间长短顺序执行代码！
+setTimeout(function(){
+    console.log(4);
+},0);
+setTimeout(function(){
+    console.log(5);
+},0);
+console.log(1);
+console.log(2);
+console.log(3);
+//输出顺序：1，2，3，4，5
+
+
+
+声明提前 ：
+console.log(x);     //function(){}
+var x = 1;          
+console.log(x);     //1
+function x(){}
+console.log(x);     //1
+
+相当于:
+var x
+function x(){}     
+console.log(x);     //function(){}
+x = 1;  
+console.log(x);     //1
+console.log(x);     //1
+
+
+首先需要知道函数表达式和函数声明的区别。
+函数声明具有变量声明提升(即所有声明变量或声明函数都会被提升到当前函数的顶部)
+var getName = function(){alert(4)}
+function getName(){alert(5)}
+getName();   //4
+
+相当于：
+var getName;
+getName = function(){alert(4)}
+function getName(){alert(5)}
+getName();//4
+
+面试题：
+function Foo(){
+    getName = function(){console.log(1)}
+    return this;
+}
+Foo.getName =function(){console.log(2)}
+Foo.prototype.getName = function(){console.log(3)}
+var getName = function(){console.log(4)}
+function getName(){console.log(5)}
+Foo.getName();  //2
+//  4 函数声明具有变量声明提升(即所有声明变量或声明函数都会被提升到当前函数的顶部) var getName 提前，function getName(){alert(5)}在提前到声明后边
+getName();//4
+//1  第三问的先执行了Foo函数，然后调用Foo函数的返回值对象的getName属性函数。
+// Foo 函数的第一句  getName = function () { alert (1); };  是一句函数赋值语句，注意它没有var声明，所以先向当前Foo函数作用域内寻找getName变量，没有。再向当前函数作用域上层，即外层作用域内寻找 是否含有getName变量，找到了，也就是第二问中的alert(4)函数，将此变量的值赋值为 function(){alert(1)}。
+// 此处实际上是将外层作用域内的getName函数修改了。this的指向是由所在函数的调用方式决定的。而此处的直接调用方式，this指向window对象。
+Foo().getName();//1
+//直接调用getName函数，相当于 window.getName() ，因为这个变量已经被Foo函数执行时修改了，遂结果与第三问相同，为1
+getName();//1
+//第五问 new Foo.getName(); ,此处考察的是js的运算符优先级问题。通过查上表可以得知点（.）的优先级高于new操作，遂相当于是:new (Foo.getName)();所以实际上将getName函数作为了构造函数来执行，遂弹出2。
+new Foo.getName(); //2
+//，返回的是this，而this在构造函数中本来就代表当前实例化对象，遂最终Foo函数返回实例化对象。
+// 之后调用实例化对象的getName函数，因为在Foo构造函数中没有为实例化对象添加任何属性，遂到当前对象的原型对象（prototype）中寻找getName，找到了。
+// 遂最终输出3。
+new Foo().getName(); //3
+//第七问, new new Foo().getName(); 同样是运算符优先级问题。
+// 最终实际执行为：
+// new ((new Foo()).getName)();
+// 先初始化Foo的实例化对象，然后将其原型上的getName函数作为构造函数再次new。
+// 遂最终结果为3
+new new Foo().getName(); //3
+
+
+面试题：
+
+
+<style type="text/css">
+    #header{width:100%;height:200px;border:1px solid #f00;}
+    #menu {float:left;width:200px;height:300px;border:1px solid #000;}
+    #main {border: 1px solid #2e3a34; width: 100%;background: #ddd;}
+    #content {display:flex;}
+   </style>
+    <div id="header">1</div>
+    <div id="content">
+        <div id="menu">2</div>
+        <div id="main">3</div>
+    </div>
+
+在用DocKer的情况下，咱们可以直接把项目发布在DocKer容器上面进行测试，当项目需要正式上线的时候我们直接可以把做好的DocKer 镜像部署上去就行了，如果测试的好，就不必担心项目上正式版本的时候再出现什么问题了，（比如说 咱们的Confing 配置信息很多项目都是什么测试环境地址，正式环境地址的，但是用过DocKer之后就一个就行了）DocKer可以在 云、Windows、Linux 等环境上进行部署，就单说这一点就省去了我的很多费用、还有项目部署上线的风险,不必每次项目上线都留守一堆人才等着项目报错.
+
+﹏≈水 2019/4/30 19:18:24
+
+   Docker 是一个开源项目，这个项目旨在通过把应用程序打包为可移植的、自给自足的容器（引用语）
+Docker的八种用途
+　　Docker 提供轻量的虚拟化，你能够从Docker获得一个额外抽象层，你能够在单台机器上运行多个Docker微容器，而每个微容器里都有一个微服务或独立应用，例如你可以将Tomcat运行在一个Docker，而MySQL运行在另外一个Docker，两者可以运行在同一个服务器，或多个服务器上。未来可能每个应用都要Docker化。
+容器的启动和关系是非常快速的。Docker目前能够有以下八种用途：
+ 
+简化配置
+这是Docker初始目的，虚拟机VM最大的好处是基于你的应用配置能够无缝运行在任何平台上。Docker提供同样类似VM的能力，但是没有任何副作用，它能让你将环境和配置放入代码然后部署，同样的Docker配置能够在各种环境中使用，这实际是将应用环境和底层环境实现了解耦。
+ 
+代码管道化管理
+能够对代码以流式pipeline管道化进行管理，从开发者的机器到生产环境机器这个流程中都能有效管理。因为在这个流程中会有各种不同的环境，每个都可能有微小的区别，Docker提供了跨越这些异构环境以一致性的微环境，从开发到部署实现流畅发布。
+ 
+开发人员的生产化
+在一个开发环境，我们希望我们的开发环境能更加接近于生产环境，我们会让每个服务运行在自己的VM中，这样能模拟生产环境，比如有时我们并不总是需要跨越网络连接，这样我们可以将多个Docker装载一系列服务运行在单机上最大程度模拟生产分布式部署的环境。
+ 
+应用隔离
+有很多理由你需要在一台机器上运行多个应用，这就需要将原来铁板一块monolithic的应用切分为很多微服务。实现应用之间的解耦，将多个应用服务部署在多个Docker中能轻松达到这个目的。
+ 
+服务合并
+使用Docker也能合并多个服务以降低费用，不多的操作系统内存占用，跨实例共享多个空闲的内存，这些技术Docker能以更加紧密资源提供更有效的服务合并。
+ 
+多租户
+Docker能够作为云计算的多租户容器，使用Docker能容易为每个租户创建运行应该多个实例，这得益其灵活的快速环境以及有效diff命令。
+ 
+快速部署
+Docker通过创建流程的容器，不必重新启动操作系统，几秒内能关闭，你可以在数据中心创建或销毁资源，不用担心额外消耗。典型的数据中心利用率是30%，通过更积极的资源分配，以低成本方式对一个新的实例实现一个更聚合的资源分配，我们很容易超过这个利用率，大大提高数据中心的利用效率。
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+
+设备宽度1.0,最大最小宽度1，禁止用用缩放
+
+什么是回流
+当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候，这时候是一定会发生回流的，因为要构建render tree。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。
+什么是重绘
+当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。
+区别：
+他们的区别很大：
+回流必将引起重绘，而重绘不一定会引起回流。比如：只有颜色改变的时候就只会发生重绘而不会引起回流
+当页面布局和几何属性改变时就需要回流
+比如：添加或者删除可见的DOM元素，元素位置改变，元素尺寸改变——边距、填充、边框、宽度和高度，内容改变
+
+
+1、
+call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。 
+如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。
+a.call(b)//a代替b 执行，执行a的方法
+call ，apply区别在于 call 的第二个参数可以是任意类型，而apply的第二个参数必须是数组，也可以是arguments
+function add(a,b)  
+{  
+    alert(a+b);  
+}  
+function sub(a,b)  
+{  
+    alert(a-b);  
+}  
+  
+add.call(sub,3,1);   add代替sub 结果4
+
+2、
+function Animal(){
+    this.name = "Animal";
+    this.showName = function(){
+        alert(this.name);
+    }
+}
+function Cat(){
+    this.name = "Cat";
+}
+var animal = new Animal();
+var cat = new Cat();
+animal.showName.call(cat,",");
+call 的意思是把 animal 的方法放到cat上执行，原来cat是没有showName() 方法，现在是把animal 的showName()方法放到 cat上来执行，所以this.name 应该是 Cat。
+
+
+3、
+结果：Black Cat
+    function Animal(name){
+        this.name = name;
+        this.showName = function(){
+            alert(this.name);
+        }
+    }
+    function Cat(name){
+console.log(this)//Cat {}
+        Animal.call(this, name);
+    }
+    var cat = new Cat("Black Cat");
+    cat.showName();
+    Animal.call(this) 的意思就是使用 Animal对象代替this对象，那么 Cat中不就有Animal的所有属性和方法了吗，Cat对象就能够直接调用Animal的方法以及属性了.
+
+call 方法可以用来代替另一个对象调用一个方法。call 方法可将一个函数的对象上下文从初始的上下文改变为由 thisObj 指定的新对象。 
+call ，apply区别在于 call 的第二个参数可以是任意类型，而apply的第二个参数必须是数组，也可以是arguments
+如果没有提供 thisObj 参数，那么 Global 对象被用作 thisObj。
+第一个参数都是作为执行时函数上下文中的this的对象
+第一个参数是thisObj的指向，谁在前执行谁，A代替B，A的方法取B的值
+
+bind与call很相似,，例如，可接受的参数都分为两部分，且第一个参数都是作为执行时函数上下文中的this的对象。
+不同点有两个：
+①bind的返回值是函数
+fun.bind(thisArg[, arg1[, arg2[, ...]]])
+　　参数thisArg表示：当绑定函数被调用时，该参数会作为this的指向。当使用new 操作符调用绑定函数时，该参数无效。
+　　参数arg1, arg2, ...表示：当绑定函数被调用时，这些参数将置于实参之前传递给被绑定的方法。
+var func=new function(){this.a="func"}
+var myfunc=function(x,y){
+    var a="myfunc";
+    console.log(this)  //{a: "func"}
+    alert(this.a);
+    alert(x + y);
+}
+myfunc.call(func,"var"," fun");// "func" "var fun"
+myfunc.apply(func,["var"," fun"]);// "func" "var fun"
+
+
+bind:
+使用bind是 返回改变上下文this后的函数
+function func(name,id) {
+    console.log(name,id,this);
+    alert(this)
+}
+var obj = "Look here";
+var a = func.bind(obj, "bind", "-->");
+a(); //使用bind是 返回改变上下文this后的函数
+
+//执行func,this指向obj = "Look here",结果bind --> String {"Look here"}
+
+
+call：不返回函数
+function func(name,id) {
+    console.log(name,id,this);
+    alert(this)
+}
+var obj = "Look here";
+var b = func.call(obj, "call", "-->");
+
+//执行func,this指向obj = "Look here",结果call --> String {"Look here"}
+
+
+function f(a,b,c){
+    console.log(a,b,c);
+}
+var f_Extend = f.bind(null,"extend_A")
+f("A","B","C")  // 没执行 bind ,这里会输出-->A B C
+f_Extend("A","B","C")  //这里会输出-->extend_A B C    以bind传入的参数优先为第一位传入
+f_Extend("B","C")  //这里会输出-->extend_A B C
+f.call(null,"extend_A") //这里会输出-->extend_A undefined undefined
+//call 是 把第二个及以后的参数作为f方法的实参传进去
+// 而bind 虽说也是获取第二个及以后的参数用于之后方法的执行，但是f_Extend中传入的实参则是在bind中传入参数的基础上往后排的。
+
+
+一、什么是跨域，为什么浏览器会禁止跨域，实现跨域的几种方法
+ 
+1、什么是跨域
+跨域的产生来源于现代浏览器所通用的‘同源策略’，所谓同源策略，是指只有在地址的： 
+1. 协议名 https，http
+2. 域名  http://a.study.cn http://study.cn
+3. 端口名  http://study.cn:8080/json/jsonp/jsonp.html study.cn/json/jsonp/jsonp.html
+均一样的情况下，才允许访问相同的cookie、localStorage或是发送Ajax请求等等。若在不同源的情况下访问，就称为跨域。
+ 
+2、为什么浏览器会禁止跨域
+跨域的访问会带来许多安全性的问题，比如，cookie一般用于状态控制，常用于存储登录的信息，如果允许跨域访问，那么别的网站只需要一段脚本就可以获取你的cookie，从而冒充你的身份去登录网站，造成非常大的安全问题，因此，现代浏览器均推行同源策略。
+ 
+3、如何解决跨域访问问题
+跨域一般有以下几种方式：
+同浏览器不同窗口实现跨域：
+通过设置window.name，再访问其他网页，就可以获取到window.name属性，只要在其他网页监听window.name属性的变化即可实现跨域的消息传递。
+在一级域名相同，二级域名不相同的情况下，可以通过将window.domain设置为相同，比如在http://aaa.next.com/index.html中执行window.domain = 'next'，在http://bbb.next.com/index.html也执行window.domain = 'next'，此时这两个不同的源之间就可以互相访问了。
+使用HTML5新提供的postMessage api也可以实现跨域，在此不做详述，直接搬运代码：
+ 
+实现跨域
+demo1:基于script标签实现跨域
+跨域测试JS
+http://static.data.xuemao.com/m.xuemao/src/js/im/js/common.js
+http://static.data.xuemao.com/m.xuemao/src/js/im/js/admin/p.js
+<script type="text/javascript">
+var jshow = function(data) {
+alert(data.s);
+};
+</script>
+ 
+<script type="text/javascript" src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=jshow"></script>
+demo2: 基于script标签实现跨域
+<script type="text/javascript">
+var jshow = function(data){
+alert(data.s);//// 爱奇艺,阿里云,阿里巴巴,安居客,apple,airpods2,apex,安徽人亊考试网,安全教育平台
+};
+var url = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=jshow";
+var script = document.createElement('script');
+script.setAttribute('src', url);
+document.getElementsByTagName('head')[0].appendChild(script);
+</script>
+ 
+demo3:  基于jquery跨域
+JSONP
+//demo3: 基于jquery跨域
+//jsonp形式的ajax请求:并且通过get请求的方式传入参数,注意:跨域请求是只能是get请求不能使用post请求
+//返回结果：
+// 爱奇艺,阿里云,阿里巴巴,安居客,apple,airpods2,apex,安徽人亊考试网,安全教育平台
+$.ajax({
+url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+data:{ wd:'a'},
+cache :false,
+//jsonp 传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(默认为:callback)
+// jsonpCallback 自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+jsonp: "cb",
+jsonpCallback:"succuss",
+dataType : 'jsonp',
+success:function(res){
+alert(res.s)
+},
+error:function(res){
+alert(res.status)
+}
+});
+demo4: 通过iframe来跨子域
+基于iframe实现的跨域要求两个域具有aa.xx.com,bb.xx.com 这种特点，
+也就是两个页面必须属于一个基础域（例如都是xxx.com)，使用同一协议和同一端口，这样在两个页面中同时添加document.domain，就可以实现父页面调用子页面的函数
+要点就是 :通过修改document.domain来跨子域
+所以修改document.domain的方法只适用于不同子域的框架(父类与子类)间的交互。
+如果想通过使用ajax的方法去与不同子域间的数据交互或者是js调用，只有两种方法,一种是使用jsonp的方法外，还有一种是使用iframe来做一个代理。
+原理就是让这个 iframe载入一个与你想要通过ajax获取数据的目标页面处在相同的域的页面，所以这个iframe中的页面是可以正常使用ajax去获取你要的数据 的，
+然后就是通过我们刚刚讲得修改document.domain的方法，让我们能通过js完全控制这个iframe，这样我们就可以让iframe去发 送ajax请求，然后收到的数据我们也可以获得了。
+http://a.study.cn/a.html 请求 http://b.study.cn/b.html
+<script type="text/javascript">
+document.domain = 'study.cn';
+function test() {
+alert(document.getElementById('a').contentWindow);
+}
+</script>
+</head>
+<body>
+<iframe id='a' src='http://b.study.cn/b.html' onload='test()'>
+</body>
+ 
+

@@ -1,0 +1,490 @@
+1、vue生命周期：
+beforeCreate 组件实例刚刚被创建,属性都没有
+created 实例已经创建完成，属性已经绑定
+beforeMount 模板编译之前（准备）
+mounted 模板编译之后，代替之前ready *
+beforeUpdate 组件更新之前 data数据变了 (用在$.watch('a',function){})
+updated 组件更新完毕 * (用在$.watch('a',function){})
+beforeDestroy 组件销毁前
+destroyed 组件销毁后
+ 
+Vue钩子函数：created mounted updated Destroy
+
+
+2、在vue-router中要使用选中样式的方法有两种：
+1、直接在路由main.js文件中配置linkActiveClass,active样式有定义
+const router =new VueRouter({
+linkActiveClass:'active',
+routerConfig
+});
+2、在router-link中写入active-class
+<router-link to="/home" tag="li" active-class="active">
+<a href="javascript:;">首页</a>
+</router-link>
+ 
+ 
+兄弟组件之间通信，交叉通信：可以单一事件管理组件通信
+创建一个空实例：var Event=new Vue();身上有$emit()
+ 
+发送数据函数：Event.$emit(事件名称, 数据)
+ 
+收接数据函数：Event.$on(事件名称,function(data){
+//data
+}.bind(this));<div id="box">
+  <com-a></com-a>
+  <com-b></com-b>
+  <com-c></com-c>
+</div>
+ //准备一个空的实例对象，身上有方法就行，var vm =new Vue();vm.$emit()一样的，
+var Event =  new Vue();
+var A= {
+  template:'<div><span>我是组件A</span>--->{{a}}<input type="button" value="把A数据给C" @click="send"></div>',
+  data(){
+   return {
+     "a":"我是A数据"
+   }
+  },
+  methods:{
+     send(){
+       Event.$emit('a-msg',this.a);
+     }
+  }
+};
+var C= {
+  template:'<div><h3>我是组件C：</h3><span>接收过来的A的数据为:</span><span>{{a}}</span><br>' +
+    '<span>接收过来B的数据：</span>{{b}}</div>',
+  data(){
+    return{
+      "a":'',
+      "b":''
+    }
+  },
+  mounted(){
+    //接收数据对应事件名，语法：Event.$emit(事件名，数据)
+    Event.$on('a-msg',function(a){
+      this.a=a;
+    }.bind(this));
+    Event.$on('b-msg',function(a){
+      this.b=a
+    }.bind(this));
+  }
+
+};
+new Vue({
+  el:'#box',
+  //组件名com-a是页面中必须要显示的，A是代码模板
+  components:{
+    "com-a":A,
+    "com-b":B,
+    "com-c":C
+  }
+})
+
+1、active-class是哪个组件的属性？嵌套路由怎么定义？
+答：vue-router模块的router-link组件。
+  .slide-down-enter-active, .slide-down-leave-active { }
+  .slide-down-enter ,
+  .slide-down-leave {
+  }
+
+
+2、怎么定义vue-router的动态路由？怎么获取传过来的动态参数？ 
+答：在router目录下的index.js文件中，对path属性加上/:id。  使用router对象的params.id
+路由其他信息:
+	/detail/:id/age/:age
+	{{$route.params | json}}	->  当前参数  {'id':'001'}
+	{{$route.path}}	->  当前路径 /news/detail/001?a=1&b=2
+	{{$route.query | json}}	->  数据  { "a": "1", "b": "2" }
+
+
+vue-router钩子函数
+beforeRouteEnter ,beforeRouteLeave,
+
+
+组件中的数据共有三种形式：data、props、computed
+data 是Vue实例的数据对象。Vue将会将data 的属性转换为 getter/setter, 也就是用Object.defineProperty方法(在官网里面有深入响应式原理里面具体的介绍)。对象必须是纯粹的对象(含有零个或多个的key/value对)。因为这里面的数据都是被监控的，所以说这里面的数据最好都是在视图层显示的数据。如果说不是在视图层展示的变量。可以定义在外面或者放在vm对象上。动态数据，可以随意改变它的数据类型和数据结构，不会被环境影响
+
+props 是props 可以是数组或对象，用于接收来自父组件的数据。props 可以是简单的数组，或者使用对象作为替代，
+computed，计算属性将被混入到 Vue 实例中。所有 getter 和 setter 的 this 上下文自动地绑定为 Vue 实例。不过计算属性也用
+函数来替代。
+
+2.子组件向父组件传值（通过事件形式）
+// 子组件 
+<h1 @click="changeTitle">{{title}}</h1>		//绑定一个点击事件
+ methods:{
+    changeTitle() {
+      this.$emit("child-msg","子向父组件传值");//自定义事件  传递值“子向父组件传值”
+    }
+  }
+// 父组件
+ <app-header @child-msg="get" ></app-header>//与子组件titleChanged自定义事件保持一致
+   // updateTitle($event)接受传递过来的文字
+ methods:{
+    get(val){  		 //声明这个函数e
+      this.title = (val);
+    }
+  },
+
+总结：子组件通过events给父组件发送消息，实际上就是子组件把自己的数据发送到父组件。
+
+方法二、$emit/$on
+这种方法通过一个空的Vue实例作为中央事件总线（事件中心），用它来触发事件和监听事件,巧妙而轻量地实现了任何组件间的通信，包括父子、兄弟、跨级。当我们的项目比较大时，可以选择更好的状态管理解决方案vuex。
+1.具体实现方式：
+    var Event=new Vue();
+    Event.$emit(事件名,数据);
+    Event.$on(事件名,data => {});
+
+
+方法三、vuex
+
+
+1.简要介绍Vuex原理
+Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，但Action也是无法直接修改State的，还是需要通过Mutation来修改State的数据。最后，根据State的变化，渲染到视图上。
+
+2.简要介绍各模块在流程中的功能：
+
+dispatch一个动作到action ，action做异步处理，action调用之后mutation改变state,state改变完之后组件view内存也会发生变化
+3、vuex是什么，怎么使用，场景
+答：vue框架中状态管理。在main.js引入store，注入。新建了一个目录store，….. export 。场景有：单页应用中，组件之间的状态。音乐播放、登录状态、加入购物车
+
+App.vue
+import {mapActions,mapGetters} from 'vuex'
+computed:mapGetters([
+         //名字和getters.js返回的函数名要一样
+         'tabbarShow'
+]),
+computed:mapGetters([
+			'headShow',
+			'loading',
+			'footerShow'
+]),
+
+index.js
+import Vuex from 'vuex'
+Vue.use(Vuex);
+export default new Vuex.Store({
+  actions,
+  //mutations是个组件，
+  modules:{
+    mutations
+  }
+})
+
+自己搭建过vue开发环境吗？
+简单的目录结构:
+	|-index.html
+	|-main.js	入口文件
+	|-App.vue	vue文件，官方推荐命名法,可以小写，为了方便都大写了
+	|-package.json	工程文件(项目依赖、名称、配置) 这个可以生成，其他手动建立
+		package.json	npm init --yes 生成，用于对团队开发简单需要用到它，
+	|-webpack.config.js	webpack配置文件
+
+1、下载webpack webpack-dev-server
+npm install webpack webpack-dev-server --save-dev
+（1）webpack.config.js配置
+配置webpack.config.js入口文件main.js；出口文件加上当前路径和统一打包build.js；相关loader把.vue,.js.style，图片，转换成正常代码，
+babel把es6,78代码编译成ES5浏览器可以识别的
+安装下载时最好加上--save-dev，好处：当同事拿到代码后直接install就可以用了，不紧把模块下到本地，而且会写在配置文件里边
+（2）npm init  生成package.json
+需求一边改一边刷新(加上端口避免占用)在里边配置一个，package.json中： 
+"scripts": {
+    "dev": "webpack-dev-server --inline --hot  --port 8082"  //一边改一边刷新
+},
+解析es6安装：npm install babel-loader babel-core babel-plugin-transform-runtime babel-preset-es2015 babel-runtime --save-dev
+解析app.vue的安装：npm install  vue-html-loader css-loader vue-style-loader vue-hot-reload-api@1.3.2 --save-dev
+安装VUE:npm install vue@1.0.28 --save
+说明--save放dependencies中, 项目必须依赖的框架，devD...开发依赖框架loader,bable
+[d??p?nd?nsiz]依赖
+安装所有依赖：npm install
+
+(3)index.html
+<script src="build.js"></script>
+(4)main.js要引入vue
+import Vue from 'vue'
+import App from './App.vue'
+new Vue({
+    el:'body',
+    components:{
+        app:App
+    }
+});
+
+3、vue-router有哪几种导航钩子？   
+1 、全局导航钩子两种钩子：前置守卫、后置钩子，
+beforeEach
+afterEach
+2 、某个路由独享的导航钩子
+beforeEnter
+3 、路由组件上的导航钩子
+beforeRouteEnter
+beforeRouteUpdate (2.2 新增)
+beforeRouteLeave
+
+答：三种，
+一种是全局导航钩子, 直接挂载在router实例上的：router.beforeEach(to,from,next)，
+参数：有to（去的那个路由）、from（离开的路由）、next（一定要用这个函数才能去到下一个路由，如果不用就拦截）
+//生成路由实例
+const router=new VueRouter({
+    routes
+});
+// 全局导航钩子 直接挂载在router实例上的,跟踪路由
+router.beforeEach((to, from, next) => {
+    console.log(to.path)
+    // next()
+});
+
+router.afterEach((to, from) => {
+    // do someting
+});
+不同于前置守卫，后置钩子并没有 next 函数，也不会改变导航本身
+
+第二种：组件内的钩子App.vue；
+const File = {
+    template: `<div>This is file</div>`,
+//进入home页后显示
+    beforeRouteEnter(to, from, next) {
+        // do someting
+        // 在渲染该组件的对应路由被 confirm 前调用
+    },
+    beforeRouteUpdate(to, from, next) {
+        // do someting
+        // 在当前路由改变，但是依然渲染该组件是调用
+    },
+//离开home页后显示
+    beforeRouteLeave(to, from ,next) {
+        // do someting
+        // 导航离开该组件的对应路由时被调用
+    }
+}
+第三种：单个路由独享的导航钩子，它是在路由配置上直接进行定义的：
+在router.config.js中配置
+进入主页时显示
+//配置路由
+cont router = new VueRouter({
+    routes: [
+        {
+            path: '/home',
+            component: Home,
+            beforeEnter: (to, from ,next) => {
+                // do someting
+            }
+        }
+    ]
+});
+
+
+Vue 监听路由变化
+watch:{  
+        $route( to , from ){     
+                //  to , from 分别表示从哪跳转到哪，都是一个对象
+                // to.path   ( 表示的是要跳转到的路由的地址 eg:  /home );
+         }
+}
+
+
+4、scss是什么？安装使用的步骤是？有哪几大特性？
+答：css的预编译。
+使用步骤：
+第一步：用npm 下三个loader（sass-loader、css-loader、node-sass）
+第二步：在build目录找到webpack.config.js，在那个extensions属性中加一个拓展.scss
+第三步：还是在同一个文件，配置一个module属性test,loader
+第四步：然后在组件的style标签加上lang="scss"
+有哪几大特性:
+1、可以用变量，例如（$变量名称=值）；
+2、可以用混合器，例如（）
+3、可以嵌套
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(scss|css)$/,
+        use:[ 'style-loader','css-loader','sass-loader'],
+      },
+    ],
+  },
+};
+
+5、mint-ui是什么？怎么使用？说出至少三个组件使用方法？
+答：基于vue的前端组件库。
+npm安装，然后import(import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css')样式和js，vue.use（mintUi）全局引入。在单个组件局部引入：import {Toast} from ‘mint-ui’。
+组件一：Toast(‘登录成功’)；组件二：mint-header；组件三：mint-Swipe
+
+import { Button } from 'mint-ui';
+Vue.component(Button.name, Button);
+<mt-button type="default">default</mt-button>
+
+import { Header } from 'mint-ui';
+Vue.component(Header.name, Header);
+<mt-header fixed title="固定在顶部"></mt-header>
+
+6、v-model是什么？怎么使用？ vue中标签怎么绑定事件？
+答：可以实现双向绑定，指令（v-class、v-for、v-if、v-show、v-on）。vue的model层的data属性。绑定事件：<input @click=doLog() />
+
+7、axios是什么？怎么使用？描述使用它实现登录功能的流程？
+https://chuansongme.com/n/394228451820
+答：请求后台资源的模块。
+Axios 是一个基于 promise 的 HTTP 库，可以工作于浏览器中，也可以在 node.js 中使用，提供了一个API用来处理 XMLHttpRequests 和 node 的 http 接口
+可能很多人会疑问：用 jquery 的 get/post 不就很好了，为什么要用 Axios？原因主要有：
+（1）Axios 支持 node.js，jquery 不支持
+（2）Axios 基于 promise 语法标准，jquery 在 3.0 版本中才全面支持
+（3）Axios 是一个小巧而专业的 HTTP 库，jquery 是一个大而全的库，如果有些场景不需要使用jquery的其他功能，只需要HTTP相关功能，这时使用 Axios 会更适合
+除了 get/post，还可以请求 delete,head,put,patch
+
+npm install axios -S装好，
+js中使用import进来，
+在main.js里添加原型Vue.prototype.$http=axios这样就可以 用this.$http.get().then了,然后.get或.post.then函数中成功，.catch函数中失败
+axios.all([
+    axios.get('https://api.github.com/xxx/1'),
+    axios.get('https://api.github.com/xxx/2')
+  ])
+  .then(axios.spread(function (userResp, reposResp) {
+    // 上面两个请求都完成后，才执行这个回调方法
+    console.log('User', userResp.data);
+    console.log('Repositories', reposResp.data);
+  }));
+
+1、组件创建---有3中方法，extend()      <template id=''>      <script type='text/x-template'  id=''>
+A、调用Vue.extend()，创建名为myCom的组件
+var myCom = Vue.extend({
+    template: '<div>这是我的组件</div>'
+})
+ B、<template id='myCom'>标签创建，需要加上id属性
+<template id="myCom">
+    <div>这是template标签构建的组件</div>
+</template>
+C、<script type='text/x-template' id='myCom'>,需加id属性
+<script type="text/x-template" id="myCom1">
+    <div>这是script标签构建的组件</div>
+</script>
+
+20、vue-loader是什么？使用它的用途有哪些？
+答：解析.vue文件的一个加载器，跟template/js/style转换成js模块。
+用途：js可以写es6、style样式可以scss或less、template可以加jade等
+
+21、请说出vue.cli项目中src目录每个文件夹和文件的用法？
+答：assets文件夹是放静态资源；components是放组件；router是定义路由相关的配置;view视图；app.vue是一个应用主组件；main.js是入口文件
+
+
+vue-cli 工程目录结构介绍
+请说出vue-cli工程中每个文件夹和文件的用处
+注意：此问题千万不要只解释一下 src 文件夹下每个文件夹的作用。
+vue-cli目录结构：
+
+
+vue-cli目录解析：
+build 文件夹：用于存放 webpack 相关配置和脚本。开发中仅 偶尔使用 到此文件夹下 webpack.base.conf.js 用于配置 less、sass等css预编译库，或者配置一下 UI 库。
+config 文件夹：主要存放配置文件，用于区分开发环境、线上环境的不同。 常用到此文件夹下 config.js 配置开发环境的 端口号、是否开启热加载 或者 设置生产环境的静态资源相对路径、是否开启gzip压缩、npm run build 命令打包生成静态资源的名称和路径等。
+dist 文件夹：默认 npm run build 命令打包生成的静态资源文件，用于生产部署。
+node_modules：存放npm命令下载的开发环境和生产环境的依赖包。
+src: 存放项目源码及需要引用的资源文件。
+src下assets：存放项目中需要用到的资源文件，css、js、images等。
+src下componets：存放vue开发中一些公共组件：header.vue、footer.vue等。
+src下emit：自己配置的vue集中式事件管理机制。
+src下router：vue-router vue路由的配置文件。
+src下service：自己配置的vue请求后台接口方法。
+src下page：存在vue页面组件的文件夹。
+src下util：存放vue开发过程中一些公共的.js方法。
+src下vuex：存放 vuex 为vue专门开发的状态管理器。
+src下app.vue：使用标签<route-view></router-view>渲染整个工程的.vue组件。
+src下main.js：vue-cli工程的入口文件。
+index.html：设置项目的一些meta头信息和提供<div id="app"></div>用于挂载 vue 节点。
+package.json：用于 node_modules资源部 和 启动、打包项目的 npm 命令管理。
+
+22、vue.cli中怎样使用自定义的组件？有遇到过哪些问题吗？
+答：第一步：在components目录新建你的组件文件（smithButton.vue），script一定要export default {
+第二步：在需要用的页面（组件）中导入：import smithButton from ‘../components/smithButton.vue’
+第三步：在export default中注入到vue的子组件的components属性上面,components:{smithButton}
+第四步：在template视图view中使用，<smith-button>  </smith-button>
+问题有：smithButton命名，使用的时候则smith-button。
+
+23、聊聊你对Vue.js的template编译的理解？
+答：简而言之，就是先转化成AST树，再得到的render函数返回VNode（Vue的虚拟DOM节点）
+详情步骤：
+首先，通过compile编译器把template编译成AST语法树（abstract syntax tree 即 源代码的抽象语法结构的树状表现形式），compile是createCompiler的返回值，createCompiler是用以创建编译器的。另外compile还负责合并option。
+然后，AST会经过generate（将AST语法树转化成render funtion字符串的过程）得到render函数，render的返回值是VNode，VNode是Vue的虚拟DOM节点，里面有（标签名、子节点、文本等等）
+
+
+
+4. 简述Vue的响应式原理
+当一个Vue实例创建时，vue会遍历data选项的属性，用 Object.defineProperty 将它们转为 getter/setter并且在内部追踪相关依赖，在属性被访问和修改时通知变化。
+每个组件实例都有相应的 watcher 程序实例，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

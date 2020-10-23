@@ -1,0 +1,833 @@
+一、JS中的前端性能优化原则：
+多使用内存、缓存等方法
+减少CPU计算、减少HTTP请求
+（1）减少http请求次数：css精灵、JS、CSS源码压缩合并 a.js b.js c.js -> abc.js、图片大小控制合适；网页Gzip，CDN托管让资源加载更快，对不同区域的网络进行优化，data缓存
+初始首屏之外图片的懒加载 （当用户下拉到该页面时再加载图片，而不是打开页面全部加载完毕。）
+缓存Ajax
+
+2、渲染优化
+1、CSS放head中,JS放body下面（JS会阻塞页面DOM的加载，放下面，不会阻塞渲染，先加载页面再执行JS）
+2、减少DOM操作查询、合并DOM操作、缓存DOM查询，缓存Ajax查询结果，
+	var frag = document.createDocumentFragment();DOM碎片
+	var pList = document.getElementByTagName('p');
+	for循环时缓存DOM对象长度
+	字符串拼接join代替+
+3、时间节流，setTimeout减少页面阻塞，减少事件操作，连续操作时会很多计算，影响性能。
+4、避免使用css表达式，标签闭合小写，不乱嵌套，一个h1标签，img加alt 属性，项目目录不要太深，
+5、document.ready代替window.onload
+6、innerHTML代替dom操作,className代替style,
+ 7、少用全局变量：作用域链最顶端   ，解决在赋值给局部变量
+请求带宽：压缩文件，开启GZIP，
+
+ 
+清除缓存方法：
+浏览器缓存:有时候我们需要他，因为他可以提高网站性能和浏览器速度，提高网站性能。但是有时候我们又不得不清除缓存，因为缓存可能误事，出现一些错误的数据。
+使用方法:JS或者Jquery
+方法一: meta方法用客户端代码使浏览器不再缓存Web页面：
+
+<meta???http-equiv="Expires"???CONTENT="0">
+<meta???http-equiv="Cache-Control"???CONTENT="no-cache">
+<meta???http-equiv="Pragma"???CONTENT="no-cache">
+
+
+方法二:?清理form表单的临时缓存
+<body?onLoad="javascript:document.yourFormName.reset()">
+还可以利用jquery ajax清除浏览器缓存
+方式一：用ajax请求服务器最新文件，并加上请求头If-Modified-Since和Cache-Control,如下:
+
+$.ajax({
+????url:'
+,
+????dataType:'json',
+????data:{},
+????beforeSend?:function(xmlHttp){?
+???????xmlHttp.setRequestHeader("If-Modified-Since","0");?
+???????xmlHttp.setRequestHeader("Cache-Control","no-cache");
+????},
+????success:function(response){
+????????//操作
+????}
+????async:false
+?});
+方式二：直接用cache:false,
+原来以为ifModified是为了在AJAX请求是发送 If-Modified-Since头，让服务端返回304。	
+$.ajax({
+????url:'
+,
+????dataType:'json',
+????data:{},
+????cache:false,?
+????ifModified?:true?,
+?
+????success:function(response){
+????????//操作
+????}
+????async:false
+?});
+方法三：用随机数
+
+URL?参数后加上??ran="?+?Math.random();//当然这里参数?ran可以任意取了
+
+方法四：用随机时间，和随机数一样。
+在?URL?参数后加上??timestamp=+?new?Date().getTime();
+
+方法五：用php后端清理
+在服务端加?header("Cache-Control:?no-cache,?must-revalidate");
+以上是网上常用的清除方法,另外在java中可以通过:JAVA后端清除Session缓存方法来实现
+	
+session.removeAttribute("user");??
+session.removeAttribute("constant_cache");??
+session.invalidate();
+
+
+3.node应用场景
+做与服务器的一些事
+网站开发
+im即时聊天（socket. io）
+高并发
+api（移动端，pc）
+HTTP? Proxy
+前端构建工具
+
+4、HTTP
+100  Continue  继续，一般在发送post请求时，已发送了http header之后服务端将返回此信息，表示确认，之后发送具体参数信息
+200  OK   正常返回信息
+201  Created  请求成功并且服务器创建了新的资源
+202  Accepted  服务器已接受请求，但尚未处理
+301  Moved Permanently  请求的网页已永久移动到新位置。
+302 Found  临时性重定向。
+303 See Other  临时性重定向，且总是使用 GET 请求新的 URI。
+304  Not Modified  自从上次请求后，请求的网页未修改过。
+
+400 Bad Request  服务器无法理解请求的格式，客户端不应当尝试再次使用相同的内容发起请求。
+401 Unauthorized  请求未授权。
+403 Forbidden  禁止访问。
+404 Not Found  找不到如何与 URI 相匹配的资源。
+
+500 Internal Server Error  最常见的服务器端错误。
+503 Service Unavailable 服务器端暂时无法处理请求（可能是过载或维护）。
+
+
+5、对前端界面工程师这个职位是怎么样理解的？它的前景会怎么样？
+前端是最贴近用户的程序员，比后端、数据库、产品经理、运营、安全都近。
+    1、实现界面交互
+    2、提升用户体验
+    3、有了Node.js，前端可以实现服务端的一些事情
+前端是最贴近用户的程序员，前端的能力就是能让产品从 90分进化到 100 分，甚至更好，
+ 参与项目，快速高质量完成实现效果图，精确到1px；
+ 与团队成员，UI设计，产品经理的沟通；
+ 做好的页面结构，页面重构和用户体验；
+ 处理hack，兼容、写出优美的代码格式；
+ 针对服务器的优化、拥抱最新前端技术。
+
+6、ajax过程
+(1)创建XMLHttpRequest对象,也就是创建一个异步调用对象.
+(2)创建一个新的HTTP请求,并指定该HTTP请求的方法、URL及验证信息.
+(3)设置响应HTTP请求状态变化的函数.
+(4)发送HTTP请求.
+(5)获取异步调用返回的数据.
+(6)使用JavaScript和DOM实现局部刷新.
+
+7、闭包使用场景
+闭包，子函数可以使用父函数的变量
+（1）采用函数引用方式的setTimeout调用。?例子
+（2）将函数关联到对象的实例方法。
+（3）封装相关的功能集。
+
+gzip 优点是减轻了带宽压力，缺点是加重了服务器的计算压力 
+
+0 1 2 3 4 未初始化 启动 发送 接收 完成
+cookie实现用户信息，历史记录，购物车处理
+cookie来实现购物车功能
+一、大概思路
+
+　　1、从cookie中取商品列表
+　　2、判断要添加的商品是否存在cookie中。
+　　3、如果已添加过，则把对应的商品取出来，把要添加的商品的数量加上去。
+　　4、如果没有添加过，则把改商品添加到商品列表中。
+　　5、再把商品列表序列化，加入cookie中。
+
+命名规范，可读性~能看懂，规范性~，匈牙利命名的：类型前缀，首字母大写a数组，b布尔，f浮点，fn函数，o对象
+
+webpack：
+前端本身不支持像后端那样文件引用，使用webpack就可以实现这种功能。另外打包还会对代码做检查和压缩，达到优化的目的。
+
+
+
+
+
+var test =1 ;
+function test(index){
+    console.log(index);
+    index=3;
+}
+test(2)//test is not a function
+
+获取URL地址参数
+var url = 'http://baidu.com?a=1&b=55';
+var theRequest = {};
+if (url.indexOf("?") != -1) {
+    var str = url.substr(url.indexOf("?")+1);//a=1&b=55
+    strs = str.split("&");
+    for(var i = 0; i < strs.length; i ++) {
+        theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
+    }
+    console.log(theRequest)//{a: "1", b: "55"}
+}
+
+
+浏览器URL参数
+function GetRequest() {
+    var url = location.search; //获取url中"?"符后的字串 ?a=2&b=33
+    var theRequest = {};
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);//a=2&b=33
+        strs = str.split("&");//["a=2", "b=33"]
+        for(var i = 0; i < strs.length; i ++) {
+            theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
+        }
+    }
+    return theRequest;
+}
+Request = GetRequest();
+console.log(Request)//{a: "2", b: "33"}
+
+深度拷贝：
+Object.prototype.clone = function() {
+    var o = (this.constructor === Array ? [] : {});//{}
+    for(var key in this) {  //this ->{name: "johnny"}
+         o[key] = typeof this[key] === "object" ? this[key].clone() : this[key];
+    }
+    return o;
+}
+obj1 = {
+    name : "johnny" 
+};
+obj2 = obj1.clone();
+
+
+38. 使用JavaScript深度克隆一个对象。(百度)
+参考答案：
+Javascript中的对像赋值与Java中是一样的，都为引用传递。就是说，在把一个对像赋值给一个变量时，那么这个变量所指向的仍就
+是原来对像的地址。那怎么来做呢？答案是“克隆”。
+克隆有两种方法：一种是“浅克隆”，一种是“深克隆”（深度克隆）。
+浅克隆：基本类型为值传递，对象仍为引用传递。
+深克隆（深度克隆）：所有元素均完全复制，并于原对象完全独立（原对象的修改不影响新对象）。
+深度克隆的代码如下（深克隆去掉递归即为浅克隆）：
+
+Object.prototype.cloneObj = function() {//该方法不能处理数组
+	function NewObject() {};
+	NewObject.prototype = this;
+	var anObj = new NewObject();
+	for(var ele in anObj ) {
+		if( typeof anObj[ele] == 'object') {
+			anObj[ele] = anObj[ele].cloneObj();
+		}
+	}
+	return anObj;
+
+}
+obj1 = {
+	name : "johnny",
+	age : 34,
+	address : {
+		province : 'heilongjiang',
+		city : 'harbin'
+	}
+	
+};
+obj2 = obj1.cloneObj();
+obj2.address.city = 'beijing';
+alert(obj1.address.city);
+---------------------------------
+另外一个参考答案：---
+Object.prototype.clone = function() {
+var o = (this.constructor === Array ? [] : {});
+
+for(var e in this) {
+	o[e] = typeof this[e] === "object" ? this[e].clone() : this[e];
+}
+return o;
+}
+
+
+em      相对父元素，需要转换的像素值   % 父元素
+rem   相对根元素  需要转的像素值   %根元素
+
+平时如果管理项目
+先期确定好全局样式，编码模式（utf-8）
+编写习惯一致
+标注样式编写人，页面进行标注
+CSS和html分文件夹并行存放，命名统一，英文翻译为准
+图片采用整合
+
+事件委托利用事件冒泡的原理，自己所触发的事件，让父级代替执行
+
+阻止事件冒泡：e.stopPropagation, cancelBubble=true
+阻止默认形为：e.preventDefault   returnvalue=false
+== === 判断值是否相等，后者值和类型是否相等
+
+typeof和instanceof
+typeof: 
+1.返回值是一个字符串， 用来说明变量的数据类型。 
+2.typeof 一般只能返回如下几个结果： number, boolean, string, function, object, undefined。
+instanceof: 
+1.返回值为布尔值; 
+2. instanceof 用于判断一个变量是否属于某个对象的实例。
+
+link和@import：
+页面加载时link同时加载，@import引用CSS用等页面加载完后再加载，
+link是XHTML提供的，@import是css提供的
+
+new操作符具体干了什么呢?
+（1）创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
+（2）属性和方法被加入到 this 引用的对象中。
+（3）新创建的对象由 this 所引用，并且最后隐式的返回 this 。
+
+
+CSS水平垂直居中常见方法总结
+1、文本水平居中
+line-height,text-align:center(文字)
+元素水平居中  margin:0 auo
+
+方案1：position 元素已知宽度 
+父元素设置为：position: relative; 
+子元素设置为：
+position: absolute;  left: 50%;top: 50%;margin: -50px 0 0 -50px;
+距上50%，据左50%，减去元素自身宽度的距离
+
+方案2：position transform 元素未知宽度 
+margin: -50px 0 0 -50px;替换为：transform: translate(-50%,-50%);  
+
+方案3：flex布局 
+父元素加：
+display: flex;  //flex布局
+justify-content: center;  //使子项目水平居中
+align-items: center;   //使子项目垂直居中
+
+
+
+
+
+v-if和v-show?
+v-if是根据后面数据的真假值判断直接从Dom树上删除或重建元素节点，不适合做频繁的切换
+当组件中某块内容只会显示或隐藏不会被再次改变显示状态，此时用v-if更加合适，例如请求后台接口通过后台数据控制某块内容是否显示或隐藏，且这个数据在当前页不会被修改；
+v-show只是在修改元素的css样式，也就是display的属性值，元素始终在Dom树上。
+当组件某块内容显示隐藏是可变化的，此时用v-show更加合理，例如页面中有一个toggle按钮,点击按钮来控制某块区域的显示隐藏。
+适合做频繁的额切换
+
+computed：计算属性通过其他变量计算得来的另一个属性。，计算属性具有缓存。
+计算属性只有在它的相关依赖发生改变时才会重新求值。
+
+watch 方法 
+而侦听器 watch 是侦听一个特定的值，当该值变化时执行特定的函数。
+
+
+
+1、移动端rem计算
+//分辨率兼容
+;(function(win,doc){
+    var rem = 40/750*doc.documentElement.clientWidth;
+    doc.documentElement.style.fontSize=rem+'px';
+    win.addEventListener('resize',function(){
+        var rem = 40/750*doc.documentElement.clientWidth;
+        doc.documentElement.style.fontSize = rem+'px';
+    },false)
+})(window,document);
+2、移动端设置
+<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+JSONP原理
+ajax 请求受同源策略影响，不允许进行跨域请求，而 script 标签 src 属性中的链接却可以访问跨域的js脚本，利用这个特性，
+服务端不再返回JSON格式的数据，而是返回一段调用某个函数的js代码，在src中进行了调用，这样实现了跨域。
+
+3. 如何规避javascript多人开发函数重名问题
+参考答案：
+(1) 可以开发前规定命名规范，根据不同开发人员开发的功能在函数前加前缀
+(2) 将每个开发人员的函数封装到类中，调用的时候就调用类的函数，即使函数重名只要类名不重复就ok
+
+4、数组去重
+Array.prototype.unique=function(){
+    var newArr=[];
+    for(var i=0;i<this.length;i++){
+        if(newArr.indexOf(this[i])==-1){
+            newArr.push(this[i]);
+        }    
+    }
+    return newArr;
+}
+var arr= [1,2,3,'3',2,3,4,2];
+console.log(arr.unique());//2, 3, "3", 4]
+----------------------------------------------------------------------------------------------------
+Array.prototype.unique=function(){
+    var res=[];
+    for(var i=0,newArr=[];i<this.length;i++){
+        if(!newArr[this[i]]){
+            res.push(arr[i]);
+            newArr[this[i]]=1;
+        }
+    }
+    return res;
+}
+var arr=[1,2,3,1,4,2];
+console.log(arr.unique());
+--------------------------------------------------------------------------------------------------------------
+function unique(arr){
+    for(var i=0,hash=[],result =[];i<arr.length;i++){
+        if(hash[arr[i]]===undefined){
+            result[result.length]=arr[i];
+            hash[arr[i]]=true;
+        }
+    } 
+    return result;
+}
+ console.log(unique([2,3,2,1,3,4,1,5]));
+
+
+5、PC端/移动端常见的兼容性问题总结
+
+① 安卓浏览器看背景图片，有些设备会模糊，原因是手机的分辨率太小
+解决方案： 用2X图片来代替img标签，然后background-size: contain
+② 防止手机中页面放大或缩小： 在meta中设置viewport user-scalable = no
+③ 上下拉滚动条卡顿： overflow-scrolling: touch;
+④ 禁止复制选中文本： user-select: none;
+⑤ 长时间按住页面出现闪退：-webkit-touch-callout: none;
+⑥ 动画定义3D硬件加速： transform: translate 3d(0,0,0);
+⑦ formate-detection 启动或禁止自动识别页面中的电话号码，content = "yes/no"
+⑧ a标签添加tel是拨号功能
+⑨ 安卓手机的圆角失效： background-clip: padding-box;
+⑩ 手机端300ms延迟： fastclick
+① 横平时字体加粗不一致： text-size-adjust: 100%;
+ 
+PC端：
+① rgba不支持IE8 用opacity属性代替rgba设置透明度
+② 图片加a标签在IE9中出现边框 解决方案： img{border: none;}
+③ IE6不支持display: inline-block       设置为： display: inline
+④ position : fixed 不支持IE5/IE6 
+⑤ IE6，Firfox中，width = width + padding + border
+⑥ min-height ie 6.0不支持；ie 7.0后的支持，但也可能会存在兼容性问题；
+
+6、冒泡排序：
+function sort(arr){
+    for(var i=0;i<arr.length;i++){
+        for(var j=0;j<arr.length-i-1;j++){
+            if(arr[j]>arr[j+1]){
+                var temp = arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
+            }
+
+        }
+    }
+}
+var arr=[1,2,5,32,54,33];
+sort(arr);
+console.log(arr); //[1, 2, 5, 32, 33, 54]
+
+7、回流，重绘
+什么是回流
+当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。
+
+什么是重绘
+当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。
+
+
+8、什么是跨域，为什么浏览器会禁止跨域，实现跨域的几种方法
+
+1、什么是跨域
+跨域的产生来源于浏览器所的‘同源策略’，所谓同源策略，是指只有在地址的： 
+1. 协议名 https，http
+2. 域名  http://a.study.cn http://study.cn
+3. 端口名  http://study.cn:8080/json/jsonp/jsonp.html study.cn/json/jsonp/jsonp.html
+均一样的情况下，才允许访问相同的cookie、localStorage或是发送Ajax请求等等。若在不同源的情况下访问，就称为跨域。
+ 
+2、为什么浏览器会禁止跨域
+跨域的访问会带来许多安全性的问题，比如，cookie一般用于状态控制，常用于存储登录的信息，如果允许跨域访问，那么别的网站只需要一段脚本就可以获取你的cookie，从而冒充你的身份去登录网站，造成非常大的安全问题，因此，现代浏览器均推行同源策略。
+
+demo2: 基于script标签实现跨域
+<script type="text/javascript">
+    var jshow = function(data){
+        alert(data.s);//// 爱奇艺,阿里云,阿里巴巴,安居客,apple,airpods2,apex,安徽人亊考试网,安全教育平台
+    };
+    var url = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=jshow";
+    var script = document.createElement('script');
+    script.setAttribute('src', url);
+    document.getElementsByTagName('head')[0].appendChild(script);
+</script>
+
+JSONP
+2.document.domain
+这种方式只适合主域名相同，但子域名不同的iframe跨域。
+比如主域名是http://crossdomain.com:9099，子域名是http://child.crossdomain.com:9099，这种情况下给两个页面指定一下document.domain即document.domain = crossdomain.com就可以访问各自的window对象了。
+
+不同主域script
+Promise的队列与setTimeout的队列有何关联？
+因此promise.then的回调比setTimeout先执行。
+12354
+setTimeout(function(){
+	console.log(4)
+},0);
+new Promise(function(resolve){ 
+	console.log(1) 
+	for( var i=0 ; i<10000 ; i++ ){
+		 i==9999 && resolve()
+ 	} 
+	console.log(2) 
+	}).then(function(){
+		 console.log(5) 
+}); 
+console.log(3);
+
+9、为什么要进行URL编码?
+是因为Url中有些字符会引起歧义，Url的编码格式采用的是ASCII码
+encodeURIComponent编码的字符范围要比encodeURI的大，encodeURIComponent对特殊字符编码解决
+
+10、一个页面从输入URL到页面加载显示完成，这个过程都发生什么？
+可以分为这几个大的过程：
+DNS解析
+TCP连接
+客户端发送HTTP请求
+服务器处理请求并返回HTTP报文
+浏览器解析渲染页面
+结束
+
+11、http协议中302状态
+302：临时重定向，理解为该资源原本确实存在，但已经被临时改变了位置
+403：服务器拒绝请求
+500：服务器内部错误
+200：请求成功
+404：页面无法找到
+502：服务器网关错误
+
+12、数组的常用方法如下:
+push 尾部添加
+pop尾部删除
+unshift头部添加
+shift头部删除
+arr.splice(位置，个数，添加新项)
+concat: 链接两个或者更多数据，并返回结果。
+arr.every(): 数组里面所有的元素都要符合条件，才返回true
+filter: 对数组中的每一项运行给定函数，返回改函数会返回true的项组成的数组。
+forEach: 对数组中的每一项运行给定函数，这个方法没有返回值。
+join: 将所有的数组元素链接成一个字符串。
+indexOf: 返回第一个与给定参数相等的数组元素的索引，没有找到则返回-1。
+lastIndexOf: 返回在数组中搜索到的与给定参数相等的元素的索引里最大的值。
+map: 对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。重新整理数据结构:
+arr.reverse(): 颠倒数组中元素的顺序，原先第一个元素现在变成最后一个，同样原先的最后一个元素变成现在的第一个。
+slice(start,end-1): 从已有数据中选中元素，返回新数组，含头不含尾，
+arr.some(): 类似查找,  数组里面某一个元素符合条件，返回true/false
+sort: 按照字母顺序对数组排序，支持传入指定排序方法的函数作为参数。
+arr.toString: 将数组作为字符串返回。
+arr.reduce()   ：从左往右执行arr.reduce(prev,item,index,arr) ;  prev上次计算的结果
+arr.valueOf: 和toString相似，将数组作为字符串返回
+for....of....： arr.keys()		数组下标   ,arr.entries()	数组某一项
+arr.find():  查找，找出第一个符合条件的数组成员，如果没返回有找到，undefined,return返回一个值
+arr.findIndex(): 找的是位置， 没找到返回-1
+arr.fill()	填充,arr.fill(填充的东西, 开始位置, 结束位置不包含);
+
+arr.includes()	返回true/false
+Array.from:
+作用: 把类数组就是伪数组(获取一组元素、arguments...) 对象转成数组
+
+addEventListener :true - 事件句柄在捕获阶段执行
+
+
+map主要是对数组每个元素的操作，有return，
+for/in主要是对象键值的一些遍历，对象
+forEach的应用只要是数组的简单遍历
+for..of遍历数组，有keys(),entries()
+
+13、求和
+-----------------------------
+var arr = [1,2,3,4,5];
+var sum = 0;  
+arr.forEach(function(v){
+    sum += v
+})
+console.log(sum);//15  map一样
+-----------------------------
+arr.forEach(v=>sum+=v)
+--------------
+var arr = [1,2,3,4,5];
+var sum = 0;  
+for(let val of arr){
+  sum+=val;
+}
+console.log(sum)
+
+--------------
+for(var i=0;i<arr.length;i++){
+  sum+=arr[i];
+}
+console.log(sum)
+------------------
+var newArr = arr.reduce((pre,item)=>{
+    return pre+item;
+})
+console.log(newArr)
+
+
+14、vue生命周期：
+beforeCreate 组件实例刚刚被创建,属性都没有
+created 实例已经创建完成，属性已经绑定
+beforeMount 模板编译之前（准备）
+mounted 模板编译之后，代替之前ready *
+beforeUpdate 组件更新之前 data数据变了 (用在$.watch('a',function){})
+updated 组件更新完毕 * (用在$.watch('a',function){})
+beforeDestroy 组件销毁前
+destroyed 组件销毁后
+
+Vue钩子函数：created mounted updated Destroy
+
+15、sessionStorage 和localStorage
+(1)sessionStorage 存储系统存储数据的特点
+* 当浏览器窗口关闭时,数据全部丢失
+* 当再次打开浏览器窗口时,数据不能使用
+(2)localStorage 存储系统存储数据的特点
+* 当浏览器窗口关闭时,数据依旧存储
+* 当再次打开浏览器窗口时,数据继续使用
+* 数据只能由用户删除
+
+16、Get与Post的主要区别
+get相对于post更不安全，虽然都可以加密
+get的参数会显示在浏览器地址栏中，而post的参数不会显示在浏览器地址栏中；
+使用post提交的页面在点击【刷新】按钮的时候浏览器一般会提示“是否重新提交”，而get则不会；
+用get的页面可以被搜索引擎抓取，而用post的则不可以；
+用post可以提交的数据量非常大，而用get可以提交的数据量则非常小(2k)，受限于网页地址的长度。
+用post可以进行文件的提交，而用get则不可以。
+
+17、CSS盒子模型:一个是标准模型，一个是IE模型。
+CSS盒子模式都具备这些属性：内容(content)、内边距(padding)、边框(border)、外边距(margin)
+标准模型 ：宽高只是内容（content）的宽高
+box-sizing:content-box;
+IE模型：宽高是内容(content)+填充(padding)+边框(border)的总宽高。
+box-sizing:border-box;
+
+
+18、. 前端开发的优化问题
+（1） 减少http请求次数：css sprite,data uri
+（2） JS，CSS源码压缩
+（3） 前端模板 JS+数据，减少由于HTML标签导致的带宽浪费，前端用变量保存AJAX请求结果，每次操作本地变量，不用请求，减少请求次数
+（4） 用innerHTML代替DOM操作，减少DOM操作次数，优化javascript性能
+（5） 用setTimeout来避免页面失去响应
+（6） 用hash-table来优化查找
+（7） 当需要设置的样式很多时设置className而不是直接操作style
+（8） 少用全局变量
+（9） 缓存DOM节点查找的结果
+（10） 避免使用CSS Expression
+（11） 图片预载
+（12） 避免在页面的主体布局中使用table，table要等其中的内容完全下载之后才会显示出来，显示比div+css布局慢
+
+
+19、null和undefined区别
+null 是javascript关键字，空值，typeof返回object,可以表示数字，字符串和对象“无值”
+undefined是预定义的全局变量，为“未定义”，变量一种取值，表示没有初始化。
+当查询对象属性，数组元素值时，返回undefined时表示属性或元素不存在；
+如果函数没返回值也返回undefined
+
+20、闭包的用途
+函数内部可以直接读取全局变量，但是在函数外部无法读取函数内部的局部变量
+闭包可以读取函数内部的变量，可以让变量的值始终保持在内存中。
+缺点：由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。
+
+
+add.call(sub,3,1) == add(3,1) 
+执行call前边的函数
+function add(a,b)  
+{  
+   console.log(this)//this指向window，如add.call(sub) this指sub函数	
+    alert(a+b);  
+}  
+function sub(a,b)  
+{  
+    alert(a-b);  
+}  
+  
+add.call(sub,3,1);//4 这里数据没涉及到this相关数据还是a+b
+
+------------------------------------------------------
+ES6
+1、关于定（声明）变量：
+let和const
+1、let是块级作用域没有声明提前、先定义在使用
+2、同一级作用域里，不能重复定义变量，可以赋值
+
+1、const定义完变量，必须有值，不能后赋值，不能修改
+2、也没有（预解析）声明提前
+Object.freeze(对象)可以解决利用对象引用修改 const数组的问题
+
+2、解构赋值:
+3、字符串模板以及字符串新增
+`${}`
+字符串新增：str.includes（）/true/false
+判断字符串以什么开头：startsWith（开头内容）
+判断字符串以什么结尾：endsWith（结尾内容）
+重复字符串：repeat（重复次数）
+填充字符串：str.padStart/padEnd(整个字符串长度, 填充东西)   往前填充
+
+4. 函数默认参数、箭头函数、剩余参数
+扩展运算符三个点 数组转字符串，反之
+
+()是参数，=>后的1是return值；() => return东西：
+箭头函数注意:
+		1. this问题, 定义函数所在的对象或是父级对象是谁，不在是运行时所在的对象如window
+		2. 箭头函数里面没有arguments, 用  ‘...’
+		3. 箭头函数不能当构造函数
+
+
+
+5、数组:
+arr.forEach() ：代替普通for，forEach接收两个参数：第二个是this指向，很少用
+
+arr.map()  重新整理数据结构: return 做数据交互  "映射",和后台打交到都会用到
+
+arr.filter():  过滤，过滤一些不合格“元素”， 如果回调函数返回true，就留下来
+return
+arr.some(): 类似查找,  数组里面某一个元素符合条件，返回true
+
+arr.every(): 数组里面所有的元素都要符合条件，才返回true
+
+arr.reduce()   ：从左往右执行
+arr.reduce(prev,item,index,arr) ;  prev上次计算的结果
+arr.reduceRight() ： 从右往左
+
+for...of 语句创建一个循环来迭代可迭代的对象,ES6替代 for...in 和 forEach()
+for...of 允许你遍历 Arrays（数组）, Strings（字符串）, Maps（映射）, Sets（集合）等可迭代的数据结构等。 
+arr.keys()		数组下标
+arr.entries()	数组某一项
+
+Array.from:
+作用: 把类数组就是伪数组(获取一组元素、arguments...) 对象转成数组
+类数组点型的特点有length
+Array.of():  把一组值，转成数组
+arr.find():  查找，找出第一个符合条件的数组成员，如果没返回有找到，undefined,return返回一个值
+arr.fill()	填充 arr.fill(填充的东西, 开始位置, 结束位置不包含);
+
+arr.indexOf()   返回位置，没找到返-1
+arr.includes()	返回true/false
+
+Object.is():	用来比较两个值是否相等
+
+Object.assign():   用来合并对象
+语法：	let json = Object.assign({}, defaults, options);
+
+Object.keys()
+Object.entries();
+Object.values();
+
+9、Promise:    解决异步回调问题
+传统方式解决异步回调问题方式：大部分用回调函数，事件，相当于ajax嵌套
+
+10、模块化：
+export，import引入时用{}形式，一个值也是加{a},必须与export导出的变量名对应，import中的名字不能随意起
+
+export default  ，import引入时用一个变量接所有值，名字随意，不用{}
+
+
+a)import 可以是相对路径，相对路径加上./，（应该是可以去掉了，但去掉会报错），也可以是绝对路径
+b)import模块只会导入一次，无论你引入多少次
+c)import './modules/1.js';  如果这么用，相当于引入文件，直接执行js文件
+d). 有提升效果，import会自动提升到顶部，首先执行
+e). 导出去模块内容，如果里面有定时器更改，外面也会改动，不想Common规范缓存
+
+import()优点:
+* import()  类似node里面require， 可以动态引入, 默认import语法不能写到if，for之类里面
+		返回值，是个promise对象就可以用then
+
+		import('./modules/1.js').then(res=>{
+			console.log(res.a+res.b);
+		});
+1. 按需加载
+2. 可以写if中
+Promise.all
+
+11. 类(class)和继承
+class Person{
+		constructor(){
+			this.name = 'aaa';
+		} 
+		showName(){
+
+		}
+	}
+切记方法之间无逗号
+const Person = class{}
+注意： 
+1. ES6里面class没有提升功能，在ES5，用函数模拟可以，默认函数提升
+2. ES6里面this 比之前轻松多了
+constructor(name){  
+        this.showName = this.showName.bind(this);//矫正this
+}
+静态方法: static写的方法前边，就是类身上方法这里的类是Person,
+
+继承原型方法：Student.prototype = new Person();写在最外层
+继承属性  ：Person.call(this,name) //矫正this,传继承值写在Student
+
+ES6现在实现继承的方法：
+ES6规定 ：继承的父类的子类构造函数Student
+   class Student extends Person{
+       constructor(继承的参数，自己的可选){
+           super(继承的参数);
+           ........
+       }
+   }
+注意:
+	1. Symbol 不能new
+	2. Symbol() 返回是一个唯一值
+		坊间传说, 做一个key，定义一些唯一或者私有一些东
+	3. symbol是一个单独数据类型，就叫 symbol, 基本类型
+（ 基本类型就是不能再拆分了,像数字12拆成6+6还还是数字本身）
+	4. 如果symbol作为key，用for in循环，出不来
+
+
+generator函数作用：
+function * show(){
+yield
+}
+for .. of  自动遍历 generator
+return的东西，它不会遍历
+ 主要遍历的是yield的东西，而return是一个函数
+
+关于异步，解决方案：
+	a). 回调函数
+	b). 事件监听
+	c). 发布/订阅
+	d). Promise对象
+
+async特点:
+	1. await只能放到async函数中
+	2. 相比genrator语义化更强
+	3. await后面可以是promise对象，也可以数字、字符串、布尔
+	4. async函数返回是一个promise对象
+	5. 只要await语句后面Promise状态变成 reject, 那么整个async函数会中断执行
+
+set用法:
+	let setArr = new Set(['a','b']);
+
+	setArr.add('a');   往setArr里面添加一项 只能添加一个值，放多个值也是添加第一个
+	setArr.delete('b');	删除一项
+	setArr.has('a')	判断setArr里面有没有此值
+	setArr.size	个数
+
+	setArr.clear();	清空
+数组去重:
+	let arr = [1,2,3,4,5,6,7,6,5,4,3,2,1,2,3,4,4];
+	let newArr = [...new Set(arr)];
+	console.log(newArr);
+map:
+类似 json, 但是json的键(key)只能是字符串
+map的key可以是任意类型，json也行
+
+使用:
+	let map = new Map();
+	map.set(key,value);    set设置一个值
+	map.get(key)	获取一个值
+	map.delete(key)	删除一项
+	map.has(key)	判断有没有
+	map.clear()	清空  
+
+WeakMap():  key只能是对象
+
+总结：
+	Set   里面是数组，不重复，没有key，没有get方法
+	Map 对json功能增强，key可以是任意类型值，之前json 的key不能是对象，现在可以了
+

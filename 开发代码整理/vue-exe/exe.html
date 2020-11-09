@@ -1,44 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
-<body>
-<script type="text/javascript">
-	 // 横屏
-            if (document.documentElement.clientWidth > document.documentElement.clientHeight) {
-                L = e.touches[0].clientX - disX;
-                T = e.touches[0].clientY - disY;
-                starXEnd = e.touches[0].clientX - starX;
-                starYEnd = e.touches[0].clientY - starY;
-                if (L < 0) {
-                    L = 0;
-                } else if (L > document.documentElement.clientWidth - this.offsetWidth) {
-                    L = document.documentElement.clientWidth - this.offsetWidth;
-                }
-                if (T < 0) {
-                    T = 0;
-                } else if (T > document.documentElement.clientHeight - this.offsetHeight) {
-                    T = document.documentElement.clientHeight - this.offsetHeight;
-                }
-            } else { // 坚屏
-                L = e.touches[0].clientY - disX;
-                T = (document.documentElement.clientWidth - e.touches[0].clientX) - disY;
 
-                starXEnd = e.touches[0].clientY - starX;
-                starYEnd = document.documentElement.clientWidth - e.touches[0].clientX - starY;
-                if (L < 0) {
-                    L = 0;
-                } else if (L > document.documentElement.clientHeight - this.offsetWidth) {
-                    L = document.documentElement.clientHeight - this.offsetWidth;
+<head>
+    <title></title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="linear">
+        <input type="button" value='a'>
+        <input type="button" value='b'>
+        <input type="button" value='c'>
+    </div>
+    <script>
+        let aBtn = document.getElementsByTagName("input");
+        for (let i = 0; i < aBtn.length; i++) {
+            (function () {
+                aBtn[i].onclick = function () {
+                    alert(i)
                 }
-                if (T < 0) {
-                    T = 0;
-                } else if (T > document.documentElement.clientWidth - this.offsetHeight) {
-                    T = document.documentElement.clientWidth - this.offsetHeight;
-                }
-            }
-            
-</script>
+            })(i)
+
+        }
+        console.log(i)
+        //
+    </script>
 </body>
+
 </html>

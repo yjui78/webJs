@@ -1,0 +1,182 @@
+.product_wall_header__btns a:not(:last-child) {
+  margin-right: 0.7rem;
+}
+
+.product_wall_header .pws-btn {
+  font-size: 1em;
+  text-align: center;
+}
+
+.pws-btn--grey {
+  background: #717c7d;
+}
+
+.pws-btn {
+  border-radius: 2px;
+  border: 0;
+  display: inline-block;
+  padding: 0.615em 0.923em;
+  margin: 0;
+  line-height: 1.5em;
+  vertical-align: middle;
+  color: #fff;
+  background: #0047bb;
+  white-space: nowrap;
+  -webkit-appearance: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-size: 1.3rem;
+  transition: all 0.25s ease;
+}
+
+.addpinglun {
+  width: 100%;
+  height: 200px;
+  /* background: green; */
+  padding: 0 15px;
+  margin-top: 20px;
+}
+
+#pltext {
+  width: 100%;
+  height: 75%;
+  /*background:pink;*/
+  padding: 5px 10px;
+}
+
+.plimage {
+  width: 100%;
+}
+
+.pltj {
+  width: 100%;
+  height: 25%;
+}
+
+#queren {
+  float: right;
+}
+
+.huifu {
+  width: 100%;
+  height: 100%;
+  padding: 0 15px 0 50px;
+  /*background: green;*/
+}
+
+.dibu {
+  width: 100%;
+  padding: 0 15px;
+}
+
+.beijing {
+  width: 100%;
+  background: #eeefef;
+  padding: 15px 0;
+}
+
+.tupianimg {
+  width: 100%;
+  height: 60px;
+}
+
+.tpikuang {
+  width: 50px;
+  height: 100%;
+  float: left;
+  margin-left: 5px;
+  /*border: 1px solid red;*/
+}
+
+.tupianimg img {
+  width: 100%;
+  height: 100%;
+}
+
+.tpshow {
+  width: 100%;
+  height: 350px;
+  /*border: 1px solid blue;*/
+  padding: 5px 10px;
+}
+
+.tpshow img {
+  height: 100%;
+  max-width: 100%;
+}
+
+/*临时上传样式*/
+.btn {
+  border-radius: 0px;
+  font-weight: 100;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px;
+  font-size: 14px;
+  font-family: "微软雅黑";
+}
+.btn-success {
+  color: #fff;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  background-image: -webkit-linear-gradient(top, #35aa47 0, #35aa47 100%);
+  background-image: -o-linear-gradient(top, #35aa47 0, #35aa47 100%);
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#35aa47),
+    to(#35aa47)
+  );
+  background-image: linear-gradient(to bottom, #35aa47 0, #35aa47 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff35aa47', endColorstr='#ff35aa47', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  background-repeat: repeat-x;
+  border: 1px solid #359947;
+}
+.gallery {
+  width: 100%;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  padding: 10px;
+  min-height: 100px;
+  margin-bottom: 20px;
+}
+.gallery .img-item {
+  width: 150px;
+  height: 100px;
+  position: relative;
+  border: 1px solid #000;
+}
+
+.gallery .img-item:hover .delete {
+  display: block;
+}
+.gallery .img-item .delete {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: black;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: none;
+  z-index: 9999;
+  opacity: 0.6;
+}
+
+.gallery .img {
+  width: 100px;
+  height: 80px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+[v-cloak] {
+  display: none;
+}

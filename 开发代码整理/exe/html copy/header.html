@@ -1,0 +1,433 @@
+<div id="header">
+	<div class="header">
+		<div class="header_n1">
+			<div class="container">
+			<div class="disBet">
+					<div class="disAlign header_n1_left">
+						<div class="languageSwitc">
+							<p class="disAlign"><img src="../img/img032.jpg"><span>中国</span></p>
+							<ul>
+								<li><a class="disAlign" href="../chinese/index.html"><img src="../img/img032.jpg"><span>中国</span></a></li>
+								<li><a class="disAlign" href="../english/index.html"><img src="../img/img033.jpg"><span>美国</span></a></li>
+							</ul>
+
+						</div>
+						<img src="../img/img004.png" style="width: 16px;margin-left: 30px;">
+						<span style="padding: 0 5px;">致电给我们</span>
+						<a href="javascript:void(0);" class="a1" style="color: #fff;">{{aboutList.tel}}</a>
+					</div>
+					<div class="disAlign header_n1_right">
+						<a href="order.html" class="disAlign nl">
+							<img src="../img/img001.png" style="width: 16px;margin-left: 30px;">
+							<p>(<span id="carNum"></span>项目)</p>
+						</a>
+						<img src="../img/img005.png">
+						<a href="register.html" v-if="infoList.length==0">注册</a>
+						<span v-if="infoList.length==0">/</span>
+						<a href="login.html" v-if="infoList.length==0">登录</a>
+						<span v-if="infoList.length!=0" class="info-wrap" @mouseenter="userMouse" style="color:#ddd;">
+							<a href="##">{{infoList.first_name}}{{infoList.family_name}}</a>
+							<div class="info-hidden" :class="userClass?'info-show':''" @mouseenter="userMouse"
+								@mouseleave="userLeave">
+								<div>
+									<a href="myinfo.html">我的总览</a>
+								</div>
+								<div>
+									<a href="editContact.html">个人信息</a>
+								</div>
+								<div>
+								<a href="newaddresslist.html?id=1">收货地址</a>
+							</div>
+								<div>
+									<a href="setorder.html?id=3">全部订单</a>
+								</div>
+								<div>
+									<a href="fukuan.html?id=4">代付款</a>
+								</div>
+							<div>
+									<a href="fahuo.html?id=5">待发货</a>
+								</div>
+								<div>
+									<a href="shouhuo.html?id=6">待收货</a>
+							</div>
+							</div>
+						</span>
+						<span style="color:#ddd;cursor: pointer;" @click="loginOut"
+						v-if="infoList.length!=0">退出登录</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container header_n2">
+			<div class="disBet">
+				<div class="logo"><a href="index.html"><img src="../img/loginc.png"></a></div>
+				<div class="disBet header_search">
+					<input type="text" v-model="keywords" placeholder="输入蛋白质，基因，分析和/或反应性...例如tnf alpha" />
+					<div class="layui-border" id="layui-border" @click="removeSearch">
+						<i class="layui-icon layui-icon-close"></i>
+					</div>
+					<a @click="searchTap"></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="header_n3">
+			<div class="container">
+				<div class="disAlign headerNav">
+					<ul>
+						<li class="active">
+							<a class="a1" href="javascript:void(0)">产品类别</a>
+							<div class="navBox navbox1">
+							    <block v-for="(item,index) in cplbList">
+									<!--<block v-for="(item1,index1) in item.two">-->
+										<div class="nav_n1" :class="index==1 || index==3?'mar-rig-0':''">
+											<h4 class="layui-card-header" style="padding: 0 15px 0 0;"
+												>
+												{{item.name}}</h4>
+											<a :href="'product.html?id='+item1.id" class="a2 layui-card-body"
+												v-for="(item1,index1) in item.two">{{item1.name}}</a>
+											
+										</div>
+										
+									<!--</block>-->
+								</block>
+								<!--<block v-for="(item,index) in cplbList">-->
+								<!--	<block v-for="(item1,index1) in item.two">-->
+								<!--		<div class="nav_n1" :class="index1==1 || index1==3?'mar-rig-0':''">-->
+								<!--			<h4 class="layui-card-header" style="padding: 0 15px 0 0;"-->
+								<!--				:class="index1==1 || index1==3?'pad-rig-0':''">-->
+								<!--				{{index1==0 || index1==2?item.name:''}}</h4>-->
+								<!--			<a :href="'product.html?id='+item2.id" class="a2 layui-card-body"-->
+								<!--				v-for="(item2,index2) in item1.three">{{item2.name}}</a>-->
+								<!--		</div>-->
+								<!--	</block>-->
+								<!--</block>-->
+								
+								<div class="nav_n1 tt">
+								<div class="nav_n1_img"><img src="../img/img006.png"></div>
+									<div class="nav_n1_more"><a href="product.html">保留更多</a></div>
+								</div>
+							</div>
+						</li>
+						<li>
+
+							<a class="a1" href="javascript:void(0)">流行</a>
+							<div class="navBox">
+								<div class="nav_n2">
+									<dl>
+										<dd v-for="(item,index) in lxList" :key="index">
+											<div class="cntet">
+												<div class="disCenter imgs"><a :href="'details.html?id='+item.id"><img
+														:src="item.figure1_image.length>3?host1+item.figure1_image:'../img/default_bg.jpg'"></a>
+												</div>
+											<!-- <div class="disCenter imgs"><a :href="'details.html?id='+item.id"><img :src="host1+item.figure1_image"></a></div> -->
+												<div class="disCenter btns"><a
+														:href="'details.html?id='+item.id">{{item.product_name}}</a>
+												</div>
+											</div>
+										</dd>
+
+
+									</dl>
+								</div>
+							</div>
+						</li>
+						<li>
+
+							<a class="a1" href="javascript:void(0)">定制服务</a>
+							<div class="navBox" style="height: 0px; opacity: 0;">
+								<div class="nav_n4">
+									<dl v-for="(item,index) in dzfwList.list">
+									<dt>{{item.name}}</dt>
+										<dd v-for="(item1,index1) in item.two"><a
+												:href="'services.html?Id='+item1.id">{{item1.name}}</a></dd>
+									</dl>
+
+									<dl>
+									<a id="serive_img" href="">
+									<dt>定制图片</dt>
+										<!-- {{dzfwList.image}}	 -->
+										
+										<dd><img :src="host1+dzfwList.image"></dd>
+									</a>	
+									</dl>
+									
+								</div>
+							</div>
+
+						</li>
+						<li>
+
+						<li>
+							<a class="a1" href="javascript:void(0)">信息中心</a>
+							<div class="navBox" style="height: 0px; opacity: 0;">
+								<div class="nav_n4">
+									<dl v-for="(item,index) in xxzxCenter.list">
+										<dt>{{item.name}}</dt>
+										<dd v-for="(item1,index1) in item.two"><a
+												:href="'literature.html?id='+item1.id">{{item1.name}}</a></dd>
+
+									</dl>
+
+									<dl>
+                                    <a id="informationcente_img" href="">
+										<dt>定制图片</dt>
+										<dd><img :src="host1+xxzxCenter.image"></dd>
+									</a>
+									</dl>
+								</div>
+							</div>
+
+						</li>
+
+						</li>
+
+						<li>
+
+							<a class="a1" href="javascript:void(0)">促销活动</a>
+							<div class="navBox">
+								<div class="nav_n5">
+									<dl>
+										<dd v-for="(item,index) in cxhdList"><a class="disCenter"
+												:href="'details.html?id='+item.id">
+												<div>
+													<img
+														:src="item.figure1_image?item.figure1_image:'../img/default_bg.jpg'">
+												</div>
+											</a></dd>
+
+
+
+									</dl>
+
+								</div>
+
+							</div>
+
+						</li>
+
+						<li>
+							<a class="a1" href="javascript:void(0)">信号通道</a>
+							<div class="navBox">
+								<div class="nav_n7">
+									<dl>
+										<dd v-for="(item,index) in ihtdList">
+											<a class="disCenter" :href="'gunlist.html?id='+item.id">
+												<img :src="item.image?host1+item.image:'../img/default_bg.jpg'" />
+												<!-- <img :src="host1+item.image" /> -->
+												<p>{{item.name}}</p>
+											</a>
+										</dd>
+
+									</dl>
+
+									<div class="disCenter nv7Btns">
+										<a href="details.html">See all pathways</a>
+										<a href="details.html">Request a poster</a>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+
+							<a class="a1" href="company.html">公司信息</a>
+							<div class="navBox">
+								<div class="nav_n5">
+									<dl>
+										<dd v-for="(item,index) in companyList"><a class="disCenter"
+												:href="item.category!='jinxiaoshang'?'company.html?id='+item.category:'dealers.html'"
+												:style="'background-image:url('+host1+item.figure1_image+');'">{{item.title}}</a>
+										</dd>
+									</dl>
+
+								</div>
+
+							</div>
+
+						</li>
+
+					</ul>
+				</div>
+
+				<div class="disAlign index_abt">
+					<!-- <div class="n1">
+						<a href="javascript:void(0)">关于我们</a>
+						<div class="about_li">
+							<ul>
+								<li><a href="about.html">关于我们</a></li>
+						</ul>
+					</div>
+					</div> -->
+					<div class="n2"><a href="contact.html">联系我们</a></div>
+				</div>
+				<div class="disBet menuBox">
+					<div class="logo1"><a href="index.html"><img src="../img/loginc1.png"></a></div>
+					<div class="menu"></div>
+				</div>
+			</div>
+		</div>
+		<div class="headerNull"></div>
+	</div>
+
+
+
+</div>
+<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="../js/api.js"></script>
+<script>
+	new Vue({
+		el: '#header',
+		data: {
+			keywords: '', //关键词搜索
+			infoList: '', //用户信息
+			cplbList: [], //产品类别
+			yjlyList: [], //研究领域
+			lxList: [], //流行
+			dzfwList: [], //定制服务
+			ihtdList: [], //信号通道
+			jswdList: [], //技术问答列表
+			cxhdList: [], //促销活动
+			xxzxList: [], //信息中心列表
+			xxzxCenter: [], //信息中心 新
+			companyList: [], //公司信息列表
+			userClass: false,
+			aboutList: [], //关于我们
+			words: '',
+		},
+		created() {
+			// 根据用户名登陆
+			$.post(`${host}/api/user/getUserinfo`,
+				{
+					user_id: USERID
+				},
+				(res) => {
+					// console.log(res)
+					if (res.code == 1) {
+					this.infoList = res.data;
+				}
+				});
+			$('#carNum').html(0)
+			//  产品种类和研究领域标题分类
+			$.get(`${host}api/Product/gettype_get_new`, (res) => {
+				if (res.code == 1) {
+					// console.log('产品种类和研究领域标题分类')
+					// console.log(res.data);
+					this.cplbList = res.data;
+				}
+			})
+			//  // 6、 首页流行
+			$.get(`${host}api/product/getNewproductList`, (res) => {
+				if (res.code == 1) {
+					this.lxList = res.data;
+				}
+			});
+			//    // 定制服务
+			$.get(`${host}api/Service/gettype_get_Service_new`, (res) => {
+				if (res.code == 1) {
+				    
+					this.dzfwList = res.data;
+					$('#serive_img').attr('href',this.dzfwList.link_url);
+					
+				}
+			});
+			//    // 信号通道
+			$.get(`${host}api/Pathways/getPathwaysTypeList`, (res) => {
+				if (res.code == 1) {
+					this.ihtdList = res.data;
+				}
+			});
+			//    // 促销活动
+			$.get(`${host}api/Product/recommend_Eight`, (res) => {
+				if (res.code == 1) {
+					this.cxhdList = res.data;
+				}
+			});
+			// 信息中心 新
+			$.get(`${host}api/Infocontent/gettype_get_new`, (res) => {
+				if (res.code == 1) {
+					this.xxzxCenter = res.data;
+					$('#informationcente_img').attr('href',this.xxzxCenter.link_url);
+				}
+
+			});
+			//    // 公司信息
+			$.get(`${host}api/Aboutus/get_aboutus_list`, (res) => {
+				if (res.code == 1) {
+					this.companyList = res.data;
+				}
+			});
+			// 关于我们
+			$.get(`${host}api/Aboutus/lianxiwomen`, (res) => {
+				if (res.code == 1) {
+					this.aboutList = res.data[0];
+				}
+			});
+			// 购物车数量
+			$.post(`${host}api/Cat/catCount`, {
+				user_id: USERID,
+			}, (res) => {
+				// console.log('购物车数量' + res.data)
+				if (res.code == 1) {
+					this.carList = res.data;
+					$('#carNum').html(res.data)
+				}
+			});
+
+		},
+		mounted() {
+			$("#layui-border").hover(() => {
+				layer.tips('清除搜索记录', '#layui-border', { tips: [4, '#666666'] });
+			})
+			$(document).ready(() => {
+				this.words = decodeURI($.getUrlParam('keywords'));
+				if (this.words != 'null') {
+					this.keywords = this.words;
+				}
+			})
+		},
+		methods: {
+			// 清除搜索
+			removeSearch() {
+				window.location.href = "relevant.html"
+			},
+			// 退出登录
+			loginOut() {
+				console.log('退出登录')
+				window.localStorage.setItem("user_id", '');
+				// console.log(window.localStorage.getItem('user_id'))
+				window.location.href = `index.html`;
+			},
+			// 搜索
+			searchTap() {
+				let a = encodeURI(encodeURI(`relevant.html?keywords=${this.keywords}`));
+				window.location.href = a
+				// window.open(a)
+				// console.log(a)
+			},
+			userMouse() {
+				this.userClass = true;
+			},
+			userLeave() {
+				this.userClass = false;
+			}
+		}
+	})
+</script>
+<style>
+	.layui-border {
+		width: 20px;
+		height: 20px;
+		background: rgba(0, 0, 0, 0.2);
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-content: center;
+		cursor: pointer;
+	}
+
+	.layui-border i {
+		color: #fff;
+	}
+</style>

@@ -1,0 +1,68 @@
+<div class="footer">
+	<div id="footer">
+		<div class="container">
+			<div class="row footerTop">
+				<dl class="col-md-3 col-sm-6">
+					<dt>产品展示</dt>
+					<dd v-for="item in cplbList.product_show"><a :href="'product.html?id='+item.id_get">{{item.product_name_title}}</a></dd>
+				</dl>
+				<dl class="col-md-3 col-sm-6">
+					<dt>服务</dt>
+					<dd v-for="(item,index) in cplbList.seriver"><a :href="'serverdetail.html?id='+item.id_get">{{item.product_name_title}}</a></dd>
+				</dl>
+				<dl class="col-md-3 col-sm-6">
+					<dt>技术问答</dt>
+					<dd v-for="(item,index) in cplbList.jshu_show"><a :href="'literdetail.html?id='+item.id_get+'&type=139'">{{item.product_name_title}}</a></dd>
+				</dl>
+				<dl class="col-md-3 col-sm-6">
+					<dt>联系我们</dt>
+					<dd><a href="javascript:">发行人：{{cplbList.lianxiwomen[0].faxingren}}</a></dd>
+					<dd><a href="javascript:">工作机会：{{cplbList.lianxiwomen[0].gongzuojihui}}</a></dd>
+					<dt style="margin-top: 10px;">联系我们</dt>
+					<dd><a href="javascript:">电话：{{cplbList.lianxiwomen[0].tel}}</a></dd>
+					<dd><a href="javascript:">传真：{{cplbList.lianxiwomen[0].chaunzhen}}</a></dd>
+					<dd><a href="javascript:">订单：{{cplbList.lianxiwomen[0].dingdan}}</a></dd>
+					<dd><a href="javascript:">技术支持：{{cplbList.lianxiwomen[0].jishuzhichi}}</a></dd>
+					<dd><a href="javascript:">业务：{{cplbList.lianxiwomen[0].yewu}}</a></dd>
+					<dt style="margin-top: 10px;">地址</dt>
+					<dd><a href="javascript:">{{cplbList.lianxiwomen[0].dizhi}}</a></dd>
+					<dd><a href="javascript:">{{cplbList.lianxiwomen[0].dizhi1}}</a></dd>
+					<dd><a href="javascript:">{{cplbList.lianxiwomen[0].dizhi2}}</a></dd>
+				</dl>
+			</div>
+		</div>
+		<div class="container friendshipLink">
+			<ul>
+				<li v-for="(item,index) in cplbList.youqinglianjie"><a :href="'http://'+item.links">{{item.name}}</a></li>
+			</ul>
+		</div>
+		<div class="footerBtm">©1993-2020 Boster Biological Technology。版权所有。</div>
+	</div>
+</div>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script>
+
+	new Vue({
+		el: '#footer',
+		data: {
+			cplbList: [],//产品类别
+			yjlyList: [],//研究领域
+			dzfwList:[],//服务
+			jsedList:[],//技术问答
+			aboutList:[],//关于我们
+		},
+		created() {
+			//  底部链接
+			$.get(`${host}api/Aboutus/lianxiwomen_new`, (res) => {
+				if (res.code == 1) {
+					this.cplbList = res.data;
+				}
+			})
+
+		},
+		methods: {
+			details: function () {
+			}
+		}
+	})
+</script>

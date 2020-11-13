@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <style>
+        .btn {
+            border-radius: 0px;
+            font-weight: 100;
+            cursor: pointer;
+            display: inline-block;
+            padding: 5px;
+            font-size: 14px;
+            font-family: '微软雅黑'
+        }
+
+        .btn-primary {
+            color: #fff;
+            text-shadow: 0 1px rgba(0, 0, 0, .1);
+            background-image: -webkit-linear-gradient(top, #4d90fe 0, #4787ed 100%);
+            background-image: -o-linear-gradient(top, #4d90fe 0, #4787ed 100%);
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#4d90fe), to(#4787ed));
+            background-image: linear-gradient(to bottom, #4d90fe 0, #4787ed 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4d90fe', endColorstr='#ff4787ed', GradientType=0);
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+            background-repeat: repeat-x;
+            border: 1px solid #3079ed;
+        }
+
+        .btn-success {
+            color: #fff;
+            text-shadow: 0 1px rgba(0, 0, 0, .1);
+            background-image: -webkit-linear-gradient(top, #35aa47 0, #35aa47 100%);
+            background-image: -o-linear-gradient(top, #35aa47 0, #35aa47 100%);
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#35aa47), to(#35aa47));
+            background-image: linear-gradient(to bottom, #35aa47 0, #35aa47 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff35aa47', endColorstr='#ff35aa47', GradientType=0);
+            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+            background-repeat: repeat-x;
+            border: 1px solid #359947;
+        }
+
+        .gallery .img-item {
+            position: relative;
+        }
+
+        .gallery .img-item .delete {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.7);
+            line-height: 20px;
+            text-align: center;
+            border-radius: 50%;
+            top: 25px;
+            right: 25px;
+            cursor: pointer;
+        }
+
+        .img {
+            width: 300px;
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <form action="" id="formdata">
+            <div id="upload" class="btn btn-primary">选择图片</div>
+            <div class="btn btn-success" id="uploadImg">上传</div>
+            <input id="file" type="file" multiple='multiple' multiple style="display:none">
+            <div class="gallery" id="gallery"></div>
+        </form>
+    </div>
+    <script type="text/javascript" src="vue.min.js"></script>
+    <script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                uploadImg: [],
+            },
+            mounted: function () {
+                var _this = this;
+                //图片上传
+                var files = [];
+                var that = this;
+                var flag = -1;
+                $("#upload").click(function () {
+                    $("#file").trigger("click");
+                })
+                $("#file").change(function () {
+                    var img = document.getElementById("file").files;
+                    var div = document.createElement("div");
+                    for (var i = 0; i < img.length; i++) {
+                        var file = img[i];
+                        var url = URL.createObjectURL(file);
+                        var box = document.createElement("img");
+                        var imgBox = document.createElement("div");
+                        var deleteIcon = document.createElement("span");
+                        box.setAttribute("src", url);
+                        box.className = 'img';
+
+                        imgBox.style.display = 'inline-block';
+                        imgBox.className = 'img-item';
+
+                        deleteIcon.className = 'delete';
+                        deleteIcon.innerText = 'x';
+                        deleteIcon.dataset.filename = img[i].name;
+                        flag++;
+                        imgBox.dataset.index = flag;
+
+                        imgBox.appendChild(deleteIcon);
+                        imgBox.appendChild(box);
+                        document.getElementById("gallery").appendChild(imgBox);
+                        that.files = img;
+                        $(deleteIcon).click(function () {
+                            var filename = $(this).data("filename");
+                            var deleteIndex = $(this).parent().data('index');
+                            // 索引对应对象索引
+                            var selfImg = _this.uploadImg;
+                            var arr1 = [];
+                            for (var y = 0; y < selfImg.length; y++) {
+                                var obj1 = {};
+                                if (selfImg[y].index == deleteIndex) {
+                                } else {
+                                    obj1.index = selfImg[y].index;
+                                    obj1.thumb = selfImg[y].thumb;
+                                    arr1.push(obj1);
+                                }
+                            }
+                            _this.uploadImg = arr1;
+                            $(this).parent().remove();
+                            var fileList = Array.from(that.files);
+
+                            for (var j = 0; j < fileList.length; j++) {
+                                if (fileList[j].name = filename) {
+                                    fileList.splice(j, 1);
+                                    break;
+                                }
+                            }
+                            that.files = fileList
+                            console.log('--------uploadImg-------');
+                            console.log(_this.uploadImg);
+                        })
+                        /* 接口1：图片上传接口接收参数file: (binary) 二进制的形式，file接收的是本地图片地址，
+                        返回带有域名可访问的正确图片地址，
+                        接口2：最后提交接口，后台需要传参，图片以逗号形式传
+                        */
+                        var obj = {};
+                        if (img) {
+                            var files = that.files;
+                            var uploadFile = new FormData($("#formdata")[0]);
+                            for (var i = 0; i < files.length; i++) {
+                                uploadFile.append('file', files[i]);
+                            }
+                            if ("undefined" != typeof (uploadFile) && uploadFile != null && uploadFile != "") {
+                                uploadFile.append('token', 1);
+                                $.ajax({
+                                    url: 'http://www.alfaromeocrm.com.cn/api/user/factoryMsgAndNotice/uploadImg',
+                                    type: 'POST',
+                                    data: uploadFile,
+                                    async: false,
+                                    cache: false,
+                                    contentType: false, //不设置内容类型
+                                    processData: false, //不处理数据
+                                    success: function (res) {
+                                        console.log('-----------------' + res)
+                                        console.log(uploadFile)
+                                        obj.index = flag;
+                                        obj.thumb = res.data;
+                                        _this.uploadImg.push(obj);
+                                    },
+                                    error: function () {
+                                        alert("上传失败！");
+                                    }
+                                })
+
+                            } else { }
+                        }
+                        console.log(JSON.parse(JSON.stringify(_this.uploadImg)))
+                    }
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

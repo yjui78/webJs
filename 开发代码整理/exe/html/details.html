@@ -398,14 +398,10 @@
 													<div class="star3" v-if="item.stars==2"></div>
 													<div class="star2" v-if="item.stars==1"></div>
 												</div>
-												<!-- <div class="tupianimg"> -->
 												<div class="tupianimg" v-if="item.images != ''">
 													<div class="tpikuang" v-for="(image1,indimg) in item.images">
 														<img :src="host1+image1" alt="" /></div>
 												</div>
-												<!-- <div class="tpshow"><img
-															src="http://39.97.180.149:83/zh/fastadmin/public//uploads/20201105/3c56ea2e25e0693d7935e307c9ba296d.jpg"
-															alt="" /></div> -->
 
 												<div class="huifu" v-for="(item2,index2) in item.reply">
 													<div class=""><span style="color:red;" v-if="item2.user_id==0">官方
@@ -418,18 +414,6 @@
 								</div>
 								<div class="addpinglun">
 									<textarea id="pltext"></textarea>
-									<!-- <form id="formdata" action=''> -->
-									<!-- <div class="plimage">
-										<div style="width: 100%;position: relative;">
-											<div id="upBox">
-												<div id="imgBox"></div>
-												<div id="inputBox"><input type="file" title="请选择图片" id="file" multiple
-														accept="image/png,image/jpg,image/gif,image/JPEG" />点击选择图片
-												</div>
-												<button id="btn">上传</button>
-											</div>
-										</div>
-									</div> -->
 									<form action="" id="formdata">
 										<div id="upload" class="btn btn-primary">选择图片</div>
 										<div class="btn btn-success" id="uploadImg">上传</div>
@@ -437,10 +421,8 @@
 											style="display:none">
 										<div class="gallery" id="gallery"></div>
 									</form>
-									<!-- </form> -->
 									<div class="pltj">
 										<div @click="querens" class="pws-btn pws-btn--grey" id="queren">确认</div>
-										<!-- <div onclick="querenok()" class="pws-btn pws-btn--grey" id="queren">确认</div> -->
 									</div>
 								</div>
 							</div>

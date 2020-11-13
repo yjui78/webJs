@@ -573,8 +573,10 @@
 				$(this).addClass('active').siblings().removeClass('active')
 			})
 		});
-		$(".footer").load("/footer.html", function () {
-		});
+
+		$(document).ready(function () {
+			$(".footer").load("footer.html", function () { });
+		}); 
 	</script>
 
 

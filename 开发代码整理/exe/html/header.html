@@ -2,13 +2,15 @@
 	<div class="header">
 		<div class="header_n1">
 			<div class="container">
-			<div class="disBet">
+				<div class="disBet">
 					<div class="disAlign header_n1_left">
 						<div class="languageSwitc">
 							<p class="disAlign"><img src="../img/img032.jpg"><span>中国</span></p>
 							<ul>
-								<li><a class="disAlign" href="../chinese/index.html"><img src="../img/img032.jpg"><span>中国</span></a></li>
-								<li><a class="disAlign" href="../english/index.html"><img src="../img/img033.jpg"><span>美国</span></a></li>
+								<li><a class="disAlign" href="../chinese/index.html"><img
+											src="../img/img032.jpg"><span>中国</span></a></li>
+								<li><a class="disAlign" href="../english/index.html"><img
+											src="../img/img033.jpg"><span>美国</span></a></li>
 							</ul>
 
 						</div>
@@ -36,24 +38,24 @@
 									<a href="editContact.html">个人信息</a>
 								</div>
 								<div>
-								<a href="newaddresslist.html?id=1">收货地址</a>
-							</div>
+									<a href="newaddresslist.html?id=1">收货地址</a>
+								</div>
 								<div>
 									<a href="setorder.html?id=3">全部订单</a>
 								</div>
 								<div>
 									<a href="fukuan.html?id=4">代付款</a>
 								</div>
-							<div>
+								<div>
 									<a href="fahuo.html?id=5">待发货</a>
 								</div>
 								<div>
 									<a href="shouhuo.html?id=6">待收货</a>
-							</div>
+								</div>
 							</div>
 						</span>
 						<span style="color:#ddd;cursor: pointer;" @click="loginOut"
-						v-if="infoList.length!=0">退出登录</span>
+							v-if="infoList.length!=0">退出登录</span>
 					</div>
 				</div>
 			</div>
@@ -78,17 +80,16 @@
 						<li class="active">
 							<a class="a1" href="javascript:void(0)">产品类别</a>
 							<div class="navBox navbox1">
-							    <block v-for="(item,index) in cplbList">
+								<block v-for="(item,index) in cplbList">
 									<!--<block v-for="(item1,index1) in item.two">-->
-										<div class="nav_n1" :class="index==1 || index==3?'mar-rig-0':''">
-											<h4 class="layui-card-header" style="padding: 0 15px 0 0;"
-												>
-												{{item.name}}</h4>
-											<a :href="'product.html?id='+item1.id" class="a2 layui-card-body"
-												v-for="(item1,index1) in item.two">{{item1.name}}</a>
-											
-										</div>
-										
+									<div class="nav_n1" :class="index==1 || index==3?'mar-rig-0':''">
+										<h4 class="layui-card-header" style="padding: 0 15px 0 0;">
+											{{item.name}}</h4>
+										<a :href="'product.html?id='+item1.id" class="a2 layui-card-body"
+											v-for="(item1,index1) in item.two">{{item1.name}}</a>
+
+									</div>
+
 									<!--</block>-->
 								</block>
 								<!--<block v-for="(item,index) in cplbList">-->
@@ -102,9 +103,9 @@
 								<!--		</div>-->
 								<!--	</block>-->
 								<!--</block>-->
-								
+
 								<div class="nav_n1 tt">
-								<div class="nav_n1_img"><img src="../img/img006.png"></div>
+									<div class="nav_n1_img"><img src="../img/img006.png"></div>
 									<div class="nav_n1_more"><a href="product.html">保留更多</a></div>
 								</div>
 							</div>
@@ -118,9 +119,9 @@
 										<dd v-for="(item,index) in lxList" :key="index">
 											<div class="cntet">
 												<div class="disCenter imgs"><a :href="'details.html?id='+item.id"><img
-														:src="item.figure1_image.length>3?host1+item.figure1_image:'../img/default_bg.jpg'"></a>
+															:src="item.figure1_image.length>3?host1+item.figure1_image:'../img/default_bg.jpg'"></a>
 												</div>
-											<!-- <div class="disCenter imgs"><a :href="'details.html?id='+item.id"><img :src="host1+item.figure1_image"></a></div> -->
+												<!-- <div class="disCenter imgs"><a :href="'details.html?id='+item.id"><img :src="host1+item.figure1_image"></a></div> -->
 												<div class="disCenter btns"><a
 														:href="'details.html?id='+item.id">{{item.product_name}}</a>
 												</div>
@@ -138,20 +139,20 @@
 							<div class="navBox" style="height: 0px; opacity: 0;">
 								<div class="nav_n4">
 									<dl v-for="(item,index) in dzfwList.list">
-									<dt>{{item.name}}</dt>
+										<dt>{{item.name}}</dt>
 										<dd v-for="(item1,index1) in item.two"><a
 												:href="'services.html?Id='+item1.id">{{item1.name}}</a></dd>
 									</dl>
 
 									<dl>
-									<a id="serive_img" href="">
-									<dt>定制图片</dt>
-										<!-- {{dzfwList.image}}	 -->
-										
-										<dd><img :src="host1+dzfwList.image"></dd>
-									</a>	
+										<a id="serive_img" href="">
+											<dt>定制图片</dt>
+											<!-- {{dzfwList.image}}	 -->
+
+											<dd><img :src="host1+dzfwList.image"></dd>
+										</a>
 									</dl>
-									
+
 								</div>
 							</div>
 
@@ -170,10 +171,10 @@
 									</dl>
 
 									<dl>
-                                    <a id="informationcente_img" href="">
-										<dt>定制图片</dt>
-										<dd><img :src="host1+xxzxCenter.image"></dd>
-									</a>
+										<a id="informationcente_img" href="">
+											<dt>定制图片</dt>
+											<dd><img :src="host1+xxzxCenter.image"></dd>
+										</a>
 									</dl>
 								</div>
 							</div>
@@ -272,10 +273,10 @@
 
 
 </div>
-<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="../js/index.js"></script>
-<script type="text/javascript" src="../js/vue.js"></script>
-<script type="text/javascript" src="../js/api.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/api.js"></script>
 <script>
 	new Vue({
 		el: '#header',
@@ -305,8 +306,8 @@
 				(res) => {
 					// console.log(res)
 					if (res.code == 1) {
-					this.infoList = res.data;
-				}
+						this.infoList = res.data;
+					}
 				});
 			$('#carNum').html(0)
 			//  产品种类和研究领域标题分类
@@ -326,10 +327,10 @@
 			//    // 定制服务
 			$.get(`${host}api/Service/gettype_get_Service_new`, (res) => {
 				if (res.code == 1) {
-				    
+
 					this.dzfwList = res.data;
-					$('#serive_img').attr('href',this.dzfwList.link_url);
-					
+					$('#serive_img').attr('href', this.dzfwList.link_url);
+
 				}
 			});
 			//    // 信号通道
@@ -348,7 +349,7 @@
 			$.get(`${host}api/Infocontent/gettype_get_new`, (res) => {
 				if (res.code == 1) {
 					this.xxzxCenter = res.data;
-					$('#informationcente_img').attr('href',this.xxzxCenter.link_url);
+					$('#informationcente_img').attr('href', this.xxzxCenter.link_url);
 				}
 
 			});

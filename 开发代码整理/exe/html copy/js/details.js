@@ -55,6 +55,7 @@ var app = new Vue({
         imgFile: [], //文件流
         imgName: [], //图片名字
         returnimgs: [],
+        imgUrls: [],
     },
     created: function () {
         var _this = this;
@@ -485,6 +486,17 @@ var app = new Vue({
                     } else { }
                 }
                 console.log(JSON.parse(JSON.stringify(_this.uploadImg)), '这是最后展示的图片返回')
+
+
+                var upimg = _this.uploadImg;
+                var arr3 = [];
+                if (upimg.length > 0) {
+                    for (var i = 0; i < upimg.length; i++) {
+                        arr3.push(upimg[i].thumb)
+                    }
+                    _this.imgUrls = arr3.join(',')
+                    console.log(_this.imgUrls, '所有图片逗号分开')
+                }
             }
         })
     }

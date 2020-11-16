@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <title>答题首页</title>
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store,must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <!-- css重置 -->
+    <link rel="stylesheet" href="css/reset.css" />
+
+    <!--当前页面css-->
+    <link rel="stylesheet" href="css/index.css?v=20201215" />
+
+    <!--rem.js-->
+    <script src="js/rem.js"></script>
+  </head>
+  <body>
+    <!--主体-->
+    <div id="app" v-cloak>
+      <div class="main">
+        <img src="images/enter.jpg" alt="" v-show="isStart" />
+        <div class="enter" @click="enterFn()"></div>
+        <!-- 活动规则 -->
+        <div class="rule" @click="pop.isShow=true,pop.isRuleShow=true"></div>
+        <!-- 规则弹窗 -->
+        <div class="popBox" v-show="pop.isShow">
+          <div class="rulepop" v-show="pop.isRuleShow">
+            <div
+              class="closex"
+              @click="pop.isShow=false,pop.isRuleShow=false"
+            ></div>
+          </div>
+        </div>
+        <!-- 返回 -->
+        <div class="goback" @click="gobackFn"></div>
+      </div>
+      <!-- 网页 -->
+      <div class="wap" v-show="isWap">
+        <div>
+          <i></i>
+          <p>请用微信客户端打开链接</p>
+          <span
+            style="font-size: 12px;margin-top: .5rem;display: inline-block;"
+          ></span>
+        </div>
+      </div>
+    </div>
+    <!-- js -->
+    <script src="js/vue.min.js?v=20201215"></script>
+    <script src="js/common.js?v=20201215"></script>
+    <script src="js/index.js?v=20201215"></script>
+  </body>
+</html>

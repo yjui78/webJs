@@ -81,9 +81,11 @@
 					}
 					_this.cacheArr.push(cache)
 					// 重复选择覆盖，升序排列
+						    console.log(_this.zhuan(_this.cacheArr))
 					let otheritems = [];
 					let list = {};
 					for (let i = 0; i < _this.cacheArr.length; i++) {
+
 						let element = _this.cacheArr[i].serial;
 						if (list[element]) {
 							list[element].serial = list[element].serial;
@@ -98,6 +100,7 @@
 						otheritems.push(list[i])
 					}
 					console.log(_this.zhuan(otheritems))
+					console.log(_this.temp.serial)
 					_this.submitfrom = otheritems;
 				},
 				submit() {

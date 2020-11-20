@@ -1,0 +1,118 @@
+.app {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: url(../img/my-gift-bg.jpg) no-repeat center;
+  background-size: cover;
+}
+.app .back {
+  position: absolute;
+  width: 14vw;
+  top: 3%;
+  left: 5%;
+}
+.app .back img {
+  width: 100%;
+}
+.app .game {
+  position: absolute;
+  top: 8%;
+  width: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.app .game .frequency {
+  font-size: 5vw;
+  text-align: center;
+}
+.app .game .frequency span {
+  color: #8712aa;
+}
+.app .game .game-obj {
+  height: 70vh;
+  overflow: hidden;
+}
+.app .gather-friends {
+  position: absolute;
+  width: 70%;
+  left: 50%;
+  bottom: 5%;
+  transform: translateX(-50%);
+}
+.app .mask {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+.app .mask .close {
+  position: absolute;
+  width: 14vw;
+  right: 0;
+  top: -10vw;
+}
+.app .mask .rule {
+  position: absolute;
+  width: 70%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.app .mask .rule .img {
+  width: 100%;
+}
+.app .mask .prize {
+  position: absolute;
+  width: 85%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.app .mask .prize .tips-img {
+  width: 100%;
+}
+.app .mask .prize .tips {
+  position: absolute;
+  font-size: 4.5vw;
+  color: #fff;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  white-space: nowrap;
+}
+.app .mask .prize .tips span {
+  font-weight: bold;
+  font-size: 5vw;
+}
+.app .mask .prize.run-out .share-btn {
+  color: #8712aa;
+  font-size: 5vw;
+  position: absolute;
+  background: #fff;
+  width: 70%;
+  height: 10vw;
+  line-height: 10vw;
+  left: 50%;
+  bottom: -17vw;
+  transform: translateX(-50%);
+  text-align: center;
+  font-weight: bold;
+}
+.app .mask .prize.run-out.fail .tips {
+  font-weight: bold;
+  font-size: 9vw;
+}
+#begin {
+  display: none;
+}
+#stage {
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+}

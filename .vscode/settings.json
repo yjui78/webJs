@@ -65,5 +65,8 @@
     }
   },
   "git.ignoreLimitWarning": true,
-  "liveServer.settings.port": 5502
+  "liveServer.settings.port": 5502,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

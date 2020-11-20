@@ -1,0 +1,29 @@
+[v-cloak]{
+	display: none;
+}
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+body{
+	color: #333;
+}
+img{
+	vertical-align: top;
+}
+a{
+	color: #333;
+	text-decoration: none;
+}
+li{
+	list-style: none;
+}
+input,button,textarea,select{
+	border: none;
+	background: none;
+	border-radius: 0;
+	appearance:none;
+	outline: none;
+}

@@ -22,6 +22,7 @@ let store = new Vuex.Store({
       // let { data } = await axios('/users.txt');
       let data = [{ id: 1, 'username': 'YJUI', 'password': 123456 }, { id: 2, 'username': 'zhangsan', 'password': 111111 }, { id: 3, 'username': 'lisi', 'password': 222222 }]
       // console.log(data)
+      console.log(user, 2)
       data.forEach(item => {
         if (item.username == user && item.password == password)
           commit('setUserid', item.id)

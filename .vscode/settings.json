@@ -24,9 +24,8 @@
   "prettier.singleQuote": true,
 
   // 选择 vue 文件中 template 的格式化工具
-
-  "vetur.format.defaultFormatter.html": "prettyhtml",
-
+  "vetur.format.options.useTabs": true,
+  "vetur.format.defaultFormatter.html": "prettier",
   // 显示 markdown 中英文切换时产生的特殊字符
 
   "editor.renderControlCharacters": true,

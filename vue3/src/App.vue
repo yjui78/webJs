@@ -1,6 +1,12 @@
 <template>
-  <div id="app">
-   App
-    <h1>Welcome to Your Vue.js App</h1>
-  </div>
+	<div div id="app">
+	{{$store.state}}
+		<cmp1/>
+	</div>
 </template>
+<script>
+import cmp1 from '@/components/cmp1'
+export default {
+	components:{cmp1}
+}
+</script>

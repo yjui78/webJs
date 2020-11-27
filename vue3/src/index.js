@@ -9,22 +9,24 @@ Vue.use(vueAxios, axios);
 import Vuex from 'vuex';
 Vue.use(Vuex);
 let store = new Vuex.Store({
-  state: { num: 0 },
+  state: { userID: 0 },
   mutations: {
-    setNum(state, arg) { //上边state
-      state.num = arg;
+    setUserid(state, id) {
+      state.userID = id;
     }
   },
   actions: {
-    // setNum名可以和mutations里名一样
-    aaa(context, arg) { //context对象有很多操作
-      context.commit('setNum', arg)//调mutations里setNum,
+    // login方法涉及数据交互用async异步
+    // 因为只能传一个参数，用json解构方式
+    async login({ commit }, { user, password }) {
+      // let { data } = await axios('/users.txt');
+      let data = [{ id: 1, 'username': 'YJUI', 'password': 123456 }, { id: 2, 'username': 'zhangsan', 'password': 111111 }, { id: 3, 'username': 'lisi', 'password': 222222 }]
+      // console.log(data)
+      data.forEach(item => {
+        if (item.username == user && item.password == password)
+          commit('setUserid', item.id)
+      })
     },
-    // 等同于
-    // aaa({ commit }, arg) {
-    //   commit('setNum', arg)
-    // }
-
   }
 })
 new Vue({

@@ -1,0 +1,6 @@
+VSCode不能格式化vue(template)html代码
+"vetur"插件开发vue很方便) 在右边对象中添加"vetur.format.defaultFormatter.html": "prettier",
+或    "vetur.format.defaultFormatter.html": "js-beautify-html",
+推荐用prettier
+template不要加lang=html 会不好使格式化
+

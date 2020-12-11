@@ -1,0 +1,86 @@
+{
+  "id": "2255418",
+  "name": "图标",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "551962",
+      "name": "箭头",
+      "font_class": "arrow-right",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "584247",
+      "name": "左箭头",
+      "font_class": "iconfontjiantou1",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "7708033",
+      "name": "上箭头",
+      "font_class": "shangjiantou",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "7872839",
+      "name": "下拉箭头",
+      "font_class": "xialajiantou",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "3092289",
+      "name": "展开",
+      "font_class": "zhankai",
+      "unicode": "e786",
+      "unicode_decimal": 59270
+    },
+    {
+      "icon_id": "1395870",
+      "name": "黑名单",
+      "font_class": "heimingdan",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "10268576",
+      "name": "评价记录",
+      "font_class": "pingjiajilu",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "10790128",
+      "name": "预约记录",
+      "font_class": "yyjl",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "12659565",
+      "name": "接待登记",
+      "font_class": "jiedaidengji",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "15983635",
+      "name": "管理",
+      "font_class": "weibiaoti-1",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "17815082",
+      "name": "看板",
+      "font_class": "kanban",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    }
+  ]
+}

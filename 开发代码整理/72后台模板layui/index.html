@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./style/reset.css">
+    <link rel="stylesheet" href="./page/css/common.css">
+    <link rel="stylesheet" href="./style/iconfont/iconfont.css">
+    <!-- layui -->
+    <link rel="stylesheet" href="./js/layui/css/layui.css" media="all">
+    <title>document</title>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <!-- 头部 -->
+        <div class="header__box">
+            <div class="header__warp">
+                <h1 class="logo"><span class="text">后台管理系统</span>
+                    <div class="left_open"><i title="展开左侧栏" class="iconfont">&#xe786;</i></div>
+                </h1>
+            </div>
+        </div>
+        <span class="iconfont iconzhankai"></span>
+        <div class="menu__box">
+            <el-menu v-if="routerData.length>0" :menulist.sync='routerData' @tab='tabFn'>
+            </el-menu>
+        </div>
+        <div class="page-body">
+            <!-- <keep-alive> -->
+            <router-view>
+
+            </router-view>
+            <!-- </keep-alive> -->
+        </div>
+    </div>
+</body>
+<!-- 公共脚本 -->
+<script src="./js/sea.js"></script>
+<script src="./js/sea.config.js"></script>
+<script src="./js/vue.min.js"></script>
+<script src="./js/vue-router.js"></script>
+<!-- Mint UI -->
+<!-- <link rel="stylesheet" href="./js/lib/style.css">
+<script src="./js/lib/index.js"></script> -->
+
+<!-- layui -->
+<script src="./js/layui/layui.js"></script>
+
+<!-- 页面入口 -->
+<script>
+    seajs.use(["./js/index"], function (a) {
+        Vue.router.goPath("/kanban")
+    })
+</script>
+
+</html>

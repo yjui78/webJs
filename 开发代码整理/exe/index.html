@@ -1,200 +1,56 @@
-<!DOCTYPE html>
-<html>
+<HTML>
 
 <head>
   <meta charset="UTF-8">
-  <title>test</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <link rel="stylesheet" type="text/css" href="css/lottery.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      overflow: auto;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="header">
-    <img class="head-img" src="">
-    <div class="username">欢迎您，请先登录</div>
-    <a class="btn-login">立即登录</a>
-    <a class="btn-recharge">立即充值</a>
+  <div class="box" id="container">
+    <p>防抖演示</p>
+    <p>防抖演示</p>
+    <p>防抖演示</p>
+    <p>防抖演示</p>
+    <p>防抖演示</p>
+    <p>防抖演示</p>
+    <p>防抖演示</p>
+    <p>防抖演示</p>
+    <p>防抖演示</p>
   </div>
-  <div class="left">
-    <div class="left-item">
-      <img class="left-item-img">
-      <div class="left-item-username">李****</div>
-      <div class="left-item-word">抽中奖品</div>
-      <div class="left-item-name">硬中华</div>
-    </div>
-    <div class="left-item">
-      <img class="left-item-img">
-      <div class="left-item-username">李****</div>
-      <div class="left-item-word">抽中奖品</div>
-      <div class="left-item-name">硬中华</div>
-    </div>
-    <div class="left-item">
-      <img class="left-item-img">
-      <div class="left-item-username">李****</div>
-      <div class="left-item-word">抽中奖品</div>
-      <div class="left-item-name">硬中华</div>
-    </div>
-    <div class="left-item">
-      <img class="left-item-img">
-      <div class="left-item-username">李****</div>
-      <div class="left-item-word">抽中奖品</div>
-      <div class="left-item-name">硬中华</div>
-    </div>
-  </div>
-  <div class="right">
-    <a class="right-btn">我的奖品</a>
-    <a class="right-btn">抽奖记录</a>
-    <a class="right-btn">充值记录</a>
-  </div>
-  <div class="wb-name">测试网吧</div>
-  <div class="product-list">
-    <div class="product-item">
-      <div class="product-img">
-        <ul id="ul_one">
-          <li data-id="22"><img src="http://image.fs028.cn/uploads/image/product/4/5bc6a38d998b7_thumb.jpg"></li>
-          <li data-id="33"><img src="http://image.fs028.cn/uploads/image/product/base/20170913145722976_thumb.jpg"></li>
-          <li data-id="44"><img
-              src="http://image.fs028.cn/uploads/image/product/img_list/b6d80ee56a4ae47151ae0955a3c05jpeg_thumb.jpeg">
-          </li>
-          <li data-id="52"><img
-              src="http://image.fs028.cn/uploads/image/product/img_list/066d818bff110ae45a9c99d4568c9jpeg_thumb.jpeg">
-          </li>
-          <li data-id="62"><img src="http://image.fs028.cn/uploads/image/product/base/20180208141942632_thumb.jpg"></li>
-          <li data-id="71"><img src="http://image.fs028.cn/uploads/image/product/base/20170913112057614_thumb.png"></li>
-          <li data-id="8222"><img src="http://image.fs028.cn/uploads/image/product/base/20180703082951131_thumb.jpg">
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="product-item">
-      <div class="product-img">
-        <ul id="ul_two">
-          <li><img src="http://image.fs028.cn/uploads/image/product/4/5bc6a38d998b7_thumb.jpg"></li>
-          <li><img src="http://image.fs028.cn/uploads/image/product/base/20170913145722976_thumb.jpg"></li>
-          <li><img
-              src="http://image.fs028.cn/uploads/image/product/img_list/b6d80ee56a4ae47151ae0955a3c05jpeg_thumb.jpeg">
-          </li>
-          <li><img
-              src="http://image.fs028.cn/uploads/image/product/img_list/066d818bff110ae45a9c99d4568c9jpeg_thumb.jpeg">
-          </li>
-          <li><img src="http://image.fs028.cn/uploads/image/product/base/20180208141942632_thumb.jpg"></li>
-          <li><img src="http://image.fs028.cn/uploads/image/product/base/20170913112057614_thumb.png"></li>
-          <li><img src="http://image.fs028.cn/uploads/image/product/base/20180703082951131_thumb.jpg"></li>
-        </ul>
-      </div>
-    </div>
-    <div class="product-item">
-      <div class="product-img">
-        <ul id="ul_three">
-          <li><img src="http://image.fs028.cn/uploads/image/product/4/5bc6a38d998b7_thumb.jpg"></li>
-          <li><img src="http://image.fs028.cn/uploads/image/product/base/20170913145722976_thumb.jpg"></li>
-          <li><img
-              src="http://image.fs028.cn/uploads/image/product/img_list/b6d80ee56a4ae47151ae0955a3c05jpeg_thumb.jpeg">
-          </li>
-          <li><img
-              src="http://image.fs028.cn/uploads/image/product/img_list/066d818bff110ae45a9c99d4568c9jpeg_thumb.jpeg">
-          </li>
-          <li><img src="http://image.fs028.cn/uploads/image/product/base/20180208141942632_thumb.jpg"></li>
-          <li><img src="http://image.fs028.cn/uploads/image/product/base/20170913112057614_thumb.png"></li>
-          <li><img src="http://image.fs028.cn/uploads/image/product/base/20180703082951131_thumb.jpg"></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="remain-count">（剩余次数：5）</div>
-  <a class="btn-cjgz"></a>
-  <a class="btn-kscj"></a>
-  <a class="btn-jplb"></a>
-  <a class="btn-back">返回选购商品</a>
-</body>
-
-</html>
-<script src="jquery_1.12.3_jquery.min.js"></script>
-<script>
-  var map = {};
-  var goods_id_list = [];
-
-  /*
-    var id 对象ID
-    var time 滚动间隔时间
-    var x 当前已经滚动的次数
-    var m 重复轮训次数
-    var mcount 停留在那一层
-    var fun 执行完的触发函数
-  */
-  function scrollOne(id, time, x, m, mcount, fun) {
-    var count = $(id).find('li').length;
-    if (m == '0') {
-      count = mcount;
-    }
-
-    var height = 80; /*每个item 的高度*/
-    var spe = 4; /*滚动速度*/
-    var n = 0;/*总共可以滚动多少次*/
-    n = (count - 1) * height / spe; /*轮训一次 循环循环的次数*/
-    if (x <= n) {
-      x = x + 1;
-      var top = spe * x - spe;
-      var css = {
-        top: '-' + top + 'px'
-      };
-      $(id).css(css);
-      setTimeout("scrollOne('" + id + "'," + time + "," + x + "," + m + "," + mcount + "," + fun + ")", time);
-      if (n == (x - 1) && m == '0') {
-        if (typeof fun === "function") {
-          fun();
+  <SCRIPT>
+    var throttle = function (func, delay) {
+      var timer = null; // 使用闭包，缓存变量
+      var prev = Date.now(); // 最开始进入滚动的时间
+      return function () {
+        var context = this;   // this指向window
+        var args = arguments;
+        var now = Date.now();
+        var remain = delay - (now - prev); // 剩余时间
+        clearTimeout(timer);
+        // 如果剩余时间小于0，就立刻执行
+        if (remain <= 0) {
+          func.apply(context, args);
+          prev = Date.now();
+        } else {
+          timer = setTimeout(func, remain);
         }
       }
-    } else {
-      if (m > 0) {
-        m = m - 1;
-        setTimeout("scrollOne('" + id + "'," + time + ",0," + m + "," + mcount + "," + fun + ")", time);
-      }
     }
-  }
-
-  function scroll(id, spee, goods_id, fun) {
-    var level = map[goods_id];
-    scrollOne(id, spee, 0, 5, level, fun);
-  }
-
-  /*初始化数据*/
-  function initData() {
-    var key = 1;
-    $("#ul_one li").each(function () {
-      var goods_id = parseInt($(this).data('id'));
-      map[goods_id] = key;
-      goods_id_list.push(goods_id);
-      key++;
-    });
-  }
-
-  /*打乱数组*/
-  function shuffle(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
+    function handle() {
+      console.log(Math.random());
     }
-    return array;
-  }
+    var container = document.getElementById('container')
+    container.addEventListener('scroll', throttle(handle, 1000));
+  </SCRIPT>
+</body>
 
-  /*获取中奖列表*/
-  function getPidList(zj) {
-    if (zj) {
-      return { 'one': zj, 'two': zj, 'three': zj };
-    } else {
-      goods_id_list = shuffle(goods_id_list);
-      return { 'one': goods_id_list[0], 'two': goods_id_list[1], 'three': goods_id_list[2] };
-    }
-  }
-
-  initData();
-
-  var getPidList = getPidList(0);
-  scroll('#ul_one', 2, getPidList['one']);
-  scroll('#ul_two', 6, getPidList['two']);
-  scroll('#ul_three', 9, getPidList['three'], function () { alert(2) });
-
-</script>
+</HTML>

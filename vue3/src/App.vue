@@ -1,7 +1,6 @@
 <template>
-	<div div id="app">
-	{{$store.state}}
-		<cmp1/>
+	<div div id="app">{{$store.state}}
+	<cmp1/>
 	</div>
 </template>
 <script>

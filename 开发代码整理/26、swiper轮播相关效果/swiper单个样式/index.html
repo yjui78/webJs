@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
+
+  <!-- Demo styles -->
+  <style>
+    .box {
+      width: 300px;
+      height: 200px;
+      border: 1px solid #f00;
+    }
+
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Swiper -->
+  <div id="app">
+    <div class="box">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="item,index in swiperData">{{item.name}}</div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+  <script src="js/vue2.js"></script>
+  <!-- Swiper JS -->
+  <script type="text/javascript" src="js/swiper.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        swiperData: [
+          { name: ' swiper1' },
+          { name: ' swiper2' },
+          { name: ' swiper3' },
+          { name: ' swiper4' }
+        ],
+        sersonlist: {
+          category: '',
+          info: '',
+          infos: '',
+          pinglun: '',
+        }
+      },
+      created() {
+      },
+      methods: {
+      },
+      mounted: function () {
+        setTimeout(function () {
+          var swiper = new Swiper('.swiper-container', {
+            loop: true,	 	      	//为 true循环
+            autoplay: true,     	//为 true自动播放到下一张
+            init: true,  		      //为true自动执行，不用调用
+            autoplay: {
+              disableOnInteraction: false,   //用户滑动后是否禁止自动播放
+            },
+            pagination: {
+              el: '.swiper-pagination',
+            },
+          });
+        }, 10)
+      }
+
+    })
+  </script>
+</body>
+
+</html>

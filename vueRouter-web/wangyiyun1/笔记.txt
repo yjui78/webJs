@@ -1,0 +1,58 @@
+开发此项目需要知道：
+1、安装axios：安装-可直接用axios也可以用vue-axios
+  //vue-axios用不用都行看自己，vue-axiox是插件要vue.use
+  命令：yarn add axios vue-axios     
+    yarn add vue-router
+2、入口main.js引入用的router, axios  vue-axios
+  Vue.use(vueAxios, axios)//axios是给vueAxios的参数
+
+3、本地服务开启 运行c:server/servec ,访问：http://localhost:5000/datas.json
+c:/server/datas.json
+字符串必须左右是双引号，单引号不行
+
+4、css引入  @import '../assets/css/main.css'; 或main.js中import './assets/css/main.css';
+5、运行:yarn run serve
+
+
+遇到的问题：
+到处用的弄成个组件
+安装axios与vue-axios不要开其它run运行
+methods,watch里可以用async loadData(){}
+async created(){await this.loadData(){{}}}
+list路由id变了detail里数据要变，这时监听路由this.$route.parame.id
+
+1、设默认路由显示:
+ this.list是接口数组数据里边有id
+ 判断：if(!this.$route.params.id){
+        if(this.list.length>0){
+          this.setCur(this.list[0])
+        }
+    }
+ 设置：
+ // 设默认路由显示
+setCur(){
+  this.$router.push({name:'music',params:{
+        id:this.list[0].id
+  }})
+}
+2、时长
+//  duration时间200分钟转能看懂的格式02:10,调用：{{time(list.duration)}}
+ methods:{
+   time(t){
+     function toDou(n){//补0
+       return n<10?`0${n}`:n;
+     }//200->3:20
+     return toDou((Math.floor(t/60))+':'+toDou(t%60));
+   }
+ },
+ 3、监听路由
+   watch:{
+    data:{
+      handler(){
+        if(!this.$route.params.id){
+          //你的操作
+        }
+      },
+      immediate: true,//初始加载调用看有没有路由，没有默认第一个
+    }
+  },

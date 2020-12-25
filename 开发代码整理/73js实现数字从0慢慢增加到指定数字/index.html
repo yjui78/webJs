@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1 user-scalable=0"/>
+    <title>2014-4-29</title>
+    <style type="text/css">
+			#curNum,#moneyNum{
+				padding:0.3em;
+				border: rgba(14,250,248,1) solid 2px;
+				font-size: 18px;
+				text-align: center;
+			}
+		</style>
+</head>
+<body>
+    <div id="app">
+  <h5 style="text-align: center;font-weight: bold;">当月通行次数</h5>
+  <div id="curNum" class="col-sm-12" >
+    <div class="p_value">{{rate}}%</div>
+  </div></div>
+</body>
+<script src='jquery.js'></script>
+<script src="vue2.js"></script>
+<script>
+var app = new Vue({
+    el:'#app',
+    data:{
+        i:0,
+        rate:'',
+        timer:null,
+    },
+    methods:{
+        addNum() {
+			var _this = this;
+            var time = 1;
+            var curNum =89;
+			if (_this.i < curNum) {
+				_this.rate = ++_this.i;
+				_this.timer = setTimeout(function () {
+					_this.addNum();
+				}, time);
+			} else {
+				clearTimeout(_this.timer);
+			}
+		},
+    },
+    mounted: function () {
+        this.addNum();
+    }
+})
+
+</script>
+</html>

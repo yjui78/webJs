@@ -1,0 +1,255 @@
+* {
+	border: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+:root {
+	--transDur: 0.2s;
+	font-size: calc(16px + (32 - 16)*(100vw - 320px)/(2560 - 320));
+}
+body, button {
+	font: 1em/1.5 "B612 Mono", monospace;
+}
+body, .counter__digit-window {
+	display: flex;
+}
+body {
+	background: #e3e4e8;
+	display: flex;
+	height: 100vh;
+}
+.counter {
+    margin: 20% auto;
+    position: relative;
+    width: 100px;
+}
+/* .counter button {
+	cursor: pointer;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-tap-highlight-color: transparent;
+} */
+.counter button:focus {
+	outline: transparent;
+}
+.counter button::-moz-focus-inner {
+	border: 0;
+}
+/* .counter__clip, .counter__clip:before, .counter__clip:after,
+.counter__body, .counter__body:before, .counter__body:after,
+.counter__clicker-hole,
+.counter__clicker, .counter__clicker:before, .counter__clicker:after,
+.counter__digit-frame, .counter__digit-frame:before,
+.counter__digit-window:before,
+.counter__knob, .counter__knob:before {
+	position: absolute;
+}
+.counter__clip:before, .counter__clip:after,
+.counter__body:before, .counter__body:after,
+.counter__clicker:before, .counter__clicker:after,
+.counter__digit-frame:before,
+.counter__digit-window:before,
+.counter__knob:before {
+	content: "";
+	display: block;
+} */
+.counter__clip {
+	top: -1em;
+	left: -1em;
+	width: 7em;
+	height: 9em;
+	transform: rotate(-2deg);
+	transform-origin: calc(100% - 0.375em) 0.375em;
+}
+.counter__clip:before, .counter__clip:after {
+	background-color: #17181c;
+	top: 0;
+	left: 0;
+}
+/* .counter__clip:before {
+	background-image:
+		radial-gradient(0.25em 10em at 25% 30%,#fff 40%,#fff0 50%),
+		radial-gradient(0.2em 12em at 70% 20%,#fff 40%,#fff0 50%),
+		radial-gradient(0.75em 9em at 50% 25%,#8f95a300 40%,#8f95a3 50%);
+	border-radius: 0.375em;
+	box-shadow: -0.1em 0 0.2em #454954 inset;
+	width: 0.75em;
+	height: 100%;
+} */
+/* .counter__clip:after {
+	background-image:
+		radial-gradient(0.25em 1em at 2.5% 100%,#fff 40%,#fff0 50%),
+		radial-gradient(1.25em 0.3em at 14% 100%,#fff 40%,#fff0 50%),
+		radial-gradient(3em 0.1em at 22% 40%,#8f95a3 40%,#8f95a300 50%),
+		radial-gradient(2em 0.15em at 25% 70%,#8f95a3 40%,#8f95a300 50%),
+		radial-gradient(2em 0.2em at 38% 50%,#fff 40%,#fff0 50%),
+		radial-gradient(2.5em 0.25em at 53% 70%,#fff 40%,#fff0 50%);
+	border-radius: 0.375em 0.375em 0.375em 0;
+	box-shadow: 0 0.2em 0.2em #8f95a3 inset;
+	width: 100%;
+	height: 0.75em;
+} */
+/* .counter__body {
+    width: 11em;
+} */
+/* .counter__body:after {
+	background: linear-gradient(#454954 5.25em,#0000 5.25em 11.75em,#8f95a3 11.75em);
+	top: 0;
+	left: 6.9em;
+	width: 1px;
+	height: 100%;
+	z-index: 2;
+}
+.counter__clicker-hole {
+	background: #000;
+	border-radius: 0.25em;
+	top: 2em;
+	left: calc(50% - 1.375em);
+	width: 2.75em;
+	height: 1.25em;
+	z-index: 3;
+} */
+.counter__clicker {
+	background:
+		radial-gradient(100% 100% at center,#8f95a3 40%,#8f95a300 45% 47%,#818897 50%),
+		linear-gradient(25deg,#fff 45%,#454954 55%);
+	border-radius: 50%;
+	bottom: 1.25em;
+	left: -0.2em;
+	transition: transform 0.1s ease-in-out;
+	width: 3.5em;
+	height: 3.5em;
+}
+/* .counter__clicker:before, .counter__clicker:after {
+	background:
+		linear-gradient(90deg,#fff 5%,#fff0 15% 85%,#fff 95%),
+		linear-gradient(#8f95a3 15%,#515562 35%,#818897 50% 70%,#c7cad1 80%);
+	left: calc(50% - 1em);
+	transition: all 0.1s linear;
+	width: 2em;
+	height: 1.25em;
+} */
+/* .counter__clicker:before {
+	box-shadow: 0 0.5em 0 #515562;
+	top: calc(100% - 0.5em);
+}
+.counter__clicker:after {
+	box-shadow: 0 0.5em 0 #515562;
+	filter: blur(1px);
+	-webkit-filter: blur(1px);
+	top: calc(100% + 1.75em);
+	opacity: 0.4;
+	transform: rotate(180deg);
+} */
+.counter__clicker:active {
+	transform: translateY(0.5em);
+}
+.counter__clicker:active:before, .counter__clicker:active:after {
+	box-shadow: 0 0 0 #515562;
+}
+.counter__clicker:active:after {
+	transform: translateY(-1em) rotate(180deg);
+}
+.counter__digit-frame:before, .counter__digit-window:before {
+	width: 100%;
+	height: 100%;
+}
+.counter__digit-frame:before {
+	box-shadow:
+		0 0.375em 0 #5c6270 inset,
+		0 -0.375em 0 #5c6270 inset;
+	pointer-events: none;
+}
+.counter__digit-window {
+	background: #17181c;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+	height: 3em;
+	z-index: -1;
+}
+/* .counter__digit-window:before {
+	background: linear-gradient(#8f95a300 25%,#8f95a33f,#8f95a300 75%);
+	z-index: 1;
+} */
+.counter__digit-reel {
+	background: #23252a;
+	margin: 0 0.125em;
+	transition: transform var(--transDur) ease-in-out;
+	height: 33em;
+	width: 1.5em;
+}
+.counter__digit-reel--0 {
+	animation: backToZero var(--transDur) ease-in-out;
+	transition: none;
+}
+.counter__digit-reel--1 {
+	transform: translateY(-3em);
+}
+.counter__digit-reel--2 {
+	transform: translateY(-6em);
+}
+.counter__digit-reel--3 {
+	transform: translateY(-9em);
+}
+.counter__digit-reel--4 {
+	transform: translateY(-12em);
+}
+.counter__digit-reel--5 {
+	transform: translateY(-15em);
+}
+.counter__digit-reel--6 {
+	transform: translateY(-18em);
+}
+.counter__digit-reel--7 {
+	transform: translateY(-21em);
+}
+.counter__digit-reel--8 {
+	transform: translateY(-24em);
+}
+.counter__digit-reel--9 {
+	transform: translateY(-27em);
+}
+.counter__digit {
+	color: #c7cad1;
+	font-size: 2em;
+	text-align: center;
+}
+.counter__knob {
+    top: 0;
+    left: 12em;
+    width: 4em;
+    height: 4em;
+    background: #f00;
+}
+/* .counter__knob:before {
+	background: linear-gradient(#454954 25%,#45495400 25%) 0 0 / 100% 0.4em repeat-y;
+	border-radius: inherit;
+	top: 0;
+	left: 0.75em;
+	width: calc(100% - 0.75em);
+	height: 100%;
+} */
+.counter__knob:active:before {
+	animation: twist var(--transDur) ease-in-out;
+}
+.counter__sr {
+	clip: rect(1px,1px,1px,1px);
+	display: inline-block;
+	overflow: hidden;
+	position: absolute;
+	width: 1px;
+	height: 1px;
+}
+
+/* Animations */
+@keyframes twist {
+	from { background-position: 0 0; }
+	to { background-position: 0 -1.2em; }
+}
+@keyframes backToZero {
+	from { transform: translateY(-27em); }
+	to { transform: translateY(-30em); }
+}

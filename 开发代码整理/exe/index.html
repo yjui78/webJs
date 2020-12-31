@@ -1,56 +1,40 @@
 <HTML>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <style>
-    .box {
-      width: 200px;
-      height: 200px;
-      overflow: auto;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .img_wrap {
+            width: 400px;
+            height: 600px;
+            border: 1px dashed #ccc;
+            text-align: center;
+        }
+
+        .img_wrap p {
+            width: 400px;
+            height: 600px;
+            line-height: 600px;
+            /* 行高等于高度 */
+        }
+
+        .img_wrap p img {
+            vertical-align: middle;
+            border: 1px solid #ccc;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="box" id="container">
-    <p>防抖演示</p>
-    <p>防抖演示</p>
-    <p>防抖演示</p>
-    <p>防抖演示</p>
-    <p>防抖演示</p>
-    <p>防抖演示</p>
-    <p>防抖演示</p>
-    <p>防抖演示</p>
-    <p>防抖演示</p>
-  </div>
-  <SCRIPT>
-    var throttle = function (func, delay) {
-      var timer = null; // 使用闭包，缓存变量
-      var prev = Date.now(); // 最开始进入滚动的时间
-      return function () {
-        var context = this;   // this指向window
-        var args = arguments;
-        var now = Date.now();
-        var remain = delay - (now - prev); // 剩余时间
-        clearTimeout(timer);
-        // 如果剩余时间小于0，就立刻执行
-        if (remain <= 0) {
-          func.apply(context, args);
-          prev = Date.now();
-        } else {
-          timer = setTimeout(func, remain);
-        }
-      }
-    }
-    function handle() {
-      console.log(Math.random());
-    }
-    var container = document.getElementById('container')
-    container.addEventListener('scroll', throttle(handle, 1000));
-  </SCRIPT>
+    <!-- <div class="img_wrap">
+        　　<img src="https://faw-vw.ftms-wechat.com/Public/Uploads/202101/CrowdFunding/bucket/1.png">
+    </div> -->
+    <div class="img_wrap">
+        <p><img style="width:400px;"
+                src="https://faw-vw.ftms-wechat.com/Public/Uploads/202101/CrowdFunding/bucket/1.png"></p>
+    </div>
 </body>
 
 </HTML>

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>排序</title>
+    <meta charset="utf-8" />
+
+    </script>
+</head>
+
+<body>
+    <div id="app">
+
+    </div>
+
+
+    <script>
+        function selectSort(arr) {
+            var min, temp;
+            for (var i = 0; i < arr.length - 1; i++) {
+                min = i;
+                for (var j = i + 1; j < arr.length; j++) {
+                    if (arr[j] < arr[min]) {
+                        min = j;
+                    }
+                }
+                temp = arr[i];
+                arr[i] = arr[min];
+                arr[min] = temp;
+
+            }
+            return arr;
+        }
+        document.getElementById('app').innerHTML = selectSort([6, 1, 2, 4, 3, 5])
+        console.log(selectSort([6, 1, 2, 4, 3, 5]))
+    </script>
+</body>
+
+</html>

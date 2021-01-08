@@ -1,0 +1,66 @@
+<HTML>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <h2 v-red.aaa="color">color</h2>
+        <h2 v-fontsize="'36px'">fontsize</h2>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        function checkEquipment() {
+            var output = {};
+            console.log(navigator.userAgent)
+            if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+                output['ios'] = true;
+            } else if (
+                navigator.userAgent.match(/android/i)) {
+                output['android'] = true;
+            } else if (navigator.userAgent.match(/windows/i)) {
+                output['windows'] = true;
+            }
+            return output;
+        };
+        console.log(checkEquipment()) /
+            // 全局指令
+            Vue.directive('red', {
+                //常用。元素绑定指令时触发一次，适合初始化。el是指令加谁身上
+                // binding里边各种信息
+                bind(el, binding) {
+                    console.log(binding)
+                    //binding.value 指令参数，是v-red="color"中color变量值
+                    //binding.modifiers 指令修饰符，v-red.aaa中aaa
+                    el.style.background = '#0f0';
+                },
+                // 元素插入页面时触发
+                inserted() {},
+                // 节点更新时触发 
+                update() {},
+                // 元素及子元素都更新的时候
+                componentUpdate() {}
+            })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                color: "#f00"
+            },
+            // 局部指令
+            directives: {
+                'fontsize': {
+                    bind(el, val) {
+                        el.style.fontSize = val.value
+                    }
+                }
+            },
+        })
+    </script>
+</body>
+
+</HTML>

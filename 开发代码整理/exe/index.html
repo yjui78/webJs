@@ -6,35 +6,69 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        .img_wrap {
-            width: 400px;
-            height: 600px;
-            border: 1px dashed #ccc;
-            text-align: center;
+        .cont {
+            display: tabel
         }
 
-        .img_wrap p {
-            width: 400px;
-            height: 600px;
-            line-height: 600px;
-            /* 行高等于高度 */
+        .left {
+            display: table-cell;
+            border: 1px solid #ff0;
         }
 
-        .img_wrap p img {
-            vertical-align: middle;
-            border: 1px solid #ccc;
+        .right {
+            width: 200px;
+            border: 1px solid #f00;
         }
     </style>
 </head>
 
 <body>
-    <!-- <div class="img_wrap">
-        　　<img src="https://faw-vw.ftms-wechat.com/Public/Uploads/202101/CrowdFunding/bucket/1.png">
-    </div> -->
-    <div class="img_wrap">
-        <p><img style="width:400px;"
-                src="https://faw-vw.ftms-wechat.com/Public/Uploads/202101/CrowdFunding/bucket/1.png"></p>
+    <div class="cont" id="app">
+        <div class="left">left</div>
+        <div class="right">right</div>
+        <a href="https://baidu.com" @click.prevent=''>按钮</a>
     </div>
 </body>
+<script src='vue2.js'></script>
+<script src="jquery_1.12.3_jquery.min.js"></script>
+<script>
+    // var arr = [1, 2, 3, 4, 5]
+    // arr.map(function (item, index, arr) {
+    //     // return `新值--${item}`
+    //     item + 1
+    // })
+    // // console.log(newArr)
+    // console.table(arr)
+    // var lessons = [{
+    //         title: 'css',
+    //         category: '布局'
+    //     },
+    //     {
+    //         title: 'js',
+    //         category: '功能'
+    //     },
+    //     {
+    //         title: 'img',
+    //         category: '图片'
+    //     },
+    // ]
+    // var newLessons = lessons.map(function (value) {
+    //     return {
+    //         title: value.title,
+    //         category: value.category,
+    //         click: 100
+    //     }
+    // })
+    // console.log(newLessons)
+    // console.log(lessons)
+    var arr = [1, 2, 3, 4, 5]
+    var flag = arr.every(function (item, index, arr) {
+        if (item === 3) {
+            return true
+        }
+        console.log(item)
+    })
+    console.log(flag)
+</script>
 
 </HTML>

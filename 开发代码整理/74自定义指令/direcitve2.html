@@ -1,0 +1,54 @@
+<HTML>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <div id="app">
+        <h2 v-color="color">color</h2>
+        <h2 v-fontsize="'80px'">fontsize</h2>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        // 全局指令
+        Vue.directive('color', {
+            // bind:指令绑定时触发;el元素,val传的值
+            bind(el, val) {
+                // el：<h2 style="color: red;">color</h2>
+                // val：{name: "color", rawName: "v-color", value: "red", expression: "color", modifiers: {…}, …}
+                // 写要做的事情
+                el.style.color = val.value;
+            },
+            // 元素插入页面时触发
+            inserted() {},
+            // 节点更新时触发 
+            update() {}
+        })
+        Vue.prototype.a = 222;
+        var app = new Vue({
+            el: '#app',
+            data: {
+                color: 'red'
+            },
+            // 局部指令
+            directives: {
+                'fontsize': {
+                    bind(el, val) {
+                        el.style.fontSize = val.value
+                    }
+                }
+            },
+            mounted: function () {
+                alert(this.a)
+            }
+        })
+    </script>
+</body>
+
+</HTML>

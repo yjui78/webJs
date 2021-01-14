@@ -6,69 +6,36 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        .cont {
-            display: tabel
-        }
 
-        .left {
-            display: table-cell;
-            border: 1px solid #ff0;
-        }
-
-        .right {
-            width: 200px;
-            border: 1px solid #f00;
-        }
     </style>
 </head>
 
 <body>
     <div class="cont" id="app">
-        <div class="left">left</div>
-        <div class="right">right</div>
-        <a href="https://baidu.com" @click.prevent=''>按钮</a>
+        <input type="text ">
+        <input type="button" id="input" value="提交">
     </div>
 </body>
 <script src='vue2.js'></script>
 <script src="jquery_1.12.3_jquery.min.js"></script>
+
 <script>
-    // var arr = [1, 2, 3, 4, 5]
-    // arr.map(function (item, index, arr) {
-    //     // return `新值--${item}`
-    //     item + 1
-    // })
-    // // console.log(newArr)
-    // console.table(arr)
-    // var lessons = [{
-    //         title: 'css',
-    //         category: '布局'
-    //     },
-    //     {
-    //         title: 'js',
-    //         category: '功能'
-    //     },
-    //     {
-    //         title: 'img',
-    //         category: '图片'
-    //     },
-    // ]
-    // var newLessons = lessons.map(function (value) {
-    //     return {
-    //         title: value.title,
-    //         category: value.category,
-    //         click: 100
-    //     }
-    // })
-    // console.log(newLessons)
-    // console.log(lessons)
-    var arr = [1, 2, 3, 4, 5]
-    var flag = arr.every(function (item, index, arr) {
-        if (item === 3) {
-            return true
+    document.querySelector('#input').addEventListener('click', debounce(submit), false)
+
+    function submit() {
+        console.log(1)
+    }
+
+    function debounce(fn) {
+        var timer = null
+        if (timer) clearTimeout(timer)
+        return function () {
+            timer = setTimeout(function () {
+                fn()
+            }, 1000)
         }
-        console.log(item)
-    })
-    console.log(flag)
+
+    }
 </script>
 
 </HTML>

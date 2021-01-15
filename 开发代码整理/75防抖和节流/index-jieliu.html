@@ -1,0 +1,40 @@
+<HTML>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="cont" id="app">
+        <input type="text ">
+        <input type="button" id="input" value="提交">
+    </div>
+</body>
+<script>
+    document.querySelector('#input').addEventListener('click', throttle(submit, 2000), false)
+
+    function submit() {
+        console.log(1)
+    }
+
+    function throttle(fn, delay) {
+        var begin = 0;
+        // cur当前时间是越来越大的
+        return function () {
+            var cur = new Date().getTime(); //点击时时间
+            console.log(cur + '-' + begin, cur - begin)
+            // 只有大于2000才执行这，第一次为0时一定大于2000，第二次begin是第一次的cur,间隔大于2000时重新赋值begin
+            if (cur - begin > delay) {
+                console.log('大于-可以触发了')
+                fn.apply(this, arguments)
+                begin = cur //记录上次时间与这次时间比较有没有2S
+            }
+
+        }
+    }
+</script>
+
+</HTML>

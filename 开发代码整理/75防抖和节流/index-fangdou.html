@@ -1,0 +1,65 @@
+<HTML>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="cont" id="app">
+        <input type="text ">
+        <input type="button" id="input" value="提交">
+    </div>
+</body>
+<script>
+    document.querySelector('#input').addEventListener('click', debounce(submit, 3000), false)
+    // document.querySelector('#input').addEventListener('click', submit, false) //submit(){this指button点击事件} 
+    function submit() {
+        console.log(1) // ajax数据
+    }
+    // 希望第一次点击直接触发(但这里中间也是3S的间隔)， 并且在3S内将多次触发变成一次触发，
+    // 优化后的（ 采用这种方式）
+    function debounce(fn, timer) {
+        let t = null;
+        return function () {
+            var firstClick = !t;
+            if (t) clearTimeout(t);
+            if (firstClick) {
+                fn.apply(this, arguments)
+            }
+            t = setTimeout(() => {
+                t = null;
+            }, timer)
+        }
+    }
+    // 没优化之前的：这里每点击一次都需要等待3S中才有响应
+    /* function debounce(fn, timer) {
+        let t = null;
+        return function () {
+            if (t) clearTimeout(t);
+            t = setTimeout(() => {
+                fn.apply(this, arguments)
+            }, timer)
+        }
+    }
+ */
+
+    /*调用的两种方式相关说明
+            document.querySelector('#input').addEventListener('click', submit, false)
+
+            这种submit调用没()的点击时才触发submit函数。这里传e直接在function submit(e){}可以接收，但
+            document.querySelector('#input').addEventListener('click', debounce(submit, 1000), false)
+
+
+            debounce()这种有参数有()就直接调用了所以要加上return，这样就返回return里的函数了。当前事件input可以这样传return function(e){fn(e)}但当多个参数时怎么办，所以fn(e)这种方式不好。所以用apply改变下当前this的指向 ，因为是箭头函数所以this指向就是外层的input，多个参数用arguments即可：fn.apply(this,arguments);
+            t = setTimeout(() => { //箭头函数this指向外边函数所指向的this这里是return函数指向input，因为它是点击事件调取的，所以是input
+            t = setTimeout(function () { //this指向window
+            */
+</script>
+
+</HTML>

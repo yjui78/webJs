@@ -6,7 +6,7 @@
 2、入口main.js引入用的router, axios  vue-axios
   Vue.use(vueAxios, axios)//axios是给vueAxios的参数
 
-3、本地服务开启 运行c:server/servec ,访问：http://localhost:5000/datas.json
+3、本地服务开启 运行c:server/serve ,访问：http://localhost:5000/datas.json
 c:/server/datas.json
 字符串必须左右是双引号，单引号不行
 
@@ -20,6 +20,8 @@ c:/server/datas.json
 methods,watch里可以用async loadData(){}
 async created(){await this.loadData(){{}}}
 list路由id变了detail里数据要变，这时监听路由this.$route.parame.id
+
+serve方法运行不了就安装npm install -g serve
 
 1、设默认路由显示:
  this.list是接口数组数据里边有id
@@ -56,3 +58,17 @@ setCur(){
       immediate: true,//初始加载调用看有没有路由，没有默认第一个
     }
   },
+
+
+
+
+
+
+// {
+        //   path: '/repository',
+        //   name: 'repository',
+        //   meta: {
+        //     requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+        //   },
+        //   component: Repository
+        // },

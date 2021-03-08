@@ -1,21 +1,20 @@
 <template>
 <div>
- {{name}}
+   <C/>
 </div>
 </template>
 <script>
-import Public from '../public'
+import C from '@/components/C';
   export default{
-     data() {
-      return {
-        name: '默认值'
-      };
+      components: {C},
+    data(){
+      return{
+       
+      }
     },
-     mounted(){
-      Public.$on('givedata', (info) => {
-        this.name = info ;
-      });
-    }
+   methods:{
+    
+   }
   }
 </script>
 <style lang="css" scoped></style>

@@ -1,11 +1,16 @@
 <template>
-	<div div id="app">{{$store.state}}
-	<cmp1/>
+	<div div id="app">
+        <A/>
 	</div>
 </template>
 <script>
-import cmp1 from '@/components/cmp1'
+import A from '@/components/A';
 export default {
-	components:{cmp1}
-}
+    provide(){
+        return {
+            name:'我是父组件来的'
+        }
+    },
+	components: { A},
+};
 </script>

@@ -1,68 +1,58 @@
-<HTML>
+<html>
+	<head>
+		<meta charset="UTF-8" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
+		<meta
+			name="viewport"
+			content="initial-scale=1,maximum-scale=1, minimum-scale=1"
+		/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>例子</title>
+       
+        <style>
+           div {
+               width:200px;height:200px;display:inline-block;background:#f00;
+           }
 
-    </style>
-</head>
+           span {
+               width:100px;height:100px;display:inline-block;background:#0f0;
+           }
 
-<body>
-    <div class="cont" id="app">
-        <input type="text ">
-        <input type="button" id="input" value="提交">
-    </div>
-</body>
-<script src='vue2.js'></script>
-<script src="jquery_1.12.3_jquery.min.js"></script>
+        </style>
+	</head>
 
-<script>
-    /*submit没()点击才触发对应的函数。这里传e直接在function submit(e){}可以接收，但放开debounce在return function(e){fn(e)}e传给submit这样也可以，但不会这个传fn(e)这种
-     如debounce(submit)里直接加个fn()相当于debounce(submit)是页加载同步执行的不用点击直接输出1，所以加return function(){}函数用来点击在调用返回用的，
-    
-    debounce传参数个数不确定的情况下不适合用形参传，这里用arguments,传一个arguments[0],传多个fn.apply(this,arguments)
-    apply中this如null外边submit中this就是window了,所以这里传apply(this)是外边return函数的this指input
-    
-    希望第一次点击直接触发，并且在1S内将多次触发变成一次触发
-    
-    
-    */
-    document.querySelector('#input').addEventListener('click', debounce(submit, 3000), false)
+	<body>
+		<div id="app">
+          <div id='div'>
+              <span id='span'>
+                  <input type="button"  value='button' id='btn'>
+              </span>
+          </div>
+		</div>
+	</body>
+	<script src="http://cc.text91.top/assets/addons/wwh/js/jquery.min.js"></script>
 
-    // document.querySelector('#input').addEventListener('click', submit, false) //submit(){this指button点击事件} 
+	<script>
+       var ajaxTimeoutTest=$.ajax({
 
-    function submit() {
-        console.log(1)
-        console.log(this)
-    }
+    　　url:'https://jetta.faw-vw.com/jetta/index.php?act=dealerservice&op=querydealerinfo',//请求地址
 
-    function debounce(fn, timer) {
-        let t = null;
-        return function () {
-            if (t) clearTimeout(t);
-            t = setTimeout(() => {
-                fn.apply(this, arguments)
-            }, timer)
-        }
-    }
+    　　timeout:100,//超时时间设置， 单位毫秒
 
+    　　type:'post',//get或post
 
-    // function debounce(fn, timer) {
-    //     let t = null;
-    //     return function () {
-    //         var firstClick = !t;
-    //         if (t) clearTimeout(t);
-    //         if (firstClick) {
-    //             fn.apply(this, arguments)
-    //         }
-    //         t = setTimeout(() => {
-    //             t = null;
-    //         }, timer)
-    //     }
-    // }
-</script>
+    　　data :{"tenantId":"3","provinceCode":"110000","cityCode":"110000"},  //请求所传参数，json格式
+    　　dataType:'json',//返回的数据格式
+    　　success:function(data){ //请求成功的回调函数
+    　　　　alert("成功");
+    　　},
+    　　complete : function(XMLHttpRequest,status){ //请求完成后最终执行参数
+    　　　　if(status=='timeout'){//超时,status还有success,error等值的情况
+    // 　　　　　 ajaxTimeoutTest.abort();
+    　　　　　  alert("超时");
+    　　　　}
+    　　}
 
-</HTML>
+    })
+	</script>
+</html>

@@ -7,20 +7,20 @@ Vue.use(vueAxios, axios);
 import Vuex from 'vuex';
 Vue.use(Vuex);
 var store = new Vuex.Store({
-  state: { num: 0 },
-  mutations: {
-    setNum(state, arg) {
-      state.num = arg;
-    }
-  },
-  actions: {
-    aaa(context, arg) {
-      context.commit('setNum', arg)
+	state: { num: 0 },
+	mutations: {
+		setNum(state, arg) {
+			state.num = arg;
+		},
+	},
+	actions: {
+		aaa(context, arg) {
+			context.commit('setNum', arg);
+		},
+	},
+});
 
-    }
-  }
-})
 new Vue({
-  store,
-  render: h => h(App),
-}).$mount('#app')
+	store,
+	render: (h) => h(App),
+}).$mount('#app');

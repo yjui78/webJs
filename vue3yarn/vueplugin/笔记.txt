@@ -1,0 +1,55 @@
+插件：
+1、VUE全局成员：在vue上加东西
+Vue.$set
+Vue.a=12
+2、实例成员：prototype原型上加
+Vue.prototype.$message = function(msg) {
+    alert(msg);
+};
+this$router
+this.$store
+
+知识点：
+如用webpack打包的项目中是不能在代码中直接写组件带有template的，因为webpack为了减少体积在真正运行时不带编译器,
+如想用要编译打包好引，elementui也是编译打包好的也是为了能在webpack 里工作。
+(Vue.extend({})这是动态组件写出来的，之前引的完整vue可以这样写，现在用webpack不能漏template)
+<button type='button' @click="fn">按钮</button>
+//现在在webpack中会报错，要把这代码打包好在引入就能用了
+let div1 = Vue.extend({
+    template:`<div>abc</div>`
+})
+methods:{
+    fn(){
+        let oDiv = new div1();
+        oDiv.$mount()
+        console.log(oDiv,1)
+    }
+}
+
+3、自定义指令
+v-bind
+v-model
+v-on
+
+Vue.directive('red', {
+	// 元素绑定指令——触发一次
+	bind(el) {
+		console.log('red');
+		el.style.background = '#f00';
+	},
+	// 以下都不常用
+	// 绑定指令的元素插入到父级
+	inserted() {},
+	// 元素更新的时候；可以用元素本身
+	update() {},
+	// 当元素及子元素都更新的时候；可用元素本身和子元素
+	componentUpdated() {},
+	unbind() {},
+});
+
+4、过滤器-转换数据在输出
+5、vue.component
+6、mixin-混入
+用的极少-作用动态注入所有 vue实例包含组件，vue调式工具用它做的，输出临时日志
+
+

@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>keep-alive</title>
+    <style></style>
+</head>
+
+<body>
+    <div class="cont" id="app">
+        <button @click="changeCom">按钮</button>
+
+        <keep-alive>
+            <component :is="com"></component>
+        </keep-alive>
+    </div>
+</body>
+<script src='jquery.min.js'></script>
+
+<script>
+    const p = new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'data1.json',
+            type: 'GET',
+            data: {},
+            success: function (res) {
+                resolve(res)
+            },
+            error: function (err) {
+                reject(err);
+            }
+        })
+    }).then(data => {
+        let {
+            id
+        } = data;
+        console.log(id)
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: 'data2.json',
+                type: 'GET',
+                data: {},
+                success: function (res) {
+                    resolve(res)
+                },
+                error: function (err) {
+                    reject(err);
+                }
+            })
+        })
+    }).then(data => {
+        let {
+            username
+        } = data;
+        console.log(username)
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: 'data3.json',
+                type: 'GET',
+                data: {},
+                success: function (res) {
+                    resolve(res)
+                },
+                error: function (err) {
+                    reject(err);
+                }
+            })
+        })
+    }).then(data => {
+        let {
+            email
+        } = data;
+        console.log(email)
+    })
+</script>
+
+</html>

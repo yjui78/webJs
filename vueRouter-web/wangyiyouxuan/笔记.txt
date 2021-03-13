@@ -1,0 +1,281 @@
+本课程所用实例列表
+接口1-网易严选
+http://api.zhinengshe.com/10001-you163/
+ 
+接口2-京东
+http://api.zhinengshe.com/10002-jd/
+ 
+接口3、4-淘宝v1、v2
+http://api.zhinengshe.com/10003-taobao-simple/
+http://api.zhinengshe.com/10004-taobao/
+
+API key的使用
+
+ 
+key ebf6f58458de4b8fbad3afadd8c8a706
+
+----------------------------
+知识点1：
+1、搜索焦点：
+@focus ="showPlaceholder=false" @blur="showPlaceholder=true"
+
+文字输入监听:
+@input="fn" 进行接口请求  API key的使用   也可以用watch用异步的
+
+返回值：
+await返回异步操作结果，正常错误是不返回的，通过try...catch返回包裹起来
+
+搜索上下方向键选择进入：
+这里用computed，定义一个变量值不需要在data声明，处理完数据直接用
+@keydown.up="suggestActive--"
+@keydown.down="suggestActive++"
+@keydown.enter= "doSearch()"
+
+watch是data里定义的东西 ， 一个数据很多地改watch适用
+computed不在date定义,操作data值用computed外面值，
+----------------
+2、通用请求配置
+import vueAxios from 'vue-axios';
+import Axios from 'axios';
+Vue.use(vueAxios, axios);
+
+axios下有create有语法baseURL放域名
+main.js同级下新建axios.js
+import Axios from 'axios';
+export default Axios.create({
+    baseURL: 'http://api.zhinengshe.com/10001-you163/',
+    headers: {
+        apikey: 'ebf6f58458de4b8fbad3afadd8c8a706',
+    },
+});
+
+
+main.js
+import vueAxios from 'vue-axios';
+import axios from '@/axios';//引上边axios.js
+Vue.use(vueAxios, axios);
+
+
+使用：
+组件里用this.axios或this.$http,vuex用axios
+let { data } = await this.axios({
+    // let { data } = await this.$http({
+    url: '/searchautocomplete',
+    method: 'GET',
+    params: {
+        kw: this.keyword,
+    },
+});
+
+
+
+
+组件里用this.axios或this.$http,vuex用不能用this.$http功能，要引入
+import axios from 'axios'  用axios请求即可
+async getCatalog({state, commit}, index){
+        let {data}=await axios('/catalog', {
+          method: 'get',
+          params: {index}
+        });
+    }
+
+
+
+
+--------------------
+promise都能用async await
+以下都是promise如下：
+$ajax().then(res=>{}).catch();
+fetch().then(res=>{}).catch();
+axios().then(res=>{}).catch;
+
+
+--------------------
+
+3、vuex
+
+modules在vuex用来划分东西的
+mutations中取actions中请求的异步数据请求成功没无法输出到页面中
+解决：
+Vue.set(state,index,data)
+vm.$set()
+
+数据获取，加if判断需请求的数据当不存在时在请求axios
+
+--------------------
+4、v-if与v-for同级时有优先级问题，最好别放同级上
+
+----------------
+vue-dubug
+图标1是元素
+图标2是vuex
+图标3是监控事件指自己发出的事件而不是@focus这些
+图标4路由相关
+
+图标5 监控活动时间，M是mutation
+
+
+----------------
+
+
+
+缓冲动画
+transition: 0.7s all ease;
+
+----------------
+图片路径：
+Vue.filter('imgPath', (val) => {
+    return (
+        'http://api.zhinengshe.com/10001-you163/' +
+        val +
+        '?apikey=ebf6f58458de4b8fbad3afadd8c8a706'
+    );
+});
+
+
+使用：
+<img :src="item.src|imgPath">
+
+
+结果：
+http://api.zhinengshe.com/10001-you163/图接口数据?apikey=ebf6f58458de4b8fbad3afadd8c8a706
+
+----------------
+//setInterval是全局window的，banner组件有一天销毁时或不是index页跳其他时要清除timer，要不会报错影响性能，
+//Destory所有数据都 销毁了没办法访问东西，所以在 beforeDestory中
+  beforeDestory(){
+      clearInterval(this.timer)
+  },
+
+----------------
+
+
+清空焦点：
+ref='search-input'
+this.$ref['search-input'].blur()
+
+
+----------------
+watch中监听路由变化
+watch:{
+    '$route'(){
+          console.log(this.$route)
+     }
+}
+
+----------------
+数的解构可这样写：
+let {data:{err,msg,data}}= await this.axios('/search',{
+  method: 'GET',
+  params: {
+    keyword: this.keyword,
+    page: this.page.cur,
+  }
+})
+
+----------------
+为什么子组件不应该直接更改其props父级数据
+因为Vue中的props传递是单向的，也就是说父子组件的prop之间形成的是一个单向下行绑定：父级 prop 的更新会向下流动到子组件中，但是反过来则不行。
+组件是可复用的，假设该子组件被复用了n次，当某一个组件意外地更改了其接受到的props数据 ----> 意味着，同时更改了父组件中相对应的属性值 ----> 意外地更改其它(n-1)个子组件中的 props数据，引起混乱
+必须对父组件传递过来的props进行转换处理，所有需要自己的data进行赋值,或computed转换都行成自己的
+如要有判断就用computed，只是选择简单就用data,watch
+
+分页点击监听通知父级
+watch:{
+  //监听当前页点击事件
+  'curpage'(){
+      this.$emit('change',this.curpage)
+  }
+},
+
+----------------
+router-link跳页
+<router-link :to="{ name: 'item', params: {id: item.ID} }" 
+
+----------------
+loading加载：请求数据没出来前加载
+<cmpList :list = 'searchResult' v-if="searchResult"/>
+<div v-else>loading...</div>
+
+----------------
+获取路由参数
+this.$route.params.keyword
+
+
+url:http://localhost:3001/search/衣服
+router路由配置
+{ path: '/search/:keyword', name: 'search', component: PageSearch }
+
+最后为了得结果：衣服
+----------------
+v-model可监听父子级选项值
+v-model对应input事件不用在用别的
+父组件接收
+<cmpSelection :data="['猫咪', '狗', '乌龟', '孔雀']" v-model='type'/>
+
+子组件传值
+v-model传的值在子级接收都是value
+//  监听选项$emit给父级
+watch:{
+    'cur'(){
+        this.$emit('input',this.cur)
+    }
+},
+----------------
+
+template可出现在页中循环
+<template lang="html">
+  <div class="crumbs">
+  //这里
+      <template v-for="path,index in pathArr">
+          <a href="#">全部商品</a>
+          <span class="spliter">&gt;</span>
+          <a :href="path.url" :class="{cur:index==pathArr.length-1}">{{path.title}}</a>
+      </template> 
+   </div>
+</template>
+
+----------------
+拖拽很实用
+move(ev){
+     const S=230;//遮罩大小
+     const B=428;//被放大图大小
+     const O=800;//放大镜图大小
+    // 遮罩中心为点
+    let x=ev.offsetX-S/2;
+    let y=ev.offsetY-S/2;
+    if(x<0) x=0;// 鼠标X距离右边剩一个遮罩
+    else if(x>B-S) x=B-S
+    if(y<0)y=0
+    else if(y>B-S) y=B-S
+    //小图比例等价大图比例=>  x/(B-S)=?/(O-B)
+    let x2=x*(O-B)/(B-S);
+    let y2=y*(O-B)/(B-S);
+
+    this.zoom.maskX=x;
+    this.zoom.maskY=y;
+
+    this.zoom.bigX=-x2;
+    this.zoom.bigY=-y2;
+ }
+
+----------------
+
+组件name 
+用于树形菜单递归用
+
+
+
+
+
+
+
+
+----------------
+本地服务器搭建：
+yarn run build
+生成build就是完整项目 
+cd build
+serve
+运行
+http://localhost:5000/

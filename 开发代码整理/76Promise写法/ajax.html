@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>keep-alive</title>
+    <style></style>
+</head>
+
+<body>
+    <div class="cont" id="app">
+        <button @click="changeCom">按钮</button>
+
+        <keep-alive>
+            <component :is="com"></component>
+        </keep-alive>
+    </div>
+</body>
+<script src='jquery.min.js'></script>
+
+<script>
+    async function test() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                var name = 'yjui';
+                resolve(name);
+            }, 1000)
+        })
+    }
+    async function main() {
+        let data = await test(); //等待async异步方法执行完返回data值，不加await是promise，加await是值
+        console.log(data)
+    }
+    main()
+</script>
+
+</html>

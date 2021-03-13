@@ -1,0 +1,88 @@
+<HTML>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>keep-alive</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div class="cont" id="app">
+
+        <button @click="changeCom">按钮</button>
+
+        <keep-alive>
+            <component :is="com"></component>
+        </keep-alive>
+
+    </div>
+</body>
+<script src="vue2.js"></script>
+
+<script>
+    // keep-alive 保持切换后的状态不回归初始值，即切换A后再点击change出现值”记录“在点B再回来还是”记录“
+    Vue.component('A', {
+        data() {
+            return {
+                msg: '默认'
+            }
+        },
+        template: `<p>组件A {{msg}}<button type="button" @click="change">change</button></p>`,
+        methods: {
+            change() {
+                if (this.msg == '--记录组件a') {
+                    this.msg = "--记录组件b"
+                } else {
+                    this.msg = "--记录组件a"
+                }
+
+            }
+        },
+        // 只要有keep-alive页面缓存，第一次走mounted和activated，第二次及以后只走activeted且组件里有效果
+        mounted() {
+            console.log('mounted')
+        },
+        created() {
+            console.log('created')
+        },
+        activated() {
+            console.log('activated')
+        },
+        deactivated() {
+            console.log('deactivated')
+        }
+    })
+    Vue.component('B', {
+        template: `<p>B</p>`
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            com: 'A',
+            flag: false,
+
+        },
+
+
+        methods: {
+            changeCom() {
+                // console.log(this.flag)
+                if (this.flag) {
+                    this.flag = false;
+                    this.com = 'A';
+                } else {
+                    this.com = 'B';
+                    this.flag = true;
+                }
+
+            }
+        }
+
+    })
+</script>
+
+</HTML>

@@ -1,0 +1,100 @@
+ 
+用vuex实现add,edit,del功能，解构写法{id,form}相当传arg
+1、find 与findIndex
+var arr = [
+  { id: 1, name: '衣服', price: 69.9, count: 5 },
+  { id: 2, name: '裤子', price: 29.9, count: 15 },
+  { id: 3, name: '鞋子', price: 19, count: 25 }
+]
+console.log(arr.find(item => item.id == 2)) //{id: 1, name: "衣服", price: 69.9, count: 5}
+console.log(arr.findIndex(item => item.id == 2)) //1
+
+state是语法只传后半前半语法,form当前操作的
+当前编辑或删除的下标 state.findIndex(item => item.id == id)
+
+2、箭头函数简写：
+return function(id) {
+    return state.find(item => item.id == id);
+};
+等于：
+return id => state.find(item => item.id == id);
+
+
+3、getters使用：
+getters里的东西以变量形式用,不是以函数形式但可以模拟函数使用，return返回个函数就可以了，但不能返数字那样就11()调数字了
+getters:{
+    getDataById(state) {
+        return 111
+    }
+}
+ 当变量用：var a = this.$store.getters.getDataById;console.log(a)//111
+模拟返回函数巧用上边改成: return function(id){return  ...} 用时a(传的值)
+
+getters作用可重用复用、是专门帮助返回数据的，正常 store的所有的读都应该通过getters，只是有时偷赖没用
+getters是只读的写用this.$store.dispatch('del',id)
+getter的作用与filters有一些相似，可以将state进行过滤后输出
+getters里的东西以变量形式用,不是以函数形式但可以模拟函数使用，return返回个函数就可以了，但不能返数字那样就11()调数字了
+
+
+修改时带数据，二者相同用getters提取更好可重用代码推荐，把判断放getters中
+form:this.$store.state.find(item => item.id == this.$route.params.id) || {}
+form: this.$store.getters.getDataById(this.$route.params.id) || {}
+
+
+
+
+4、如访问的http://localhost:3000/找不到自动跳到redirect里list相当于404，只要访问的不是上边path里出现的就跳redirect里。专门弄个404也行
+export default new Router({
+    routes:[
+        {path:'/list',name:'list',component:list},
+        {path:'*',redirect:'list'}
+    ]
+})
+跳路由：
+$router.push({ name: 'add' })
+this.$router.push({ path: 'add' });
+参数：
+ $route.params.id
+
+返回：
+$router.back()
+
+
+
+6、每次添加赋值id,最后一个id+1，工作中后台给id，
+form['id'] = state[state.length - 1].id + 1;
+
+7、elementUI中$this.confirm使用是异步的要加上aynce await，用try-catch，try是点击确定那个，catch是取消那个
+methods: {
+    async del(id) {
+      try {
+        await this.$confirm('确定删除吗', '删除', {
+          confirmButtonText: '删除',
+          cancelButtonText: '保留',
+          type: 'danger'
+        })
+        console.log('删除')
+        this.$store.dispatch('del', 1)
+      } catch (e) {
+        console.log('取消')
+      }
+    }
+
+
+    8、state上加strict:true
+    strict:true严格模式规定只有在mutation里能修改数据，防止从mutations之外修改数据一般不会直接给会用process变量用nodeenv加
+
+    vuex加个 strict:true严格模式规定只有在mutation里能修改数据，防止从mutations之外修改数据,写在state上
+    strict:true不影响添加功能，
+    strict:true影响修改功能：修改会报错，因为getters里直接绑的state数据，form变量操作getters中的getDataById,input里的form.name值也关联着，
+    也就是form.name间接改了state，解决办法复制一份，用Object.assign是浅拷贝想深拷贝用递归
+    Object.assign({},source,...)
+它加上object.assign ：return id =>state.find(item => item.id == id);
+   getters: {
+		getDataById(state, id) {
+			return id =>Object.assign({},state.find(item => item.id == id));
+		}
+	}
+    9、表单校验用elementui带的ref="form":model='form':rules="rules"
+    用了elementui时ref=form用this.$refs.form上有validate方法会检验表单是不是合法的会返回一个值让你知道能不能去提交，会有个是否ok，ok是true,要不是就false,是个回调函数
+    用时注意箭头指向问题

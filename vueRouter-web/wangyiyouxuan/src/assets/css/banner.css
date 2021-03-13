@@ -1,0 +1,72 @@
+/* banner */
+.banner {
+	height: 420px;
+	position: relative;
+}
+.banner-list {
+}
+.banner-container {
+	width: 1920px;
+	height: 420px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 1;
+	opacity: 0;
+}
+.banner-container.cur {
+	opacity: 1;
+	transition: 0.7s all ease;
+}
+.banner-container img {
+	width: 1920px;
+	height: 420px;
+}
+
+.banner .btn {
+	position: absolute;
+	left: 50%;
+	top: 200px;
+	text-indent: -99999px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background-color: #d0c4af;
+	background-image: url(../imgs/icon2.png);
+	background-repeat: no-repeat;
+	z-index: 99;
+}
+.banner .btn:hover {
+	background-color: #b19e7a;
+}
+.banner .btn.prev {
+	background-position: 0 -5384px;
+	margin-left: -605px;
+}
+.banner .btn.next {
+	background-position: 0 -5604px;
+	margin-left: 555px;
+}
+.banner .number-list {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	bottom: 4px;
+	text-align: center;
+	z-index: 2;
+}
+.banner .number-list li {
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	margin: 0 8px 10px;
+	cursor: pointer;
+	background: #fff;
+	border-radius: 50%;
+	border: 1px solid #cecece;
+	transition: 0.7s all ease;
+}
+.banner .number-list .active {
+	background: #a7936e;
+	box-shadow: 0 0 0 4px #dfcead;
+}

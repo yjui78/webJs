@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>.sync子组件父组件实现双绑</title>
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+    <div id="root" v-cloak>
+        a={{cur1}} b={{cur2}}
+       <cmp1 :a.sync=cur1 :b.sync=cur2></cmp1>
+    </div>
+    <script src="vue2.js"></script>
+    <script type="text/javascript">
+        var cmp1 = Vue.extend({
+            props: ['a', 'b'],
+            created(){
+                console.log(this.a,this.b)
+            },
+            template: `<div><input type="button" @click="fn" value="+1按钮"/></div>`,
+            methods: {
+                fn() {
+                    this.$emit('update:a', this.a + 1);
+                    this.$emit('update:b', this.b + 1);
+                }
+            }
+        })
+        let vm = new Vue({
+            el: '#root',
+            data: {
+                cur1: 1, cur2: 1
+            },
+            components: { cmp1 },
+            methods: {
+                fn1(val) { this.cur1 = val; },
+                fn2(val) { this.cur2 = val; }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
